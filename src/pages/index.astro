@@ -5,7 +5,10 @@ import AirportCard from '../components/AirportCard.astro';
 import RankingTable from '../components/RankingTable.astro';
 import { airports } from '../data/airports';
 
-const featuredAirports = airports.slice(0, 4);
+const featuredSlugs = ['breezenet', 'muguang', 'feimaoyun', 'wuyou', 'yinxingren', 'quanqiuyun'];
+const featuredAirports = featuredSlugs
+  .map(slug => airports.find(a => a.slug === slug))
+  .filter((a): a is NonNullable<typeof a> => Boolean(a));
 const allBlogPosts = await getCollection('blog');
 const latestPosts = allBlogPosts.slice(0, 6);
 const allGuides = await getCollection('guides');
@@ -162,7 +165,7 @@ const faqSchema = {
 
       <div class="airports-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:24px;">
         {featuredAirports.map((airport, idx) => (
-          <AirportCard airport={airport} rank={idx + 1} badge={idx === 0 ? '超高性价比' : '全天候专线'} />
+          <AirportCard airport={airport} rank={idx + 1} badge={idx === 0 ? '超高性价比' : airport.slug === 'yinxingren' ? 'IEPL纯专线' : airport.slug === 'quanqiuyun' ? '经典中转优化' : '全天候专线'} />
         ))}
       </div>
     </div>
