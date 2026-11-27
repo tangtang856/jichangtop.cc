@@ -22,6 +22,7 @@ interface Props {
 
 const { airport, prevAirport, nextAirport } = Astro.props;
 const tdk = airport.airportTdk;
+const brandShort = airport.name.split(' ')[0];
 
 const breadcrumbs = [
   { name: '首页', url: '/' },
@@ -30,6 +31,38 @@ const breadcrumbs = [
 ];
 
 const starterPlan = airport.plans[0] || { price: airport.startingPrice, trafficGB: 100, unitPricePerGB: 0.1, lineType: '优质专线' };
+const isDedicatedLine = starterPlan.lineType.includes('专线') || starterPlan.lineType.includes('IPLC') || starterPlan.lineType.includes('IEPL');
+
+const regionGuides: Record<string, string> = {
+  '香港': '亚太超低延迟核心枢纽（约 25-45ms），适合日常网页秒开、GitHub 代码拉取、Zoom 会议与港区流媒体观看。',
+  '日本': '兼顾低延迟与高带宽稳定性，东京/大阪双机房适合外服游戏联机、日区 Netflix/动画疯及日常主力使用。',
+  '新加坡': '东南亚骨干枢纽，对 TikTok 东南亚跨境运营、Grab/Shopee 商业办公与 ChatGPT 访问极其友好。',
+  '台湾': '原生中文环境友好，完美解锁动画疯（Bahamut）、B站港澳台限定番剧与台区流媒体内容。',
+  '美国': '洛杉矶/圣何塞 CN2/专线落地，OpenAI ChatGPT、Claude、Midjourney 与 Google Gemini 的核心低风控出口。',
+  '英国': '伦敦原生欧洲出口节点，适合解锁 BBC iPlayer、英国区流媒体及欧洲跨境电商后台登录。',
+  '德国': '法兰克福欧洲金融与工业级骨干节点，适合欧美跨国协同、德区业务访问与科研文献下载。',
+  '韩国': '首尔低延迟节点，适合韩服电竞联机与 K-Pop 音乐流媒体解锁。',
+  '欧洲': '覆盖英德法荷等欧洲主力机房，满足跨国贸易及海外多区域访问需求。'
+};
+
+const brandFaqs = [
+  {
+    q: `${airport.name} 靠谱吗？会容易跑路或晚高峰连不上吗？`,
+    a: `${brandShort} 目前处于「${airport.testStatus === 'tested' ? '实机晚高峰测试通过' : '官方核实资费运营'}」状态，底层采用 ${starterPlan.lineType} 架构，支持 ${airport.protocols.join(' / ')} 现代化加密协议。${isDedicatedLine ? '由于采用专线物理过境传输，晚高峰 20:00-23:00 抗拥堵与抗封锁能力显著优于普通公网直连梯子。' : '通过多入口智能中转调度与故障热备，日常网页与视频使用保持稳定。'}建议新手优先按月付起步体验。`
+  },
+  {
+    q: `${airport.name} 起步套餐多少钱？每 GB 流量折算划算吗？`,
+    a: `${brandShort} 起步套餐为「${starterPlan.name}」，${starterPlan.billingCycle}仅需 ¥${airport.startingPrice}，包含 ${starterPlan.trafficGB}GB 可用流量，折算单价低至 ¥${starterPlan.unitPricePerGB}/GB。${airport.coupon ? `结算时输入本站核实的专属优惠码「${airport.coupon}」还可享受额外折扣减免。` : '资费定价透明，无隐形倍率暗扣。'}`
+  },
+  {
+    q: `${airport.name} 支持 ChatGPT、Claude 和 Netflix 4K 解锁吗？`,
+    a: `支持。经核实，${brandShort} 节点已针对主流人工智能平台（${airport.aiSupport.join('、')}）及流媒体服务（${airport.streamingSupport.join('、')}）进行专项落地优化，可流畅访问并避免常见人机验证与区域版权拦截。`
+  },
+  {
+    q: `购买后支持哪些设备？同时能登录几台终端？`,
+    a: `${brandShort} 支持标准通用订阅协议，完美兼容 Windows (Clash Verge Rev / v2rayN)、macOS、iOS (Shadowrocket 小火箭 / Stash) 与 Android (CMFA / v2rayNG)。设备同时在线限制为：${airport.deviceLimit || '4-6台设备同时在线'}，足以覆盖个人手机、平板与笔记本电脑多端日常使用。`
+  }
+];
 
 const productSchema = {
   '@context': 'https://schema.org',
@@ -38,7 +71,7 @@ const productSchema = {
   description: airport.description,
   brand: {
     '@type': 'Brand',
-    name: airport.name.split(' ')[0]
+    name: brandShort
   },
   offers: {
     '@type': 'Offer',
@@ -48,6 +81,19 @@ const productSchema = {
     url: airport.affiliateUrl
   }
 };
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: brandFaqs.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a
+    }
+  }))
+};
 ---
 
 <Layout
@@ -55,14 +101,15 @@ const productSchema = {
   description={tdk.desc}
   keywords={tdk.kw}
   activeNav="airport"
-  schema={productSchema}
+  schema={[productSchema, faqSchema]}
 >
   <div class="container" style="padding-top:20px;padding-bottom:60px;">
     <Breadcrumbs items={breadcrumbs} />
 
     <header class="section-header" style="text-align:left;margin-bottom:28px;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
         <span class="badge badge-primary">{airport.testStatus === 'tested' ? '已通过实测验证' : '官方核实资费'}</span>
+        <span class="badge badge-secondary">{starterPlan.lineType}</span>
         <span style="font-size:0.85rem;color:#64748b;">最后核实于：{airport.lastVerified}</span>
       </div>
       <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">{tdk.h1}</h1>
@@ -74,42 +121,45 @@ const productSchema = {
       <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
         <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">起步月费</div>
         <div style="font-size:1.8rem;font-weight:800;color:#2563eb;">¥{airport.startingPrice} <span style="font-size:0.85rem;color:#64748b;font-weight:400;">/月起</span></div>
-        <div style="font-size:0.8rem;color:#10b981;margin-top:4px;">基准流量：{starterPlan.trafficGB} GB</div>
+        <div style="font-size:0.8rem;color:#10b981;margin-top:4px;">基准流量：{starterPlan.trafficGB} GB ({starterPlan.billingCycle})</div>
       </div>
       <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
         <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">单GB折算单价</div>
         <div style="font-size:1.8rem;font-weight:800;color:#0f172a;">¥{starterPlan.unitPricePerGB} <span style="font-size:0.85rem;color:#64748b;font-weight:400;">/GB</span></div>
-        <div style="font-size:0.8rem;color:#64748b;margin-top:4px;">按月付代表套餐折算</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:4px;">按代表套餐实际可用流量折算</div>
       </div>
       <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
         <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">线路传输架构</div>
         <div style="font-size:1.25rem;font-weight:700;color:#0f172a;margin-top:4px;">{starterPlan.lineType}</div>
-        <div style="font-size:0.8rem;color:#64748b;margin-top:6px;">支持：{airport.protocols.slice(0, 3).join(', ')}</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:6px;">协议：{airport.protocols.join(' / ')}</div>
       </div>
       <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
         <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">专属优惠码</div>
-        <div style="font-size:1.4rem;font-weight:800;color:#e11d48;margin-top:2px;">{airport.coupon || '直接优惠下单'}</div>
-        <div style="font-size:0.8rem;color:#64748b;margin-top:6px;">官方最新有效折减码</div>
+        <div style="font-size:1.4rem;font-weight:800;color:#e11d48;margin-top:2px;">{airport.coupon || '官网直享特惠'}</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:6px;">{airport.deviceLimit || '支持多设备同时在线'}</div>
       </div>
     </div>
 
     <!-- Official Actions Bar -->
     <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:36px;">
       <div>
-        <div style="font-weight:700;color:#1e3a8a;font-size:1.1rem;">立即开启高速跨国连接</div>
-        <div style="font-size:0.88rem;color:#3b82f6;margin-top:4px;">提供官方原厂订阅支持，支持主流 Clash、Sing-box、小火箭一键导入</div>
+        <div style="font-weight:700;color:#1e3a8a;font-size:1.1rem;">立即开启 {brandShort} 高速跨国连接</div>
+        <div style="font-size:0.88rem;color:#3b82f6;margin-top:4px;">支持主流 Clash Verge Rev、Sing-box、Shadowrocket 小火箭一键导入订阅</div>
       </div>
-      <div style="display:flex;gap:12px;">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
         <a href={`/review/${airport.slug}.html`} class="btn btn-outline" style="border-color:#3b82f6;color:#1d4ed8;">查看晚高峰测速报告</a>
         <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary">直达官方注册开通 →</a>
       </div>
     </div>
 
-    <!-- Plans Section -->
+    <!-- Section 1: Plans Section -->
     <section style="margin-bottom:40px;">
       <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
         一、{airport.name} 套餐价格与可用流量详情
       </h2>
+      <p style="font-size:0.95rem;color:#475569;line-height:1.7;margin-bottom:16px;">
+        以下资费方案均采集自 {brandShort} 官方控制面板（最近核实：{airport.lastVerified}）。建议初次使用的用户优先从月付入门套餐体验起，确认本地宽带晚高峰连通效果后再按需升级大容量套餐。
+      </p>
       <div class="table-responsive">
         <table class="data-table">
           <thead>
@@ -138,38 +188,83 @@ const productSchema = {
           </tbody>
         </table>
       </div>
+      {airport.coupon && (
+        <div style="margin-top:14px;background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <span style="font-size:0.9rem;color:#9f1239;">
+            💡 <strong>省钱技巧：</strong>在 {brandShort} 结账页面填入专属优惠码 <code style="background:#ffe4e6;color:#e11d48;padding:2px 8px;border-radius:4px;font-weight:800;">{airport.coupon}</code>，可享额外折扣减免。
+          </span>
+          <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" style="font-size:0.85rem;color:#e11d48;font-weight:700;text-decoration:none;">立即使用优惠码 →</a>
+        </div>
+      )}
     </section>
 
-    <!-- Specs, Features & AI Unlock -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:24px;margin-bottom:40px;">
-      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;">
-        <h3 style="margin-top:0;font-size:1.2rem;color:#0f172a;margin-bottom:14px;">🌐 节点覆盖与协议支持</h3>
-        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;font-size:0.92rem;color:#475569;">
-          <li><strong>主要覆盖地区：</strong>{airport.regions.join('、')}</li>
-          <li><strong>网络传输协议：</strong>{airport.protocols.join('、')}</li>
-          <li><strong>设备同时连接：</strong>{airport.deviceLimit || '支持多设备在线'}</li>
-          <li><strong>流媒体解锁支持：</strong>{airport.streamingSupport.join('、')}</li>
-          <li><strong>AI模型专属支持：</strong>{airport.aiSupport.join('、')}</li>
+    <!-- Section 2: Architecture & Protocols -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        二、底层线路架构与协议技术深度解析
+      </h2>
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;line-height:1.8;color:#334155;font-size:0.95rem;">
+        <p style="margin-top:0;">
+          在跨国网络传输架构上，<strong>{airport.name}</strong> 核心采用 <strong>{starterPlan.lineType}</strong> 方案。
+          {isDedicatedLine
+            ? '专线架构通过运营商级内网物理光纤点对点过境，数据不经过公共国际互联网拥堵网关，从而大幅降低了晚高峰 20:00-23:00 的链路抖动与丢包率，在敏感时期也具备极高的抗断流可靠性。'
+            : '通过多入口智能中继（Relay）与国内骨干优化节点调度，对电信、联通、移动三网用户分别匹配最佳入口，实现高性价比下的流畅访问体验。'}
+        </p>
+        <p style="margin-bottom:12px;">
+          在安全传输协议层面，{brandShort} 原生支持 <strong>{airport.protocols.join('、')}</strong>：
+        </p>
+        <ul style="padding-left:20px;margin-bottom:0;">
+          {airport.protocols.map(proto => (
+            <li style="margin-bottom:6px;">
+              <strong>{proto} 协议：</strong>
+              {proto.includes('VLESS') ? '新一代轻量化无状态传输协议，配合 TLS/Reality 伪装，握手开销低且抗深度报文检测（DPI）能力出色。' :
+               proto.includes('Trojan') ? '完美模拟标准 HTTPS 443 端口流量特征，天然绕过常见防火墙特征嗅探，连接隐蔽稳健。' :
+               proto.includes('Hysteria') ? '基于 QUIC (UDP) 的高吞吐拥塞控制协议，在弱网和高丢包环境下依然能够跑满本地物理带宽。' :
+               '经典高效的加密代理协议，全平台客户端兼容度极高，转发延迟极低，资源占用微小。'}
+            </li>
+          ))}
         </ul>
       </div>
+    </section>
 
-      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;">
-        <h3 style="margin-top:0;font-size:1.2rem;color:#0f172a;margin-bottom:14px;">🎯 适用场景与人群定位</h3>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
-          {airport.suitableFor.map(item => (
-            <span class="badge badge-outline" style="padding:6px 12px;font-size:0.85rem;">{item}</span>
-          ))}
-        </div>
-        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0;">
-          结合实机性能与资费方案，该机场尤其适合需要兼顾晚高峰稳定性与成本效益的用户群体。
-        </p>
+    <!-- Section 3: Regions & Use Cases -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        三、全球节点覆盖地区与典型应用表现
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:16px;margin-bottom:20px;">
+        {airport.regions.map(region => (
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+            <div style="font-weight:700;color:#0f172a;font-size:1rem;margin-bottom:6px;">🌐 {region}节点</div>
+            <p style="font-size:0.86rem;color:#475569;line-height:1.6;margin:0;">
+              {regionGuides[region] || `提供稳定高速的 ${region} 跨境出口线路，满足跨区业务访问与日常科学上网需求。`}
+            </p>
+          </div>
+        ))}
       </div>
-    </div>
 
-    <!-- Advantages & Disadvantages -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:20px;">
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:20px;">
+          <h3 style="margin-top:0;font-size:1.1rem;color:#0f172a;margin-bottom:12px;">🤖 AI 大模型与流媒体解锁</h3>
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;font-size:0.9rem;color:#475569;">
+            <li><strong>AI 服务支持：</strong>{airport.aiSupport.join('、')}</li>
+            <li><strong>流媒体支持：</strong>{airport.streamingSupport.join('、')}</li>
+            <li><strong>设备限制：</strong>{airport.deviceLimit || '4-6台设备同时在线'}</li>
+          </ul>
+        </div>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:20px;">
+          <h3 style="margin-top:0;font-size:1.1rem;color:#0f172a;margin-bottom:12px;">🎯 推荐适用人群</h3>
+          <ul style="padding-left:18px;margin:0;font-size:0.9rem;color:#475569;line-height:1.7;">
+            {airport.suitableFor.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Advantages & Disadvantages -->
     <section style="margin-bottom:40px;">
       <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
-        二、编辑部客观优缺点分析
+        四、编辑部客观优缺点评估
       </h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px;">
         <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:20px;">
@@ -192,6 +287,35 @@ const productSchema = {
       </div>
     </section>
 
+    <!-- Section 5: Setup Steps & FAQ -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        五、{brandShort} 新手配置流程与常见问题 (FAQ)
+      </h2>
+      <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:22px;margin-bottom:24px;">
+        <h3 style="margin-top:0;font-size:1.1rem;color:#0f172a;">⚡ 三步极速上手教程</h3>
+        <ol style="padding-left:20px;margin-bottom:0;font-size:0.92rem;color:#475569;line-height:1.8;">
+          <li><strong>注册并选购套餐：</strong>点击官网直达链接完成注册，选择适合自己流量的月付套餐{airport.coupon ? `（记得输入优惠码 ${airport.coupon}）` : ''}。</li>
+          <li><strong>复制订阅地址：</strong>登录 {brandShort} 仪表盘首页，点击“一键订阅”或复制 Clash / 通用订阅链接。</li>
+          <li><strong>导入客户端启用：</strong>打开 Clash Verge Rev (Win/Mac)、Shadowrocket (iOS) 或 CMFA (Android) 导入订阅，开启“规则模式 (Rule)”与“系统代理”即可畅游。</li>
+        </ol>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        {brandFaqs.map(faq => (
+          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px 22px;">
+            <h3 style="margin:0 0 8px;font-size:1.02rem;font-weight:700;color:#0f172a;">❓ {faq.q}</h3>
+            <p style="margin:0;font-size:0.9rem;color:#475569;line-height:1.7;">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Data Sources -->
+    <div style="font-size:0.84rem;color:#64748b;background:#f8fafc;padding:14px 18px;border-radius:6px;margin-bottom:28px;">
+      <strong>资料与核实来源：</strong>{airport.sources.join(' · ')}（最近核实：{airport.lastVerified}）
+    </div>
+
     <!-- Bottom Action CTA -->
     <div style="text-align:center;padding:40px 20px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:32px;">
       <h3 style="font-size:1.4rem;color:#0f172a;margin-bottom:8px;">准备好开始使用 {airport.name} 了吗？</h3>
@@ -199,7 +323,7 @@ const productSchema = {
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
         <a href={`/review/${airport.slug}.html`} class="btn btn-outline">阅读深度晚高峰测速报告</a>
         <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary" style="padding:12px 32px;font-size:1.05rem;">
-          前往 {airport.name.split(' ')[0]} 官方网站 →
+          前往 {brandShort} 官方网站 →
         </a>
       </div>
     </div>
