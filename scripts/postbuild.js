@@ -146,6 +146,11 @@ if (fs.existsSync(distDir)) {
       return `${attr}=${quote}${prefix}/${rest}${quote}`;
     });
 
+    // Rewrite CSS url('/...') in inline styles
+    html = html.replace(/url\((["']?)\/(?!\/)([^)'"]+)\1\)/g, (match, quote, rest) => {
+      return `url(${quote}${prefix}/${rest}${quote})`;
+    });
+
     fs.writeFileSync(filePath, html, 'utf-8');
   }
   console.log(`✅ Converted root-relative paths to portable relative paths across ${htmlFiles.length} HTML files.`);

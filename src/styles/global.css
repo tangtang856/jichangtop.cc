@@ -480,14 +480,62 @@ button, input, select, textarea {
 }
 
 .airport-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
   border-radius: var(--radius-md);
   padding: 22px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.section-header {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.breadcrumbs {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  margin-top: 12px;
+  margin-bottom: 16px;
+}
+
+.site-footer {
+  background-color: rgba(248, 250, 252, 0.94) !important;
+  backdrop-filter: blur(12px);
+}
+
+.home-section-glass {
+  padding: 28px 0;
+  background: transparent !important;
+}
+
+.home-section-glass > .container {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 36px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+}
+
+@media (max-width: 640px) {
+  .home-section-glass > .container {
+    padding: 24px 16px;
+    border-radius: 12px;
+  }
 }
 
 .airport-card:hover {

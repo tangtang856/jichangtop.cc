@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import AirportCard from '../components/AirportCard.astro';
@@ -63,30 +63,30 @@ const faqSchema = {
   schema={faqSchema}
 >
   <!-- Section 2: Hero -->
-  <section class="hero-section" style="background:linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);padding:56px 0 40px;border-bottom:1px solid #e2e8f0;">
+  <section class="hero-section" style="background:rgba(4, 10, 26, 0.42);backdrop-filter:blur(3px);padding:64px 0 48px;border-bottom:1px solid rgba(255,255,255,0.15);">
     <div class="container" style="text-align:center;max-width:960px;">
-      <div style="display:inline-flex;align-items:center;gap:8px;background:#dbeafe;color:#1e40af;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:700;margin-bottom:20px;">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,0.85);color:#ffffff;padding:6px 16px;border-radius:20px;font-size:0.85rem;font-weight:700;margin-bottom:20px;border:1px solid rgba(147,197,253,0.4);">
         <span>🔥 2026年3月最新实测数据发布</span>
         <span>·</span>
         <span>拒绝虚假标榜与跑路黑榜</span>
       </div>
 
-      <h1 style="font-size:2.5rem;font-weight:900;color:#0f172a;line-height:1.25;margin:0 0 18px;letter-spacing:-0.5px;">
+      <h1 style="font-size:2.6rem;font-weight:900;color:#ffffff;line-height:1.25;margin:0 0 18px;letter-spacing:-0.5px;text-shadow:0 2px 14px rgba(0,0,0,0.65);">
         2026 专业中文机场推荐与梯子节点测评指南
       </h1>
 
-      <p style="font-size:1.15rem;color:#475569;line-height:1.7;margin:0 auto 28px;max-width:820px;">
-        严选 14 大主流高<strong>性价比机场</strong>与 IPLC 企业专线<strong>机场节点</strong>，为跨国科研、海外办公、<strong>vpn推荐</strong>与 4K 流媒体追剧用户提供客观透明的<strong>梯子推荐</strong>决策支持。
+      <p style="font-size:1.15rem;color:#e2e8f0;line-height:1.7;margin:0 auto 28px;max-width:820px;text-shadow:0 1px 6px rgba(0,0,0,0.6);">
+        严选 14 大主流高<strong style="color:#60a5fa;">性价比机场</strong>与 IPLC 企业专线<strong style="color:#60a5fa;">机场节点</strong>，为跨国科研、海外办公、<strong style="color:#60a5fa;">vpn推荐</strong>与 4K 流媒体追剧用户提供客观透明的<strong style="color:#60a5fa;">梯子推荐</strong>决策支持。
       </p>
 
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;">
-        <a href="#ranking" class="btn btn-primary" style="padding:12px 28px;font-size:1.02rem;">查看综合排行榜 ↓</a>
-        <a href="/recommend/budget.html" class="btn btn-outline" style="padding:12px 28px;font-size:1.02rem;">平价低预算专题</a>
-        <a href="/compare/index.html" class="btn btn-secondary" style="padding:12px 28px;font-size:1.02rem;">在线横向参数PK</a>
+        <a href="#ranking" class="btn btn-primary" style="padding:12px 28px;font-size:1.02rem;box-shadow:0 4px 14px rgba(37,99,235,0.4);">查看综合排行榜 ↓</a>
+        <a href="/recommend/budget.html" class="btn btn-outline" style="padding:12px 28px;font-size:1.02rem;background:rgba(255,255,255,0.92);color:#0f172a;border-color:#ffffff;">平价低预算专题</a>
+        <a href="/compare/index.html" class="btn btn-secondary" style="padding:12px 28px;font-size:1.02rem;background:rgba(255,255,255,0.92);color:#0f172a;">在线横向参数PK</a>
       </div>
 
       <!-- Trust Badges Bar -->
-      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;font-size:0.88rem;color:#64748b;padding-top:16px;border-top:1px solid #e2e8f0;">
+      <div style="display:flex;justify-content:center;gap:24px;flex-wrap:wrap;font-size:0.88rem;color:#cbd5e1;padding-top:16px;border-top:1px solid rgba(255,255,255,0.18);">
         <span>🛡️ 100% 真实三网晚高峰压测</span>
         <span>⚡ 严打虚标/真实可用每GB折算</span>
         <span>🌐 原生住宅IP/ChatGPT完全绿标</span>
@@ -96,7 +96,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 3: 快速答案 (Quick Answers) -->
-  <section class="quick-answers-section" style="padding:48px 0;background:#fff;">
+  <section class="quick-answers-section home-section-glass">
     <div class="container">
       <div style="text-align:center;margin-bottom:36px;">
         <h2 style="font-size:1.75rem;font-weight:800;color:#0f172a;margin:0 0 8px;">
@@ -146,7 +146,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 4: 精选推荐 (Featured Airport Cards) -->
-  <section style="padding:48px 0;background:#f8fafc;">
+  <section class="home-section-glass">
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
         <div>
@@ -169,7 +169,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 5: 综合排行榜 (Comprehensive Ranking Table) -->
-  <section id="ranking" style="padding:56px 0;background:#fff;">
+  <section id="ranking" class="home-section-glass">
     <div class="container">
       <div style="text-align:center;margin-bottom:36px;">
         <span class="badge badge-primary">实测综合数据</span>
@@ -195,7 +195,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 6: 按需求选择 (6 Category Entry Points) -->
-  <section style="padding:48px 0;background:#f8fafc;">
+  <section class="home-section-glass">
     <div class="container">
       <div style="text-align:center;margin-bottom:36px;">
         <span class="badge badge-secondary">场景细分</span>
@@ -257,7 +257,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 7: 机场横向比较工具入口 Banner -->
-  <section style="padding:48px 0;background:#fff;">
+  <section class="home-section-glass">
     <div class="container">
       <div style="background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);border-radius:12px;padding:40px;color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;">
         <div style="max-width:680px;">
@@ -276,7 +276,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 8: 最新独立深度评测 -->
-  <section style="padding:48px 0;background:#f8fafc;">
+  <section class="home-section-glass">
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
         <div>
@@ -318,7 +318,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 9: 教程中心 (Guide Tutorials) -->
-  <section style="padding:48px 0;background:#fff;">
+  <section class="home-section-glass">
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
         <div>
@@ -356,7 +356,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 10: 知识百科 / 核心技术科普 -->
-  <section style="padding:48px 0;background:#f8fafc;">
+  <section class="home-section-glass">
     <div class="container">
       <div style="text-align:center;margin-bottom:36px;">
         <span class="badge badge-secondary">专业科普</span>
@@ -389,7 +389,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 11: 最新深度文章 -->
-  <section style="padding:48px 0;background:#fff;">
+  <section class="home-section-glass">
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
         <div>
@@ -430,7 +430,7 @@ const faqSchema = {
   </section>
 
   <!-- Section 12: FAQ 常见问答 -->
-  <section style="padding:48px 0;background:#f8fafc;">
+  <section class="home-section-glass">
     <div class="container" style="max-width:880px;">
       <div style="text-align:center;margin-bottom:36px;">
         <span class="badge badge-secondary">问答解惑</span>
