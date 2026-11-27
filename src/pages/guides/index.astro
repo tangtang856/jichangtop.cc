@@ -4,7 +4,9 @@ import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const allGuides = await getCollection('guides');
-allGuides.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
+allGuides.sort((a, b) => a.slug.localeCompare(b.slug));
+
+const tags = Array.from(new Set(allGuides.map(g => g.data.tag)));
 
 const breadcrumbs = [
   { name: '首页', url: '/' },
@@ -15,12 +17,11 @@ const pageTitle = '翻墙客户端配置教程中心 · Windows/Mac/iOS小火箭
 const pageDesc = '30+篇全平台客户端使用教程中心。图文手把手教您在Windows、Android、iOS与macOS上配置Clash Verge Rev、Sing-box、Shadowrocket与V2RayNG。';
 const pageKeywords = '翻墙客户端教程, 小火箭配置, Clash教程, Sing-box设置, 梯子教程, vpn配置, 机场节点设置';
 
-// Categorize guides
-const windowsGuides = allGuides.filter(g => g.slug.includes('windows') || g.data.tag.toUpperCase().includes('WINDOWS'));
-const androidGuides = allGuides.filter(g => g.slug.includes('android') || g.data.tag.toUpperCase().includes('ANDROID'));
-const iosGuides = allGuides.filter(g => g.slug.includes('ios') || g.slug.includes('shadowrocket') || g.data.tag.toUpperCase().includes('IOS'));
-const macGuides = allGuides.filter(g => g.slug.includes('mac') || g.data.tag.toUpperCase().includes('MAC'));
-const otherGuides = allGuides.filter(g => !windowsGuides.includes(g) && !androidGuides.includes(g) && !iosGuides.includes(g) && !macGuides.includes(g));
+// Categorize counts
+const windowsCount = allGuides.filter(g => g.slug.includes('windows') || g.data.tag.toUpperCase().includes('WINDOWS')).length;
+const androidCount = allGuides.filter(g => g.slug.includes('android') || g.data.tag.toUpperCase().includes('ANDROID')).length;
+const iosCount = allGuides.filter(g => g.slug.includes('ios') || g.slug.includes('shadowrocket') || g.data.tag.toUpperCase().includes('IOS')).length;
+const macCount = allGuides.filter(g => g.slug.includes('mac') || g.data.tag.toUpperCase().includes('MAC')).length;
 ---
 
 <Layout
@@ -32,7 +33,7 @@ const otherGuides = allGuides.filter(g => !windowsGuides.includes(g) && !android
   <div class="container" style="padding-top:20px;padding-bottom:60px;">
     <Breadcrumbs items={breadcrumbs} />
 
-    <header class="section-header" style="text-align:left;margin-bottom:32px;">
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
       <div style="display:flex;gap:8px;margin-bottom:10px;">
         <span class="badge badge-primary">实战图文教程</span>
         <span style="font-size:0.85rem;color:#64748b;">共收录 {allGuides.length} 篇多终端配置指南</span>
@@ -46,29 +47,39 @@ const otherGuides = allGuides.filter(g => !windowsGuides.includes(g) && !android
     </header>
 
     <!-- Platform Quick Jump Cards -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:16px;margin-bottom:36px;">
-      <a href="#all-guides" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px;text-decoration:none;display:block;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:16px;margin-bottom:28px;">
+      <a href="/guides/windows.html" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px;text-decoration:none;display:block;">
         <div style="font-weight:700;color:#1e3a8a;font-size:1.05rem;">💻 Windows 电脑教程</div>
-        <div style="font-size:0.82rem;color:#3b82f6;margin-top:4px;">收录 {windowsGuides.length} 篇配置文档</div>
+        <div style="font-size:0.82rem;color:#3b82f6;margin-top:4px;">收录 {windowsCount} 篇配置文档 · 点击直达</div>
       </a>
-      <a href="#all-guides" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:16px;text-decoration:none;display:block;">
+      <a href="/guides/android.html" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:16px;text-decoration:none;display:block;">
         <div style="font-weight:700;color:#166534;font-size:1.05rem;">📱 Android 安卓手机</div>
-        <div style="font-size:0.82rem;color:#16a34a;margin-top:4px;">收录 {androidGuides.length} 篇配置文档</div>
+        <div style="font-size:0.82rem;color:#16a34a;margin-top:4px;">收录 {androidCount} 篇配置文档 · 点击直达</div>
       </a>
-      <a href="#all-guides" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:16px;text-decoration:none;display:block;">
+      <a href="/guides/ios.html" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:16px;text-decoration:none;display:block;">
         <div style="font-weight:700;color:#9a3412;font-size:1.05rem;">🍏 iOS 苹果小火箭</div>
-        <div style="font-size:0.82rem;color:#ea580c;margin-top:4px;">收录 {iosGuides.length} 篇配置文档</div>
+        <div style="font-size:0.82rem;color:#ea580c;margin-top:4px;">收录 {iosCount} 篇配置文档 · 点击直达</div>
       </a>
-      <a href="#all-guides" style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:8px;padding:16px;text-decoration:none;display:block;">
+      <a href="/guides/macos.html" style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:8px;padding:16px;text-decoration:none;display:block;">
         <div style="font-weight:700;color:#6b21a8;font-size:1.05rem;">🍎 macOS 苹果电脑</div>
-        <div style="font-size:0.82rem;color:#9333ea;margin-top:4px;">收录 {macGuides.length} 篇配置文档</div>
+        <div style="font-size:0.82rem;color:#9333ea;margin-top:4px;">收录 {macCount} 篇配置文档 · 点击直达</div>
       </a>
+    </div>
+
+    <!-- Tag Filter Pills -->
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;" id="guidesFilterBar">
+      <button type="button" class="btn btn-primary btn-xs filter-btn active" data-tag="all">全部教程 ({allGuides.length})</button>
+      {tags.map(t => (
+        <button type="button" class="btn btn-outline btn-xs filter-btn" data-tag={t}>
+          {t} ({allGuides.filter(g => g.data.tag === t).length})
+        </button>
+      ))}
     </div>
 
     <!-- Guides List Section -->
     <div id="all-guides" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));gap:24px;margin-bottom:48px;">
       {allGuides.map((guide) => (
-        <article style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)';">
+        <article class="filter-card" data-tag={guide.data.tag} style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)';">
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
               <span class="badge badge-outline" style="font-size:0.75rem;">{guide.data.tag}</span>
@@ -90,5 +101,28 @@ const otherGuides = allGuides.filter(g => !windowsGuides.includes(g) && !android
         </article>
       ))}
     </div>
+
+    <script is:inline>
+      const gFilterBtns = document.querySelectorAll('#guidesFilterBar .filter-btn');
+      const gCards = document.querySelectorAll('#all-guides .filter-card');
+      gFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTag = btn.getAttribute('data-tag');
+          gFilterBtns.forEach(b => {
+            b.classList.remove('btn-primary', 'active');
+            b.classList.add('btn-outline');
+          });
+          btn.classList.remove('btn-outline');
+          btn.classList.add('btn-primary', 'active');
+          gCards.forEach(card => {
+            if (targetTag === 'all' || card.getAttribute('data-tag') === targetTag) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
   </div>
 </Layout>

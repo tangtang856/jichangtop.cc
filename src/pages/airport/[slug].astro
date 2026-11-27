@@ -4,17 +4,23 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { airports, type Airport } from '../../data/airports';
 
 export async function getStaticPaths() {
-  return airports.map(airport => ({
+  return airports.map((airport, index) => ({
     params: { slug: airport.slug },
-    props: { airport },
+    props: {
+      airport,
+      prevAirport: airports[(index - 1 + airports.length) % airports.length],
+      nextAirport: airports[(index + 1) % airports.length],
+    },
   }));
 }
 
 interface Props {
   airport: Airport;
+  prevAirport: Airport;
+  nextAirport: Airport;
 }
 
-const { airport } = Astro.props;
+const { airport, prevAirport, nextAirport } = Astro.props;
 const tdk = airport.airportTdk;
 
 const breadcrumbs = [
@@ -187,7 +193,7 @@ const productSchema = {
     </section>
 
     <!-- Bottom Action CTA -->
-    <div style="text-align:center;padding:40px 20px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;">
+    <div style="text-align:center;padding:40px 20px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:32px;">
       <h3 style="font-size:1.4rem;color:#0f172a;margin-bottom:8px;">准备好开始使用 {airport.name} 了吗？</h3>
       <p style="color:#64748b;margin-bottom:24px;font-size:0.95rem;">点击下方按钮直达官网购买页面，输入优惠码享受独家立减优惠。</p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
@@ -197,5 +203,30 @@ const productSchema = {
         </a>
       </div>
     </div>
+
+    <!-- Prev / Next Airport Navigation -->
+    <nav aria-label="其他机场品牌切换" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-bottom:32px;">
+      <a href={`/airport/${prevAirport.slug}.html`} style="display:flex;flex-direction:column;padding:16px 18px;background:#fff;border:1px solid #cbd5e1;border-radius:8px;text-decoration:none;">
+        <span style="font-size:0.78rem;color:#64748b;margin-bottom:4px;">← 上一家品牌</span>
+        <span style="font-size:0.98rem;font-weight:700;color:#0f172a;">{prevAirport.name} (¥{prevAirport.startingPrice}/月起)</span>
+      </a>
+      <a href={`/airport/${nextAirport.slug}.html`} style="display:flex;flex-direction:column;text-align:right;padding:16px 18px;background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;text-decoration:none;">
+        <span style="font-size:0.78rem;color:#2563eb;font-weight:700;margin-bottom:4px;">下一家品牌对比 →</span>
+        <span style="font-size:0.98rem;font-weight:700;color:#1e3a8a;">{nextAirport.name} (¥{nextAirport.startingPrice}/月起)</span>
+      </a>
+    </nav>
+
+    <!-- Internal Linking Hub -->
+    <section style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:24px;">
+      <h3 style="margin-top:0;font-size:1.15rem;color:#0f172a;margin-bottom:14px;">🧭 新手上手教程与关联指南</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:10px;font-size:0.88rem;">
+        <a href="/guides/windows.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;">💻 Windows 客户端配置教程</a>
+        <a href="/guides/ios.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;">🍏 iOS 苹果小火箭配置指南</a>
+        <a href="/guides/android.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;">📱 Android 安卓手机设置</a>
+        <a href="/guides/macos.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;">🍎 macOS 苹果电脑教程</a>
+        <a href="/compare/index.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#2563eb;font-weight:600;">⚖️ 14大品牌在线参数PK</a>
+        <a href="/ranking/overall.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#2563eb;font-weight:600;">📊 2026全网综合排行榜</a>
+      </div>
+    </section>
   </div>
 </Layout>

@@ -3,14 +3,32 @@ import { getCollection } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
 export async function getStaticPaths() {
-  const guideEntries = await getCollection('guides');
-  return guideEntries.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  const guideEntries = (await getCollection('guides')).sort((a, b) => a.slug.localeCompare(b.slug));
+  return guideEntries.map((entry, index) => {
+    const prevEntry = guideEntries[(index - 1 + guideEntries.length) % guideEntries.length];
+    const nextEntry = guideEntries[(index + 1) % guideEntries.length];
+
+    const sameTag = guideEntries.filter(e => e.slug !== entry.slug && e.data.tag === entry.data.tag);
+    const others = guideEntries.filter(e => e.slug !== entry.slug && e.data.tag !== entry.data.tag);
+    const related = [...sameTag, ...others].slice(0, 6).map(e => ({
+      title: e.data.title,
+      url: `/guides/${e.slug}.html`,
+      tag: e.data.tag
+    }));
+
+    return {
+      params: { slug: entry.slug },
+      props: {
+        entry,
+        prevPost: { title: prevEntry.data.title, url: `/guides/${prevEntry.slug}.html` },
+        nextPost: { title: nextEntry.data.title, url: `/guides/${nextEntry.slug}.html` },
+        relatedPosts: related
+      },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, prevPost, nextPost, relatedPosts } = Astro.props;
 const { Content } = await entry.render();
 
 const breadcrumbs = [
@@ -31,6 +49,11 @@ const breadcrumbs = [
   author={entry.data.author}
   breadcrumbs={breadcrumbs}
   activeNav="guides"
+  prevPost={prevPost}
+  nextPost={nextPost}
+  relatedPosts={relatedPosts}
+  hubUrl="/guides/index.html"
+  hubLabel="返回教程中心 (34篇)"
 >
   <Content />
 </ArticleLayout>

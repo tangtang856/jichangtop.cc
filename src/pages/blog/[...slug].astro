@@ -3,14 +3,32 @@ import { getCollection } from 'astro:content';
 import ArticleLayout from '../../layouts/ArticleLayout.astro';
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  const blogEntries = (await getCollection('blog')).sort((a, b) => a.slug.localeCompare(b.slug));
+  return blogEntries.map((entry, index) => {
+    const prevEntry = blogEntries[(index - 1 + blogEntries.length) % blogEntries.length];
+    const nextEntry = blogEntries[(index + 1) % blogEntries.length];
+
+    const sameTag = blogEntries.filter(e => e.slug !== entry.slug && e.data.tag === entry.data.tag);
+    const others = blogEntries.filter(e => e.slug !== entry.slug && e.data.tag !== entry.data.tag);
+    const related = [...sameTag, ...others].slice(0, 6).map(e => ({
+      title: e.data.title,
+      url: `/blog/${e.slug}.html`,
+      tag: e.data.tag
+    }));
+
+    return {
+      params: { slug: entry.slug },
+      props: {
+        entry,
+        prevPost: { title: prevEntry.data.title, url: `/blog/${prevEntry.slug}.html` },
+        nextPost: { title: nextEntry.data.title, url: `/blog/${nextEntry.slug}.html` },
+        relatedPosts: related
+      },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, prevPost, nextPost, relatedPosts } = Astro.props;
 const { Content } = await entry.render();
 
 const breadcrumbs = [
@@ -31,6 +49,11 @@ const breadcrumbs = [
   author={entry.data.author}
   breadcrumbs={breadcrumbs}
   activeNav="blog"
+  prevPost={prevPost}
+  nextPost={nextPost}
+  relatedPosts={relatedPosts}
+  hubUrl="/blog/index.html"
+  hubLabel="返回全部博客 (106篇)"
 >
   <Content />
 </ArticleLayout>

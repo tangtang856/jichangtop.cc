@@ -3,6 +3,12 @@ import Layout from './Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { airports } from '../data/airports';
 
+interface NavLinkItem {
+  title: string;
+  url: string;
+  tag?: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -14,6 +20,11 @@ interface Props {
   author?: string;
   breadcrumbs: Array<{ name: string; url: string }>;
   activeNav?: 'home' | 'recommend' | 'ranking' | 'airport' | 'compare' | 'guides' | 'blog' | 'about';
+  prevPost?: NavLinkItem;
+  nextPost?: NavLinkItem;
+  relatedPosts?: NavLinkItem[];
+  hubUrl?: string;
+  hubLabel?: string;
 }
 
 const {
@@ -27,6 +38,11 @@ const {
   author = '机场Top编辑部',
   breadcrumbs,
   activeNav = 'blog',
+  prevPost,
+  nextPost,
+  relatedPosts = [],
+  hubUrl = '/blog/index.html',
+  hubLabel = '返回文章目录',
 } = Astro.props;
 
 // Top 3 featured airports for sidebar & bottom CTA
@@ -74,9 +90,10 @@ const articleSchema = {
       <!-- Main Content Column -->
       <article class="article-content">
         <header class="article-header">
-          <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
             <span class="badge badge-primary">{tag}</span>
             <span style="font-size:0.82rem;color:#64748b;">深度技术干货</span>
+            <a href={hubUrl} style="margin-left:auto;font-size:0.82rem;color:#2563eb;text-decoration:none;font-weight:600;">{hubLabel} ↗</a>
           </div>
           <h1 class="article-title">{h1 || title}</h1>
           <div class="article-meta">
@@ -91,8 +108,50 @@ const articleSchema = {
           <slot />
         </div>
 
+        <!-- Prev / Next Article Navigation -->
+        {(prevPost || nextPost) && (
+          <nav aria-label="上下篇文章导航" style="margin-top:36px;padding-top:24px;border-top:2px solid #e2e8f0;display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:16px;">
+            {prevPost ? (
+              <a href={prevPost.url} style="display:flex;flex-direction:column;justify-content:center;padding:16px 18px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;text-decoration:none;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.borderColor='#2563eb';this.style.background='#eff6ff';" onmouseout="this.style.borderColor='#cbd5e1';this.style.background='#f8fafc';">
+                <span style="font-size:0.78rem;color:#64748b;margin-bottom:6px;font-weight:600;">← 上一篇</span>
+                <span style="font-size:0.95rem;font-weight:700;color:#0f172a;line-height:1.4;">{prevPost.title}</span>
+              </a>
+            ) : (
+              <a href={hubUrl} style="display:flex;flex-direction:column;justify-content:center;padding:16px 18px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;text-decoration:none;">
+                <span style="font-size:0.78rem;color:#64748b;margin-bottom:6px;font-weight:600;">📚 目录</span>
+                <span style="font-size:0.95rem;font-weight:700;color:#0f172a;">{hubLabel}</span>
+              </a>
+            )}
+
+            {nextPost && (
+              <a href={nextPost.url} style="display:flex;flex-direction:column;justify-content:center;text-align:right;padding:16px 18px;background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;text-decoration:none;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.borderColor='#2563eb';this.style.background='#dbeafe';" onmouseout="this.style.borderColor='#93c5fd';this.style.background='#eff6ff';">
+                <span style="font-size:0.78rem;color:#2563eb;margin-bottom:6px;font-weight:700;">下一篇继续阅读 →</span>
+                <span style="font-size:0.95rem;font-weight:700;color:#1e3a8a;line-height:1.4;">{nextPost.title}</span>
+              </a>
+            )}
+          </nav>
+        )}
+
+        <!-- Related Articles Internal Linking Grid -->
+        {relatedPosts.length > 0 && (
+          <section style="margin-top:32px;padding:22px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+              <h3 style="margin:0;font-size:1.1rem;color:#0f172a;">📚 相关深度阅读推荐</h3>
+              <a href={hubUrl} style="font-size:0.84rem;color:#2563eb;text-decoration:none;font-weight:600;">查看全部 →</a>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:10px;">
+              {relatedPosts.map(rel => (
+                <a href={rel.url} style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;font-size:0.88rem;line-height:1.4;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#2563eb';this.style.color='#2563eb';" onmouseout="this.style.borderColor='#e2e8f0';this.style.color='#334155';">
+                  <span style="color:#2563eb;font-weight:700;">›</span>
+                  <span style="font-weight:600;">{rel.title}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         <!-- Bottom conversion CTA box -->
-        <div style="margin-top:40px;padding:24px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
+        <div style="margin-top:32px;padding:24px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
           <h3 style="margin-top:0;font-size:1.15rem;color:#0f172a;">🚀 需要高速稳定的科学上网节点？</h3>
           <p style="font-size:0.9rem;color:#475569;line-height:1.6;margin-bottom:16px;">
             本站针对主流流媒体 4K 播放、ChatGPT/Claude API 跨境调度与日常办公进行了全天候实机压测，以下为编辑部本月重点推荐的高性价比专线品牌：
@@ -106,7 +165,8 @@ const articleSchema = {
                 </div>
                 <div style="margin-top:10px;display:flex;gap:6px;">
                   <a href={`/airport/${item.slug}.html`} class="btn btn-outline btn-xs" style="flex:1;text-align:center;">详情</a>
-                  <a href={item.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs" style="flex:1;text-align:center;">官网直达</a>
+                  <a href={`/review/${item.slug}.html`} class="btn btn-secondary btn-xs" style="flex:1;text-align:center;">测评</a>
+                  <a href={item.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs" style="flex:1;text-align:center;">官网</a>
                 </div>
               </div>
             ))}
@@ -138,13 +198,26 @@ const articleSchema = {
         </div>
 
         <div class="sidebar-card">
-          <h4 class="sidebar-title">🧭 实用导航与工具</h4>
+          <h4 class="sidebar-title">🧭 实用导航与排行榜</h4>
           <ul class="footer-links" style="font-size:0.88rem;">
             <li style="margin-bottom:8px;"><a href="/ranking/overall.html">📊 2026综合机场排行榜</a></li>
             <li style="margin-bottom:8px;"><a href="/ranking/value.html">💰 极高性价比梯子排行榜</a></li>
+            <li style="margin-bottom:8px;"><a href="/ranking/budget.html">🎓 低预算平价机场排行榜</a></li>
+            <li style="margin-bottom:8px;"><a href="/ranking/stable.html">🛡️ 企业级IPLC专线排行榜</a></li>
             <li style="margin-bottom:8px;"><a href="/compare/index.html">⚖️ 14大品牌横向对比工具</a></li>
-            <li style="margin-bottom:8px;"><a href="/guides/index.html">📖 电脑与手机全平台客户端配置</a></li>
+            <li style="margin-bottom:8px;"><a href="/guides/index.html">📖 全平台客户端配置教程</a></li>
             <li style="margin-bottom:8px;"><a href="/recommend/ai.html">🤖 ChatGPT/Claude专属节点</a></li>
+            <li style="margin-bottom:0;"><a href="/recommend/streaming.html">🎬 4K流媒体原生解锁专题</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h4 class="sidebar-title">📖 核心百科速查</h4>
+          <ul class="footer-links" style="font-size:0.86rem;">
+            <li style="margin-bottom:6px;"><a href="/glossary/iepl-iplc.html">什么是 IPLC / IEPL 专线？</a></li>
+            <li style="margin-bottom:6px;"><a href="/glossary/vless-hysteria2.html">VLESS 与 Hysteria2 对比</a></li>
+            <li style="margin-bottom:6px;"><a href="/glossary/node-multiplier.html">揭秘机场节点流量倍率</a></li>
+            <li style="margin-bottom:0;"><a href="/glossary/gfw.html">GFW 阻断与抗封锁原理</a></li>
           </ul>
         </div>
       </aside>

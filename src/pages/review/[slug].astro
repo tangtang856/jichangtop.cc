@@ -4,17 +4,23 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { airports, type Airport } from '../../data/airports';
 
 export async function getStaticPaths() {
-  return airports.map(airport => ({
+  return airports.map((airport, index) => ({
     params: { slug: airport.slug },
-    props: { airport },
+    props: {
+      airport,
+      prevAirport: airports[(index - 1 + airports.length) % airports.length],
+      nextAirport: airports[(index + 1) % airports.length],
+    },
   }));
 }
 
 interface Props {
   airport: Airport;
+  prevAirport: Airport;
+  nextAirport: Airport;
 }
 
-const { airport } = Astro.props;
+const { airport, prevAirport, nextAirport } = Astro.props;
 const tdk = airport.reviewTdk;
 
 const breadcrumbs = [
@@ -242,7 +248,7 @@ const reviewSchema = {
     </section>
 
     <!-- Bottom Conversion CTA -->
-    <div style="text-align:center;padding:36px 20px;background:#eff6ff;border-radius:10px;border:1px solid #bfdbfe;">
+    <div style="text-align:center;padding:36px 20px;background:#eff6ff;border-radius:10px;border:1px solid #bfdbfe;margin-bottom:32px;">
       <h3 style="font-size:1.35rem;color:#1e3a8a;margin-bottom:8px;">立即体验 {airport.name} 高速节点</h3>
       <p style="color:#3b82f6;margin-bottom:20px;font-size:0.92rem;">支持全平台 Clash、小火箭一键订阅导入，晚高峰畅享无感跨境访问。</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
@@ -252,5 +258,28 @@ const reviewSchema = {
         </a>
       </div>
     </div>
+
+    <!-- Prev / Next Review Navigation -->
+    <nav aria-label="其他机场评测切换" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-bottom:32px;">
+      <a href={`/review/${prevAirport.slug}.html`} style="display:flex;flex-direction:column;padding:16px 18px;background:#fff;border:1px solid #cbd5e1;border-radius:8px;text-decoration:none;">
+        <span style="font-size:0.78rem;color:#64748b;margin-bottom:4px;">← 上一篇测评</span>
+        <span style="font-size:0.98rem;font-weight:700;color:#0f172a;">{prevAirport.name} 深度测速报告</span>
+      </a>
+      <a href={`/review/${nextAirport.slug}.html`} style="display:flex;flex-direction:column;text-align:right;padding:16px 18px;background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;text-decoration:none;">
+        <span style="font-size:0.78rem;color:#2563eb;font-weight:700;margin-bottom:4px;">下一篇测评 →</span>
+        <span style="font-size:0.98rem;font-weight:700;color:#1e3a8a;">{nextAirport.name} 深度测速报告</span>
+      </a>
+    </nav>
+
+    <!-- Related Internal Links -->
+    <section style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:24px;">
+      <h3 style="margin-top:0;font-size:1.15rem;color:#0f172a;margin-bottom:14px;">📚 相关选购指南与客户端教程</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:10px;font-size:0.88rem;">
+        <a href="/blog/how-to-choose-an-airport-in-2026.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;">📖 2026年如何科学挑选靠谱机场？</a>
+        <a href="/blog/iplc-vs-iepl-technical-comparison.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;">⚡ IPLC 与 IEPL 专线技术深度对比</a>
+        <a href="/blog/avoid-scam-airports.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#334155;">🛡️ 选机场防跑路与避坑实用指南</a>
+        <a href="/guides/index.html" style="padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;text-decoration:none;color:#2563eb;font-weight:600;">🚀 查看全平台客户端设置教程 (34篇)</a>
+      </div>
+    </section>
   </div>
 </Layout>

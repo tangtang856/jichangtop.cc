@@ -4,8 +4,9 @@ import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 const allPosts = await getCollection('blog');
-// Sort by date or filename
-allPosts.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
+allPosts.sort((a, b) => a.slug.localeCompare(b.slug));
+
+const tags = Array.from(new Set(allPosts.map(p => p.data.tag)));
 
 const breadcrumbs = [
   { name: '首页', url: '/' },
@@ -26,7 +27,7 @@ const pageKeywords = '科学上网博客, 机场节点, 梯子推荐, vpn教程,
   <div class="container" style="padding-top:20px;padding-bottom:60px;">
     <Breadcrumbs items={breadcrumbs} />
 
-    <header class="section-header" style="text-align:left;margin-bottom:32px;">
+    <header class="section-header" style="text-align:left;margin-bottom:24px;">
       <div style="display:flex;gap:8px;margin-bottom:10px;">
         <span class="badge badge-primary">技术知识库</span>
         <span style="font-size:0.85rem;color:#64748b;">共收录 {allPosts.length} 篇原创干货文章</span>
@@ -39,10 +40,20 @@ const pageKeywords = '科学上网博客, 机场节点, 梯子推荐, vpn教程,
       </p>
     </header>
 
+    <!-- Category Filter Pills -->
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px;" id="blogFilterBar">
+      <button type="button" class="btn btn-primary btn-xs filter-btn active" data-tag="all">全部 ({allPosts.length})</button>
+      {tags.map(t => (
+        <button type="button" class="btn btn-outline btn-xs filter-btn" data-tag={t}>
+          {t} ({allPosts.filter(p => p.data.tag === t).length})
+        </button>
+      ))}
+    </div>
+
     <!-- Articles Grid -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));gap:24px;margin-bottom:48px;">
+    <div id="blogGrid" style="display:grid;grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));gap:24px;margin-bottom:48px;">
       {allPosts.map((post) => (
-        <article style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)';">
+        <article class="filter-card" data-tag={post.data.tag} style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)';">
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
               <span class="badge badge-secondary" style="font-size:0.75rem;">{post.data.tag}</span>
@@ -64,5 +75,28 @@ const pageKeywords = '科学上网博客, 机场节点, 梯子推荐, vpn教程,
         </article>
       ))}
     </div>
+
+    <script is:inline>
+      const filterBtns = document.querySelectorAll('#blogFilterBar .filter-btn');
+      const cards = document.querySelectorAll('#blogGrid .filter-card');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTag = btn.getAttribute('data-tag');
+          filterBtns.forEach(b => {
+            b.classList.remove('btn-primary', 'active');
+            b.classList.add('btn-outline');
+          });
+          btn.classList.remove('btn-outline');
+          btn.classList.add('btn-primary', 'active');
+          cards.forEach(card => {
+            if (targetTag === 'all' || card.getAttribute('data-tag') === targetTag) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
   </div>
 </Layout>
