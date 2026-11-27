@@ -121,11 +121,12 @@ const allSchemas = schema ? (Array.isArray(schema) ? [...defaultSchemas, ...sche
     const searchResults = document.getElementById('searchResults');
 
     let searchData = null;
+    const rootPrefix = window.__ROOT_PREFIX__ || '';
 
     async function loadSearchData() {
       if (!searchData) {
         try {
-          const res = await fetch('/search-index.json');
+          const res = await fetch(rootPrefix + '/search-index.json');
           if (res.ok) searchData = await res.json();
         } catch (e) {
           console.error('Failed to load search index:', e);
@@ -170,7 +171,7 @@ const allSchemas = schema ? (Array.isArray(schema) ? [...defaultSchemas, ...sche
         }
 
         searchResults.innerHTML = matches.map(item => `
-          <a href="${item.url}" style="display:block;padding:12px 14px;border-bottom:1px solid #f1f5f9;text-decoration:none;color:inherit;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+          <a href="${rootPrefix}${item.url}" style="display:block;padding:12px 14px;border-bottom:1px solid #f1f5f9;text-decoration:none;color:inherit;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
             <div style="font-weight:600;font-size:0.95rem;color:#2563eb;margin-bottom:4px;">${item.title}</div>
             <div style="font-size:0.82rem;color:#64748b;line-height:1.4;">${item.desc.substring(0, 70)}...</div>
           </a>

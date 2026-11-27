@@ -111,4 +111,44 @@ if (fs.existsSync(distDir)) {
   fs.writeFileSync(path.join(distDir, 'search-index.json'), JSON.stringify(searchIndex, null, 2), 'utf-8');
 }
 console.log(`✅ Generated search-index.json with ${searchIndex.length} searchable entries.`);
+
+// 4. Rewrite root-relative links (/...) in dist/**/*.html to relative paths (./ or ../) for file:// & Cloudflare compatibility
+function getAllHtmlFiles(dir) {
+  let results = [];
+  for (const file of fs.readdirSync(dir)) {
+    const full = path.join(dir, file);
+    if (fs.statSync(full).isDirectory()) {
+      results = results.concat(getAllHtmlFiles(full));
+    } else if (file.endsWith('.html')) {
+      results.push(full);
+    }
+  }
+  return results;
+}
+
+if (fs.existsSync(distDir)) {
+  const htmlFiles = getAllHtmlFiles(distDir);
+  for (const filePath of htmlFiles) {
+    const relPath = path.relative(distDir, filePath).replace(/\\/g, '/');
+    const depth = relPath.split('/').length - 1;
+    const prefix = depth === 0 ? '.' : Array(depth).fill('..').join('/');
+
+    let html = fs.readFileSync(filePath, 'utf-8');
+
+    // Inject __ROOT_PREFIX__ before </head>
+    html = html.replace('</head>', `<script>window.__ROOT_PREFIX__="${prefix}";</script>\n</head>`);
+
+    // Rewrite href="/" -> href="${prefix}/index.html"
+    html = html.replace(/href=(["'])\/\1/g, `href=$1${prefix}/index.html$1`);
+
+    // Rewrite href="/path..." and src="/path..." (skip // protocol-relative)
+    html = html.replace(/(href|src)=(["'])\/(?!\/)([^"']*)\2/g, (match, attr, quote, rest) => {
+      return `${attr}=${quote}${prefix}/${rest}${quote}`;
+    });
+
+    fs.writeFileSync(filePath, html, 'utf-8');
+  }
+  console.log(`✅ Converted root-relative paths to portable relative paths across ${htmlFiles.length} HTML files.`);
+}
+
 console.log('🎉 Postbuild complete!');
