@@ -8,40 +8,40 @@ interface Props {
 }
 
 const { airport, badge, rank } = Astro.props;
-const starterPlan = airport.plans[0] || { price: airport.startingPrice, trafficGB: 100, unitPricePerGB: 0.1 };
+const starterPlan = airport.plans[0] || { price: airport.startingPrice, trafficGB: 100, unitPricePerGB: 0.1, lineType: '优质专线' };
 ---
 
 <div class="airport-card">
-  <div class="card-header-top">
+  <div class="card-top">
     <div style="display:flex;align-items:center;gap:10px;">
-      {rank && <span class="badge-rank">{rank}</span>}
-      <h3 style="margin:0;font-size:1.25rem;">
-        <a href={`/airport/${airport.slug}.html`} style="color:#0f172a;text-decoration:none;">
+      {rank && <span class={`rank-badge rank-${rank}`}>{rank}</span>}
+      <h3 class="card-brand-name" style="margin:0;">
+        <a href={`/airport/${airport.slug}.html`} style="color:inherit;text-decoration:none;">
           {airport.name}
         </a>
       </h3>
     </div>
-    {badge && <span class="badge-featured">{badge}</span>}
+    {badge && <span class="badge-status status-tested">{badge}</span>}
   </div>
 
   <p class="card-desc">{airport.description}</p>
 
-  <div class="specs-grid">
-    <div class="spec-item">
-      <div class="spec-label">起步价格</div>
-      <div class="spec-value price-text">¥{airport.startingPrice} <span style="font-size:0.8rem;color:#64748b;">/月起</span></div>
+  <div class="card-meta-list">
+    <div>
+      <span class="meta-label">起步价格</span>
+      <span class="meta-val" style="color:var(--primary);">¥{airport.startingPrice} <span style="font-size:0.78rem;color:var(--text-sub);font-weight:400;">/月起</span></span>
     </div>
-    <div class="spec-item">
-      <div class="spec-label">基准流量</div>
-      <div class="spec-value">{starterPlan.trafficGB} GB</div>
+    <div>
+      <span class="meta-label">基准流量</span>
+      <span class="meta-val">{starterPlan.trafficGB} GB</span>
     </div>
-    <div class="spec-item">
-      <div class="spec-label">每GB折算</div>
-      <div class="spec-value">¥{starterPlan.unitPricePerGB}</div>
+    <div>
+      <span class="meta-label">每GB折算</span>
+      <span class="meta-val">¥{starterPlan.unitPricePerGB}</span>
     </div>
-    <div class="spec-item">
-      <div class="spec-label">线路架构</div>
-      <div class="spec-value">{starterPlan.lineType || '优质专线'}</div>
+    <div>
+      <span class="meta-label">线路架构</span>
+      <span class="meta-val">{starterPlan.lineType || '优质专线'}</span>
     </div>
   </div>
 
@@ -52,20 +52,20 @@ const starterPlan = airport.plans[0] || { price: airport.startingPrice, trafficG
     </div>
   )}
 
-  <div class="advantages-list">
-    {airport.advantages.slice(0, 3).map((adv) => (
-      <div class="adv-item">
-        <span class="adv-icon">✓</span>
-        <span>{adv}</span>
-      </div>
-    ))}
+  <div class="card-pros-cons">
+    <ul class="pros-list">
+      {airport.advantages.slice(0, 3).map((adv) => (
+        <li>
+          <span>✓</span>
+          <div>{adv}</div>
+        </li>
+      ))}
+    </ul>
   </div>
 
-  <div class="card-footer">
-    <div class="action-btn-group">
-      <a href={`/airport/${airport.slug}.html`} class="btn btn-outline btn-sm">资费详情</a>
-      <a href={`/review/${airport.slug}.html`} class="btn btn-secondary btn-sm">测速测评</a>
-      <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-sm">直达官网 →</a>
-    </div>
+  <div class="card-footer-actions">
+    <a href={`/airport/${airport.slug}.html`} class="btn btn-outline btn-sm" style="flex:1;">资费详情</a>
+    <a href={`/review/${airport.slug}.html`} class="btn btn-secondary btn-sm" style="flex:1;">测速测评</a>
+    <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-sm" style="flex:1.2;">直达官网 →</a>
   </div>
 </div>
