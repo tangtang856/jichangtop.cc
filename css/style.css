@@ -1164,3 +1164,15 @@ button, input, select, textarea {
     grid-template-columns: 1fr;
   }
 }
+
+.data-table th:first-child, .data-table td:first-child {
+  text-align: center;
+}
+
+.data-table th:last-child, .data-table td:last-child {
+  text-align: center;
+}
+
+.data-table td {
+  line-height: 1.5;
+}
