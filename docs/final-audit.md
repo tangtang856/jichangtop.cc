@@ -208,12 +208,12 @@
 | `ranking/overall.html` | **PASS** | 2026全网综合机场排行榜 · 梯子推荐与节点稳定性排名 | 机场To... | 2026年度全网综合机场排行榜 (实测权威推荐) | 规范无误 |
 | `ranking/stable.html` | **PASS** | 2026稳定专线机场排行榜 · 企业级IPLC/IEPL抗封锁梯子 |... | 2026超稳定专线机场排行榜 (IPLC/IEPL抗封锁专线... | 规范无误 |
 | `ranking/value.html` | **PASS** | 2026极高性价比机场排行榜 · 低单价大流量梯子推荐 | 机场Top | 2026超高性价比机场排行榜 (每GB折算低至0.03元) | 规范无误 |
-| `recommend/ai.html` | **PASS** | 2026 ChatGPT/Claude专属机场推荐 · 原生住宅IP解... | 2026人工智能专用机场推荐 (ChatGPT/Claude... | 规范无误 |
-| `recommend/beginner.html` | **PASS** | 2026新手小白机场推荐 · 一键导入开箱即用翻墙指南 | 机场Top | 2026新手友好型机场推荐 (小白一键配置极速上手) | 规范无误 |
-| `recommend/budget.html` | **PASS** | 2026低预算平价机场推荐 · 十元以下学生党高性价比梯子 | 机场T... | 2026精选平价低预算机场推荐 (月付10元以内) | 规范无误 |
-| `recommend/premium.html` | **PASS** | 2026高端专线机场推荐 · 企业级IPLC/IEPL高速节点 | 机... | 2026高端企业级专线机场推荐 (极致稳定低延迟) | 规范无误 |
-| `recommend/stable.html` | **PASS** | 2026稳定优先机场推荐 · 特殊时期不掉线抗封锁梯子 | 机场Top | 2026超高稳定性机场推荐 (全天候抗封锁防失联) | 规范无误 |
-| `recommend/streaming.html` | **PASS** | 2026 4K流媒体解锁机场推荐 · Netflix/Disney+/... | 2026流媒体解锁专用机场推荐 (4K/8K无缓冲畅享) | 规范无误 |
+| `recommend/ai.html` | **PASS** | 2026 ChatGPT/Claude原生住宅IP专线 · 告别AI人... | 2026 ChatGPT 与 Claude 专用原生住宅 I... | 规范无误 |
+| `recommend/beginner.html` | **PASS** | 2026小白零门槛一键订阅方案 · 全中文后台开箱即用指南 | 机场T... | 2026 新手小白零门槛一键导入方案 (开箱即用) | 规范无误 |
+| `recommend/budget.html` | **PASS** | 2026学生党十元以内平价梯子盘点 · 低门槛月付科学上网节点清单 |... | 2026 学生党平价低预算节点盘点 (月付 ¥4.9 - ¥... | 规范无误 |
+| `recommend/premium.html` | **PASS** | 2026企业级IPLC/IEPL纯专线节点盘点 · 高端稳定跨境办公方... | 2026 企业级 IPLC/IEPL 纯内网专线节点盘点 | 规范无误 |
+| `recommend/stable.html` | **PASS** | 2026高可用抗封锁防失联线路盘点 · 敏感时期全天候连通方案 | 机... | 2026 高可用抗封锁防失联线路盘点 (全天候稳定) | 规范无误 |
+| `recommend/streaming.html` | **PASS** | 2026 Netflix/Disney+ 4K流媒体全解锁清单 · 港... | 2026 Netflix / Disney+ 4K 超清流媒... | 规范无误 |
 | `review/breezenet.html` | **PASS** | 微风网络Breezenet真实测评：2026套餐价格、流量每GB单价与... | 微风网络Breezenet真实测评：2026套餐价格、流量每... | 规范无误 |
 | `review/feimaoyun.html` | **PASS** | 飞猫云真实测评：2026套餐价格、年付每GB单价与节点晚高峰测速报告 ... | 飞猫云真实测评：2026套餐价格、年付每GB单价与节点晚高峰... | 规范无误 |
 | `review/feiv.html` | **PASS** | 飞V机场真实测评：2026套餐价格、单GB成本与低价节点测速报告 | ... | 飞V机场真实测评：2026套餐价格、单GB成本与低价节点测速... | 规范无误 |
