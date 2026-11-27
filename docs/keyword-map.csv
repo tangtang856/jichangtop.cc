@@ -1,0 +1,33 @@
+Keyword,Intent,Target URL,Page Type,Priority,Title,H1
+机场推荐,商业调查,https://jichangtop.cc/index.html,Pillar Page,P0,2026优质机场推荐与节点选择指南 - 性价比梯子与VPN测评 | 机场Top,2026优质机场推荐与节点选择指南 - 性价比梯子与VPN对比
+梯子推荐,商业调查,https://jichangtop.cc/recommend/budget.html,Topic Page,P0,平价实用梯子推荐 - 便宜好用的入门级机场节点精选 | 机场Top,平价实用梯子推荐：低门槛新手稳定翻墙方案
+性价比机场,商业调查,https://jichangtop.cc/ranking/value.html,Ranking Page,P0,2026高性价比机场排行榜 - 每GB单价测算与套餐实用度榜单 | 机场Top,2026年度高性价比机场排行榜与单价横评
+机场节点,信息调查,https://jichangtop.cc/blog/airport-nodes-selection-guide.html,Blog Article,P0,机场节点选择指南：BGP/IPLC/IEPL专线节点对比与选购技巧 | 机场Top,机场节点深度解析：从直连中继到内网专线如何科学选购
+vpn,信息调查,https://jichangtop.cc/blog/vpn-vs-airport-proxy.html,Blog Article,P0,传统VPN与现代机场代理全景对比：协议速度与安全性解析 | 机场Top,传统VPN与现代机场节点有何区别？完整技术科普
+vpn机场,商业调查,https://jichangtop.cc/ranking/overall.html,Ranking Page,P0,2026综合实力VPN机场排行榜 - 晚高峰测速与线路稳定性评估 | 机场Top,2026综合实力VPN机场排名榜单
+vpn节点,信息调查,https://jichangtop.cc/guides/windows.html,Guide Page,P0,Windows电脑VPN节点配置教程 - Clash与v2rayN图文指引 | 机场Top,Windows客户端机场节点配置完整教程
+vpn推荐,商业调查,https://jichangtop.cc/recommend/stable.html,Topic Page,P0,稳定抗封锁VPN推荐 - 优质IPLC专线机场节点精选 | 机场Top,稳定防失联VPN与专线机场节点精选推荐
+便宜机场推荐,商业意图,https://jichangtop.cc/ranking/budget.html,Ranking Page,P1,便宜低预算机场排行榜 - 月付10元内轻度上网与学生党精选 | 机场Top,低预算便宜机场排行榜：月付十元内高性价比之选
+稳定专线机场,商业意图,https://jichangtop.cc/recommend/premium.html,Topic Page,P1,高端专线机场推荐 - 全IEPL企业级低延迟晚高峰不卡顿节点 | 机场Top,高端专线机场推荐：追求极致低延迟与稳定性的首选
+新手翻墙梯子,商业意图,https://jichangtop.cc/recommend/beginner.html,Topic Page,P1,新手入门机场推荐 - 一键导入傻瓜式客户端与便宜套餐 | 机场Top,新手入门机场推荐：开箱即用无折腾翻墙方案
+ChatGPT专用机场,特定需求,https://jichangtop.cc/recommend/ai.html,Topic Page,P1,ChatGPT与Claude专用机场推荐 - 住宅原生IP不降智节点 | 机场Top,AI服务专用机场推荐：保障ChatGPT与Claude原生连接
+流媒体解锁节点,特定需求,https://jichangtop.cc/recommend/streaming.html,Topic Page,P1,4K流媒体解锁机场推荐 - Netflix/Disney+/YouTube 4K低延迟 | 机场Top,4K流媒体解锁机场推荐：告别地区限制与画质压缩
+防失联机场排行榜,商业调查,https://jichangtop.cc/ranking/stable.html,Ranking Page,P1,最稳定的机场排行榜 - 敏感时期防失联与晚高峰0丢包实测 | 机场Top,2026最稳定的机场排行榜：抗封锁与低丢包硬核盘点
+机场在线对比,工具型,https://jichangtop.cc/compare/index.html,Tool Page,P1,机场横向对比工具 - 价格/流量/线路/流媒体多维度即时PK | 机场Top,机场多维度在线横向对比工具
+飞鸟云怎么样,品牌调查,https://jichangtop.cc/airport/flyingbird.html,Review Page,P2,飞鸟云 FlyingBird 深度评测与节点价格解析 (2026最新) | 机场Top,飞鸟云 FlyingBird 深度评测报告：套餐价格、线路类型与稳定性实测
+TAG VPN评测,品牌调查,https://jichangtop.cc/airport/tagvpn.html,Review Page,P2,TAG VPN 深度评测与节点价格解析 (2026最新) | 机场Top,TAG VPN 深度评测报告：套餐价格、线路类型与稳定性实测
+泡泡狗机场好用吗,品牌调查,https://jichangtop.cc/airport/paopaodog.html,Review Page,P2,泡泡狗 PaopaoDog 深度评测与节点价格解析 (2026最新) | 机场Top,泡泡狗 PaopaoDog 深度评测报告：套餐价格、线路类型与稳定性实测
+WgetCloud评测,品牌调查,https://jichangtop.cc/airport/wgetcloud.html,Review Page,P2,WgetCloud (原GACloud) 深度评测与节点价格解析 (2026最新) | 机场Top,WgetCloud (原GACloud) 深度评测报告：套餐价格、线路类型与稳定性实测
+黑猫云Kuromis评测,品牌调查,https://jichangtop.cc/airport/kuromis.html,Review Page,P2,黑猫云 Kuromis 深度评测与节点价格解析 (2026最新) | 机场Top,黑猫云 Kuromis 深度评测报告：套餐价格、线路类型与稳定性实测
+安卓手机怎么用梯子,教程型,https://jichangtop.cc/guides/android.html,Guide Page,P2,Android手机机场配置教程 - Clash Meta与v2rayNG图文教程 | 机场Top,Android手机机场客户端配置图文教程
+苹果手机小火箭配置教程,教程型,https://jichangtop.cc/guides/ios.html,Guide Page,P2,iOS苹果手机机场配置教程 - Shadowrocket小火箭/Loon使用指南 | 机场Top,iOS苹果手机科学上网配置教程：小火箭与Loon图文指引
+Mac苹果电脑怎么挂梯子,教程型,https://jichangtop.cc/guides/macos.html,Guide Page,P2,macOS苹果电脑机场配置教程 - Clash Verge Rev与Surge配置指南 | 机场Top,macOS苹果电脑机场客户端配置教程
+如何挑选机场防跑路,问题型,https://jichangtop.cc/blog/avoid-scam-airports.html,Blog Article,P2,如何挑选机场防止被坑跑路？老玩家总结的避坑7大准则 | 机场Top,如何挑选机场防止踩坑跑路？资深老玩家的7个避坑法则
+机场晚高峰卡顿怎么办,问题型,https://jichangtop.cc/blog/evening-peak-lag-fix.html,Blog Article,P2,机场节点晚高峰卡顿掉线怎么办？全套排查与网络调优实操 | 机场Top,机场晚高峰卡顿慢？5步定位原因与网络调优实操指引
+免费梯子安全吗,问题型,https://jichangtop.cc/blog/free-vpn-risks.html,Blog Article,P2,为什么千万不要使用免费梯子和免费VPN？数据泄露与钓鱼隐患曝光 | 机场Top,免费梯子为什么最昂贵？数据泄露与隐私安全隐患深度剖析
+机场订阅怎么用,教程型,https://jichangtop.cc/blog/how-to-use-subscription.html,Blog Article,P2,机场订阅链接使用全指南：导入、自动更新与故障排除 | 机场Top,机场订阅链接使用全指南：导入、自动更新与故障排除
+什么是IEPL和IPLC专线,知识科普,https://jichangtop.cc/glossary/iepl-iplc.html,Glossary Page,P2,什么是IPLC和IEPL专线？与普通公网中继节点有何本质不同 | 机场Top,什么是IPLC和IEPL专线？原理与优势通俗科普
+Shadowsocks协议是什么,知识科普,https://jichangtop.cc/glossary/shadowsocks.html,Glossary Page,P2,Shadowsocks(SS)协议详解：历史沿革与现代加密演进 | 机场Top,Shadowsocks协议详解：为什么它依然是专线机场主力？
+VLESS和Hysteria2区别,知识科普,https://jichangtop.cc/glossary/vless-hysteria2.html,Glossary Page,P2,VLESS与Hysteria2协议深度对比：抗封锁与弱网提速解析 | 机场Top,VLESS与Hysteria2协议深度对比：技术特性与适用场景全解析
+GFW原理科普,知识科普,https://jichangtop.cc/glossary/gfw.html,Glossary Page,P2,GFW防火长城运作机制科普：DNS污染/SNI阻断/IP封锁原理 | 机场Top,GFW防火长城运作机制科普：为什么普通VPN容易被精准封杀？
+机场节点倍率是什么,知识科普,https://jichangtop.cc/glossary/node-multiplier.html,Glossary Page,P2,机场节点倍率是什么意思？如何计算实际消耗流量防扣费陷阱 | 机场Top,机场节点倍率详解：警惕高倍率偷跑流量与扣费陷阱

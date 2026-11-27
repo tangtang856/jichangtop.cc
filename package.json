@@ -1,0 +1,27 @@
+{
+  "name": "jichangtop-cc",
+  "version": "1.0.0",
+  "description": "2026中文机场博客 · Bing SEO专业建站系统 - 纯原生极速静态版",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "audit": "node scripts/audit-seo.js",
+    "check-links": "node scripts/check-links.js",
+    "validate-content": "node scripts/validate-content.js",
+    "indexnow": "node scripts/indexnow.js",
+    "test": "node scripts/validate-content.js && node scripts/check-links.js && node scripts/audit-seo.js"
+  },
+  "keywords": [
+    "机场推荐",
+    "机场节点",
+    "性价比机场",
+    "梯子推荐",
+    "vpn",
+    "vpn机场",
+    "vpn节点",
+    "vpn推荐"
+  ],
+  "author": "jichangtop.cc",
+  "license": "ISC"
+}
