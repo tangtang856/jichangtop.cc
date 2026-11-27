@@ -1,0 +1,12 @@
+# robots.txt for https://jichangtop.cc
+User-agent: *
+Allow: /
+
+# Bing, Google, Baidu, Yandex indexing rules
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://jichangtop.cc/sitemap.xml

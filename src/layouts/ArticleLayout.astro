@@ -1,0 +1,153 @@
+---
+import Layout from './Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { airports } from '../data/airports';
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  h1?: string;
+  tag?: string;
+  readTime?: string;
+  date?: string;
+  author?: string;
+  breadcrumbs: Array<{ name: string; url: string }>;
+  activeNav?: 'home' | 'recommend' | 'ranking' | 'airport' | 'compare' | 'guides' | 'blog' | 'about';
+}
+
+const {
+  title,
+  description,
+  keywords,
+  h1,
+  tag = '选购指南',
+  readTime = '约 5 分钟',
+  date = '2026-03-30',
+  author = '机场Top编辑部',
+  breadcrumbs,
+  activeNav = 'blog',
+} = Astro.props;
+
+// Top 3 featured airports for sidebar & bottom CTA
+const featuredAirports = airports.slice(0, 3);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: h1 || title,
+  description: description,
+  author: {
+    '@type': 'Organization',
+    name: author,
+    url: 'https://jichangtop.cc/'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: '机场Top',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://jichangtop.cc/favicon.svg'
+    }
+  },
+  datePublished: date,
+  dateModified: date,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(Astro.url.pathname, 'https://jichangtop.cc').href
+  }
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  activeNav={activeNav}
+  schema={articleSchema}
+  ogType="article"
+>
+  <div class="container">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <div class="article-layout">
+      <!-- Main Content Column -->
+      <article class="article-content">
+        <header class="article-header">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+            <span class="badge badge-primary">{tag}</span>
+            <span style="font-size:0.82rem;color:#64748b;">深度技术干货</span>
+          </div>
+          <h1 class="article-title">{h1 || title}</h1>
+          <div class="article-meta">
+            <span>✍️ 作者：{author}</span>
+            <span>📅 发布：{date}</span>
+            <span>⏱️ 阅读时常：{readTime}</span>
+            <span>🏷️ 适用系统：全平台支持</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <slot />
+        </div>
+
+        <!-- Bottom conversion CTA box -->
+        <div style="margin-top:40px;padding:24px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;">
+          <h3 style="margin-top:0;font-size:1.15rem;color:#0f172a;">🚀 需要高速稳定的科学上网节点？</h3>
+          <p style="font-size:0.9rem;color:#475569;line-height:1.6;margin-bottom:16px;">
+            本站针对主流流媒体 4K 播放、ChatGPT/Claude API 跨境调度与日常办公进行了全天候实机压测，以下为编辑部本月重点推荐的高性价比专线品牌：
+          </p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:12px;">
+            {featuredAirports.map(item => (
+              <div style="background:#fff;border:1px solid #cbd5e1;border-radius:6px;padding:12px;display:flex;flex-direction:column;justify-content:space-between;">
+                <div>
+                  <div style="font-weight:700;color:#0f172a;font-size:0.95rem;">{item.name}</div>
+                  <div style="font-size:0.8rem;color:#64748b;margin:4px 0;">起步 ¥{item.startingPrice}/月 · {item.plans[0]?.lineType || '专线'}</div>
+                </div>
+                <div style="margin-top:10px;display:flex;gap:6px;">
+                  <a href={`/airport/${item.slug}.html`} class="btn btn-outline btn-xs" style="flex:1;text-align:center;">详情</a>
+                  <a href={item.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs" style="flex:1;text-align:center;">官网直达</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="article-sidebar">
+        <div class="sidebar-card">
+          <h4 class="sidebar-title">⭐ 本月编辑精选推荐</h4>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            {featuredAirports.map((item, idx) => (
+              <div style="padding-bottom:12px;border-bottom:1px solid #f1f5f9;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-weight:700;font-size:0.92rem;color:#0f172a;">TOP {idx + 1} {item.name.split(' ')[0]}</span>
+                  <span style="font-size:0.82rem;color:#2563eb;font-weight:700;">¥{item.startingPrice}/月起</span>
+                </div>
+                <p style="font-size:0.8rem;color:#64748b;margin:4px 0 8px;line-height:1.4;">
+                  {item.plans[0]?.trafficGB}GB/月 · {item.plans[0]?.lineType || '专线'}
+                </p>
+                <div style="display:flex;gap:6px;">
+                  <a href={`/review/${item.slug}.html`} class="btn btn-outline btn-xs" style="flex:1;text-align:center;">深度测评</a>
+                  <a href={item.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs" style="flex:1;text-align:center;">直达</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h4 class="sidebar-title">🧭 实用导航与工具</h4>
+          <ul class="footer-links" style="font-size:0.88rem;">
+            <li style="margin-bottom:8px;"><a href="/ranking/overall.html">📊 2026综合机场排行榜</a></li>
+            <li style="margin-bottom:8px;"><a href="/ranking/value.html">💰 极高性价比梯子排行榜</a></li>
+            <li style="margin-bottom:8px;"><a href="/compare/index.html">⚖️ 14大品牌横向对比工具</a></li>
+            <li style="margin-bottom:8px;"><a href="/guides/index.html">📖 电脑与手机全平台客户端配置</a></li>
+            <li style="margin-bottom:8px;"><a href="/recommend/ai.html">🤖 ChatGPT/Claude专属节点</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>

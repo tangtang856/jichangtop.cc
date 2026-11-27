@@ -1,0 +1,62 @@
+---
+import type { Airport } from '../data/airports';
+
+interface Props {
+  airports: Airport[];
+}
+
+const { airports } = Astro.props;
+---
+
+<div class="table-responsive">
+  <table class="ranking-table">
+    <thead>
+      <tr>
+        <th style="width:60px;text-align:center;">排名</th>
+        <th style="min-width:180px;">品牌名称</th>
+        <th style="width:100px;">起步月费</th>
+        <th style="width:110px;">代表套餐</th>
+        <th style="width:100px;">每GB折算</th>
+        <th style="min-width:130px;">线路架构</th>
+        <th style="min-width:200px;">适合人群</th>
+        <th style="width:130px;text-align:center;">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {airports.map((airport, index) => {
+        const plan = airport.plans[0] || { trafficGB: 100, unitPricePerGB: 0.1, lineType: '专线节点' };
+        return (
+          <tr>
+            <td style="text-align:center;">
+              <span class={`badge-rank rank-${index + 1}`}>{index + 1}</span>
+            </td>
+            <td>
+              <div style="font-weight:700;font-size:1.02rem;color:#0f172a;">
+                <a href={`/airport/${airport.slug}.html`} style="color:#0f172a;text-decoration:none;">{airport.name}</a>
+              </div>
+              <div style="font-size:0.78rem;color:#64748b;margin-top:2px;">
+                {airport.protocols.slice(0, 2).join(' / ')}
+                {airport.coupon && <span> · 优惠码:<code>{airport.coupon}</code></span>}
+              </div>
+            </td>
+            <td>
+              <span style="font-weight:700;color:#2563eb;">¥{airport.startingPrice}</span>
+            </td>
+            <td>{plan.trafficGB} GB</td>
+            <td>¥{plan.unitPricePerGB}</td>
+            <td>{plan.lineType}</td>
+            <td style="font-size:0.85rem;color:#475569;line-height:1.5;">
+              {airport.suitableFor[0] || '日常科学上网与学术查阅'}
+            </td>
+            <td style="text-align:center;">
+              <div style="display:flex;gap:6px;justify-content:center;">
+                <a href={`/review/${airport.slug}.html`} class="btn btn-outline btn-xs">测评</a>
+                <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs">直达</a>
+              </div>
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

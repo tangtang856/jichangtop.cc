@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { airports, type Airport } from '../../data/airports';
+
+export async function getStaticPaths() {
+  return airports.map(airport => ({
+    params: { slug: airport.slug },
+    props: { airport },
+  }));
+}
+
+interface Props {
+  airport: Airport;
+}
+
+const { airport } = Astro.props;
+const tdk = airport.airportTdk;
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '机场资料库', url: '/recommend/budget.html' },
+  { name: airport.name, url: `/airport/${airport.slug}.html` }
+];
+
+const starterPlan = airport.plans[0] || { price: airport.startingPrice, trafficGB: 100, unitPricePerGB: 0.1, lineType: '优质专线' };
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: airport.name,
+  description: airport.description,
+  brand: {
+    '@type': 'Brand',
+    name: airport.name.split(' ')[0]
+  },
+  offers: {
+    '@type': 'Offer',
+    price: airport.startingPrice,
+    priceCurrency: airport.currency || 'CNY',
+    availability: 'https://schema.org/InStock',
+    url: airport.affiliateUrl
+  }
+};
+---
+
+<Layout
+  title={tdk.title}
+  description={tdk.desc}
+  keywords={tdk.kw}
+  activeNav="airport"
+  schema={productSchema}
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="badge badge-primary">{airport.testStatus === 'tested' ? '已通过实测验证' : '官方核实资费'}</span>
+        <span style="font-size:0.85rem;color:#64748b;">最后核实于：{airport.lastVerified}</span>
+      </div>
+      <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">{tdk.h1}</h1>
+      <p style="font-size:1.05rem;color:#475569;line-height:1.7;max-width:960px;">{airport.description}</p>
+    </header>
+
+    <!-- Top Key Metrics Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:16px;margin-bottom:32px;">
+      <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">起步月费</div>
+        <div style="font-size:1.8rem;font-weight:800;color:#2563eb;">¥{airport.startingPrice} <span style="font-size:0.85rem;color:#64748b;font-weight:400;">/月起</span></div>
+        <div style="font-size:0.8rem;color:#10b981;margin-top:4px;">基准流量：{starterPlan.trafficGB} GB</div>
+      </div>
+      <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">单GB折算单价</div>
+        <div style="font-size:1.8rem;font-weight:800;color:#0f172a;">¥{starterPlan.unitPricePerGB} <span style="font-size:0.85rem;color:#64748b;font-weight:400;">/GB</span></div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:4px;">按月付代表套餐折算</div>
+      </div>
+      <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">线路传输架构</div>
+        <div style="font-size:1.25rem;font-weight:700;color:#0f172a;margin-top:4px;">{starterPlan.lineType}</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:6px;">支持：{airport.protocols.slice(0, 3).join(', ')}</div>
+      </div>
+      <div class="stat-card" style="background:#fff;padding:20px;border-radius:8px;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size:0.85rem;color:#64748b;margin-bottom:4px;">专属优惠码</div>
+        <div style="font-size:1.4rem;font-weight:800;color:#e11d48;margin-top:2px;">{airport.coupon || '直接优惠下单'}</div>
+        <div style="font-size:0.8rem;color:#64748b;margin-top:6px;">官方最新有效折减码</div>
+      </div>
+    </div>
+
+    <!-- Official Actions Bar -->
+    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:36px;">
+      <div>
+        <div style="font-weight:700;color:#1e3a8a;font-size:1.1rem;">立即开启高速跨国连接</div>
+        <div style="font-size:0.88rem;color:#3b82f6;margin-top:4px;">提供官方原厂订阅支持，支持主流 Clash、Sing-box、小火箭一键导入</div>
+      </div>
+      <div style="display:flex;gap:12px;">
+        <a href={`/review/${airport.slug}.html`} class="btn btn-outline" style="border-color:#3b82f6;color:#1d4ed8;">查看晚高峰测速报告</a>
+        <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary">直达官方注册开通 →</a>
+      </div>
+    </div>
+
+    <!-- Plans Section -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        一、{airport.name} 套餐价格与可用流量详情
+      </h2>
+      <div class="table-responsive">
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>套餐名称</th>
+              <th>计费周期</th>
+              <th>价格 (CNY)</th>
+              <th>流量额度</th>
+              <th>每GB折算</th>
+              <th>线路类别</th>
+              <th>特性说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            {airport.plans.map(plan => (
+              <tr>
+                <td style="font-weight:700;color:#0f172a;">{plan.name}</td>
+                <td>{plan.billingCycle}</td>
+                <td style="font-weight:700;color:#2563eb;">¥{plan.price}</td>
+                <td>{plan.trafficGB} GB</td>
+                <td>¥{plan.unitPricePerGB}</td>
+                <td><span class="badge badge-secondary">{plan.lineType}</span></td>
+                <td style="font-size:0.85rem;color:#64748b;">{plan.notes}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Specs, Features & AI Unlock -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:24px;margin-bottom:40px;">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;">
+        <h3 style="margin-top:0;font-size:1.2rem;color:#0f172a;margin-bottom:14px;">🌐 节点覆盖与协议支持</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;font-size:0.92rem;color:#475569;">
+          <li><strong>主要覆盖地区：</strong>{airport.regions.join('、')}</li>
+          <li><strong>网络传输协议：</strong>{airport.protocols.join('、')}</li>
+          <li><strong>设备同时连接：</strong>{airport.deviceLimit || '支持多设备在线'}</li>
+          <li><strong>流媒体解锁支持：</strong>{airport.streamingSupport.join('、')}</li>
+          <li><strong>AI模型专属支持：</strong>{airport.aiSupport.join('、')}</li>
+        </ul>
+      </div>
+
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;">
+        <h3 style="margin-top:0;font-size:1.2rem;color:#0f172a;margin-bottom:14px;">🎯 适用场景与人群定位</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+          {airport.suitableFor.map(item => (
+            <span class="badge badge-outline" style="padding:6px 12px;font-size:0.85rem;">{item}</span>
+          ))}
+        </div>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0;">
+          结合实机性能与资费方案，该机场尤其适合需要兼顾晚高峰稳定性与成本效益的用户群体。
+        </p>
+      </div>
+    </div>
+
+    <!-- Advantages & Disadvantages -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        二、编辑部客观优缺点分析
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px;">
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:20px;">
+          <h3 style="margin-top:0;color:#166534;font-size:1.15rem;display:flex;align-items:center;gap:6px;">
+            <span>✅</span> 核心优势
+          </h3>
+          <ul style="padding-left:20px;margin-bottom:0;color:#15803d;line-height:1.8;font-size:0.92rem;">
+            {airport.advantages.map(adv => <li>{adv}</li>)}
+          </ul>
+        </div>
+
+        <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:20px;">
+          <h3 style="margin-top:0;color:#9f1239;font-size:1.15rem;display:flex;align-items:center;gap:6px;">
+            <span>⚠️</span> 注意事项与不足
+          </h3>
+          <ul style="padding-left:20px;margin-bottom:0;color:#be123c;line-height:1.8;font-size:0.92rem;">
+            {airport.disadvantages.map(dis => <li>{dis}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Action CTA -->
+    <div style="text-align:center;padding:40px 20px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0;">
+      <h3 style="font-size:1.4rem;color:#0f172a;margin-bottom:8px;">准备好开始使用 {airport.name} 了吗？</h3>
+      <p style="color:#64748b;margin-bottom:24px;font-size:0.95rem;">点击下方按钮直达官网购买页面，输入优惠码享受独家立减优惠。</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href={`/review/${airport.slug}.html`} class="btn btn-outline">阅读深度晚高峰测速报告</a>
+        <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary" style="padding:12px 32px;font-size:1.05rem;">
+          前往 {airport.name.split(' ')[0]} 官方网站 →
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

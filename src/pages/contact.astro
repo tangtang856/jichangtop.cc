@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '联系我们', url: '/contact.html' }
+];
+---
+
+<Layout
+  title="联系我们 · 商务合作、评测勘误与工单反馈 | 机场Top"
+  description="联系机场Top编辑部。如果您发现任何服务商套餐变动、节点下线或测速数据出入，欢迎通过工单邮箱与我们联系。"
+  keywords="联系我们, 机场Top联系方式, 测速勘误"
+  activeNav="about"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;max-width:880px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;margin-bottom:12px;">联系与反馈</h1>
+      <p style="font-size:1.05rem;color:#475569;line-height:1.7;">
+        我们认真对待读者的每一条反馈与勘误建议。
+      </p>
+    </header>
+
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:32px;line-height:1.8;color:#334155;font-size:1rem;">
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:0;">📬 联络方式</h2>
+      <p>
+        官方工作邮箱：<code style="color:#2563eb;font-weight:700;">contact@jichangtop.cc</code><br>
+        工作时间：周一至周五 09:00 - 18:00 (UTC+8)
+      </p>
+
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:28px;">📝 数据勘误与品牌入驻</h2>
+      <p>
+        <strong>1. 资费与优惠变动：</strong>如果您是机场运营方或常客，发现收录的套餐价格、流量额度或优惠码发生调整，请附带官方公告链接邮件告知，核实后我们将在 24 小时内更新。<br>
+        <strong>2. 跑路预警与投诉：</strong>如某品牌出现连续超过 72 小时大面积断联失联、失联跑路迹象，请提交工单与充值证明，编辑部将第一时间启动复测并下架预警。
+      </p>
+    </div>
+  </div>
+</Layout>

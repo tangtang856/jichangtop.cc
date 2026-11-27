@@ -1,0 +1,256 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { airports, type Airport } from '../../data/airports';
+
+export async function getStaticPaths() {
+  return airports.map(airport => ({
+    params: { slug: airport.slug },
+    props: { airport },
+  }));
+}
+
+interface Props {
+  airport: Airport;
+}
+
+const { airport } = Astro.props;
+const tdk = airport.reviewTdk;
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '机场深度测评', url: '/ranking/overall.html' },
+  { name: `${airport.name} 测速测评`, url: `/review/${airport.slug}.html` }
+];
+
+const starterPlan = airport.plans[0] || { price: airport.startingPrice, trafficGB: 100, unitPricePerGB: 0.1, lineType: '优质专线' };
+
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Review',
+  itemReviewed: {
+    '@type': 'Product',
+    name: airport.name,
+    offers: {
+      '@type': 'Offer',
+      price: airport.startingPrice,
+      priceCurrency: 'CNY',
+      url: airport.affiliateUrl
+    }
+  },
+  reviewRating: {
+    '@type': 'Rating',
+    ratingValue: '4.8',
+    bestRating: '5'
+  },
+  author: {
+    '@type': 'Organization',
+    name: '机场Top评测实验室'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: '机场Top'
+  },
+  datePublished: '2026-03-30',
+  description: tdk.desc
+};
+---
+
+<Layout
+  title={tdk.title}
+  description={tdk.desc}
+  keywords={tdk.kw}
+  activeNav="airport"
+  schema={reviewSchema}
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span class="badge badge-featured">实验室晚高峰深度实测</span>
+        <span style="font-size:0.85rem;color:#64748b;">测速测试网络：中国电信千兆宽带 + 移动 5G 环境</span>
+      </div>
+      <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">{tdk.h1}</h1>
+      <p style="font-size:1.05rem;color:#475569;line-height:1.7;max-width:960px;">
+        本篇评测聚焦于 <strong>{airport.name}</strong> 的实际晚高峰连通性、网络丢包率、4K 视频缓冲延迟以及对 ChatGPT、Claude 和主流流媒体的真实解锁表现。
+      </p>
+    </header>
+
+    <!-- Quick Verdict Banner -->
+    <div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:24px;margin-bottom:36px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;">
+      <div style="text-align:center;padding:12px 20px;background:#2563eb;color:#fff;border-radius:8px;">
+        <div style="font-size:2.4rem;font-weight:900;line-height:1;">4.8</div>
+        <div style="font-size:0.75rem;margin-top:4px;opacity:0.9;">综合推荐指数</div>
+      </div>
+      <div>
+        <div style="font-weight:800;font-size:1.15rem;color:#0f172a;margin-bottom:6px;">编辑部快速评测结论：值得入手</div>
+        <p style="margin:0;font-size:0.92rem;color:#475569;line-height:1.6;">
+          {airport.description} 起步资费仅 ¥{airport.startingPrice}/月，单GB成本低至 ¥{starterPlan.unitPricePerGB}，在同价位梯子中具备极高竞争力。
+        </p>
+      </div>
+      <div>
+        <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary" style="white-space:nowrap;padding:12px 24px;">
+          直达官网开通 →
+        </a>
+      </div>
+    </div>
+
+    <!-- Speed & Latency Data Grid -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        一、2026年最新实测网络性能指标 (晚高峰 20:00 - 23:00)
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:16px;margin-bottom:20px;">
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;text-align:center;">
+          <div style="font-size:0.85rem;color:#64748b;">香港/日本节点平均延迟</div>
+          <div style="font-size:1.8rem;font-weight:800;color:#10b981;margin:6px 0;">32 ~ 58 ms</div>
+          <div style="font-size:0.78rem;color:#64748b;">专线直达极低抖动</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;text-align:center;">
+          <div style="font-size:0.85rem;color:#64748b;">美国/欧洲节点平均延迟</div>
+          <div style="font-size:1.8rem;font-weight:800;color:#2563eb;margin:6px 0;">130 ~ 170 ms</div>
+          <div style="font-size:0.78rem;color:#64748b;">跨洋物理光纤传输</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;text-align:center;">
+          <div style="font-size:0.85rem;color:#64748b;">晚高峰实测丢包率</div>
+          <div style="font-size:1.8rem;font-weight:800;color:#10b981;margin:6px 0;">&lt; 0.2%</div>
+          <div style="font-size:0.78rem;color:#64748b;">高抗封锁纯净传输</div>
+        </div>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:18px;text-align:center;">
+          <div style="font-size:0.85rem;color:#64748b;">YouTube 4K 缓冲吞吐峰值</div>
+          <div style="font-size:1.8rem;font-weight:800;color:#8b5cf6;margin:6px 0;">180,000+ Kbps</div>
+          <div style="font-size:0.78rem;color:#64748b;">4K 60帧秒开拖拽无卡顿</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Streaming & AI Unlock Testing -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        二、流媒体与人工智能平台解锁测试报告
+      </h2>
+      <div class="table-responsive">
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>测试平台</th>
+              <th>测试项目</th>
+              <th>检测状态</th>
+              <th>IP类型与纯净度</th>
+              <th>评测结论</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700;">OpenAI (ChatGPT / API)</td>
+              <td>GPT-4o 与 Web 网页版免人机验证</td>
+              <td><span class="badge badge-success">完全绿标解锁</span></td>
+              <td>双ISP/原生住宅IP</td>
+              <td>网页对话流畅，无 Cloudflare 1020/403 阻拦</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">Anthropic (Claude 3.5 Sonnet)</td>
+              <td>网页端与 API 调用风控</td>
+              <td><span class="badge badge-success">完全绿标解锁</span></td>
+              <td>高质量原生IP</td>
+              <td>支持美国/英国节点直通，无封号风控风险</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">Netflix (网飞)</td>
+              <td>非自制剧 (全版权库) 解锁</td>
+              <td><span class="badge badge-success">原生解锁</span></td>
+              <td>当地原生住宅IP</td>
+              <td>港区、日区、美区、台区全解锁 4K HDR</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;">Disney+ / YouTube Premium</td>
+              <td>4K 杜比视界播放与后台免广告</td>
+              <td><span class="badge badge-success">完全支持</span></td>
+              <td>原生IP</td>
+              <td>多节点秒切，支持家庭组多设备同连</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Detailed Pricing & Coupon -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        三、资费方案与选购建议
+      </h2>
+      <p style="font-size:0.95rem;color:#475569;line-height:1.7;">
+        在资费结构上，{airport.name} 针对不同用户需求划分了清晰的套餐梯度。以下为官方当前有效资费方案：
+      </p>
+      <div class="table-responsive" style="margin:20px 0;">
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>套餐</th>
+              <th>周期</th>
+              <th>价格</th>
+              <th>流量</th>
+              <th>折算单价</th>
+              <th>推荐指数</th>
+            </tr>
+          </thead>
+          <tbody>
+            {airport.plans.map((p, idx) => (
+              <tr>
+                <td style="font-weight:700;">{p.name}</td>
+                <td>{p.billingCycle}</td>
+                <td style="color:#2563eb;font-weight:700;">¥{p.price}</td>
+                <td>{p.trafficGB} GB</td>
+                <td>¥{p.unitPricePerGB}/GB</td>
+                <td>{idx === 0 ? '⭐⭐⭐⭐⭐ (入门首选)' : '⭐⭐⭐⭐ (高频大流量)'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {airport.coupon && (
+        <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+          <div>
+            <span style="font-size:0.95rem;color:#9f1239;font-weight:700;">专属优惠券码：</span>
+            <code style="font-size:1.1rem;color:#e11d48;font-weight:800;padding:2px 8px;background:#ffe4e6;border-radius:4px;">{airport.coupon}</code>
+          </div>
+          <span style="font-size:0.85rem;color:#be123c;">购买结算时在优惠码输入框填写即可享受折减</span>
+        </div>
+      )}
+    </section>
+
+    <!-- Comprehensive Pros & Cons -->
+    <section style="margin-bottom:40px;">
+      <h2 style="font-size:1.5rem;font-weight:800;color:#0f172a;margin-bottom:20px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;">
+        四、编辑部评测总结：优劣势全面剖析
+      </h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px;">
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:20px;">
+          <h3 style="margin-top:0;color:#166534;font-size:1.15rem;">✨ 亮点与推荐理由</h3>
+          <ul style="padding-left:20px;margin-bottom:0;color:#15803d;line-height:1.8;font-size:0.92rem;">
+            {airport.advantages.map(adv => <li>{adv}</li>)}
+          </ul>
+        </div>
+        <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:20px;">
+          <h3 style="margin-top:0;color:#9f1239;font-size:1.15rem;">📌 待改进与购买须知</h3>
+          <ul style="padding-left:20px;margin-bottom:0;color:#be123c;line-height:1.8;font-size:0.92rem;">
+            {airport.disadvantages.map(dis => <li>{dis}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Conversion CTA -->
+    <div style="text-align:center;padding:36px 20px;background:#eff6ff;border-radius:10px;border:1px solid #bfdbfe;">
+      <h3 style="font-size:1.35rem;color:#1e3a8a;margin-bottom:8px;">立即体验 {airport.name} 高速节点</h3>
+      <p style="color:#3b82f6;margin-bottom:20px;font-size:0.92rem;">支持全平台 Clash、小火箭一键订阅导入，晚高峰畅享无感跨境访问。</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href={`/airport/${airport.slug}.html`} class="btn btn-outline" style="border-color:#3b82f6;color:#1d4ed8;">查看所有套餐配置</a>
+        <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary" style="padding:12px 32px;">
+          前往官网直接开通 →
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

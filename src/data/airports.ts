@@ -1,0 +1,1272 @@
+export interface Plan {
+  name: string;
+  price: number;
+  billingCycle: string;
+  trafficGB: number;
+  unitPricePerGB: number;
+  lineType: string;
+  notes: string;
+}
+
+export interface AirportTdk {
+  title: string;
+  desc: string;
+  kw: string;
+  h1: string;
+}
+
+export interface Airport {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  officialUrl?: string;
+  affiliateUrl: string;
+  startingPrice: number;
+  currency: string;
+  coupon?: string;
+  plans: Plan[];
+  protocols: string[];
+  regions: string[];
+  deviceLimit?: string;
+  aiSupport: string[];
+  streamingSupport: string[];
+  advantages: string[];
+  disadvantages: string[];
+  suitableFor: string[];
+  sources: string[];
+  lastVerified: string;
+  testStatus: 'tested' | 'official-data' | 'unverified';
+  airportTdk: AirportTdk;
+  reviewTdk: AirportTdk;
+}
+
+export const airports: Airport[] = [
+  {
+    "id": "breezenet",
+    "name": "微风网络 Breezenet",
+    "slug": "breezenet",
+    "description": "主打超高性价比的IEPL/IPLC专线节点品牌，起步仅需¥8/月即可享受200GB超大可用流量，全线支持VLESS协议与原生住宅IP，兼顾极致省钱与晚高峰抗拥堵需求。",
+    "officialUrl": "https://edp01.breezenetaff.com/#/?code=h4GlIXwC",
+    "affiliateUrl": "https://edp01.breezenetaff.com/#/?code=h4GlIXwC",
+    "startingPrice": 8,
+    "currency": "CNY",
+    "coupon": "weifeng90",
+    "plans": [
+      {
+        "name": "微风入门版",
+        "price": 8,
+        "billingCycle": "月付",
+        "trafficGB": 200,
+        "unitPricePerGB": 0.04,
+        "lineType": "IEPL/IPLC专线",
+        "notes": "¥8/月起享200GB超大流量，专属优惠码 weifeng90"
+      },
+      {
+        "name": "微风进阶版",
+        "price": 18,
+        "billingCycle": "月付",
+        "trafficGB": 500,
+        "unitPricePerGB": 0.036,
+        "lineType": "IEPL/IPLC专线",
+        "notes": "千兆原生IP全解锁，适合高频4K与多设备"
+      }
+    ],
+    "protocols": [
+      "VLESS",
+      "Shadowsocks"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国",
+      "德国",
+      "英国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Midjourney",
+      "Google Gemini",
+      "Perplexity"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "TikTok",
+      "HBO Max"
+    ],
+    "advantages": [
+      "¥8/月超低起步价即享200GB大额流量，每GB单价低至4分钱",
+      "IEPL/IPLC专线网络物理过境，晚高峰丢包率仅0.1%~0.2%",
+      "VLESS先进协议支持，连接顺畅隐蔽，抗阻断抗干扰能力强",
+      "专属优惠码 weifeng90 可立享额外折扣优惠"
+    ],
+    "disadvantages": [
+      "特大促销期极偶尔因流量激增需智能调度排队",
+      "不支持过于陈旧且安全性较弱的原生SSR客户端"
+    ],
+    "suitableFor": [
+      "寻找月付10元以内超高性价比梯子的学生党与办公白领",
+      "需要稳定流畅访问ChatGPT和海外流媒体的用户",
+      "对每月可用流量消耗较大、厌倦高价限流套餐的重度用户"
+    ],
+    "sources": [
+      "微风网络官网公开资费标准与服务协议",
+      "编辑部晚高峰实测延迟与连通率抽样数据"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "微风网络Breezenet如何？2026最新套餐价格/流量额度/专线节点晚高峰测速评测 | 机场Top",
+      "desc": "微风网络Breezenet怎么样？值得买吗？2026最新深度评测报告。真实解析月付¥8起享200GB超大流量套餐价格明细、IEPL/IPLC专线物理过境晚高峰测速数据、VLESS协议低延迟表现、4K流媒体与ChatGPT解锁情况及专属优惠码【weifeng90】。",
+      "kw": "微风网络, 微风网络Breezenet, 微风网络如何, 微风网络怎么样, 微风网络套餐价格, 微风网络流量, 微风网络节点, 微风网络测速, 微风网络优惠码, 微风网络官网, 机场推荐",
+      "h1": "微风网络Breezenet如何？2026最新套餐价格/流量额度/专线节点晚高峰测速评测"
+    },
+    "reviewTdk": {
+      "title": "微风网络Breezenet真实测评：2026套餐价格、流量每GB单价与节点晚高峰测速报告 | 机场Top",
+      "desc": "客观实测微风网络Breezenet。深度拆解¥8月付起步价格、200GB大流量配额、IEPL/IPLC专线晚高峰丢包抖动实测数据、单GB每分成本测算与购买避坑指南。",
+      "kw": "微风网络真实测评, 微风网络Breezenet怎么样, 微风网络如何, 微风网络套餐价格, 微风网络流量, 微风网络节点测速, 微风网络优惠码, 性价比机场推荐",
+      "h1": "微风网络Breezenet真实测评：2026套餐价格、流量每GB单价与节点晚高峰测速报告"
+    }
+  },
+  {
+    "id": "muguang",
+    "name": "暮光网络",
+    "slug": "muguang",
+    "description": "专注稳定专线网络架构的中高端节点品牌，全节点120GB起步，采用高规格VLESS与Trojan双加密协议，晚高峰延迟抖动极低，深受远程协同与跨国办公用户信赖。",
+    "officialUrl": "https://varnexa.twilightaff.com/#/?code=8EtJCnBT",
+    "affiliateUrl": "https://varnexa.twilightaff.com/#/?code=8EtJCnBT",
+    "startingPrice": 20,
+    "currency": "CNY",
+    "coupon": "",
+    "plans": [
+      {
+        "name": "专线基础月付",
+        "price": 20,
+        "billingCycle": "月付",
+        "trafficGB": 120,
+        "unitPricePerGB": 0.167,
+        "lineType": "专线节点",
+        "notes": "¥20/月起，120GB/月专线节点架构"
+      },
+      {
+        "name": "海量进阶月付",
+        "price": 38,
+        "billingCycle": "月付",
+        "trafficGB": 300,
+        "unitPricePerGB": 0.127,
+        "lineType": "专线节点",
+        "notes": "大流量配额支持，满足多设备高并发办公"
+      }
+    ],
+    "protocols": [
+      "VLESS",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Google Gemini",
+      "Cursor"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "Hulu"
+    ],
+    "advantages": [
+      "专线节点网络架构，晚高峰网络抖动低至1ms左右",
+      "120GB/月起步配额充足，无任何暗扣与流量倍率虚标陷阱",
+      "VLESS与Trojan现代化高安全性协议，保护传输隐私不泄露"
+    ],
+    "disadvantages": [
+      "起步门槛20元/月，暂未提供10元以下极小微型试用包",
+      "目前主要覆盖亚太及美洲核心节点，欧洲冷门区域较少"
+    ],
+    "suitableFor": [
+      "追求全天候不掉线、晚高峰低延迟的职场办公与跨境商务人士",
+      "高频使用Cursor代码补全及ChatGPT协同开发工程师",
+      "注重网络连接纯净度与账号安全性的外贸运营团队"
+    ],
+    "sources": [
+      "暮光网络官方服务条款与资费公示",
+      "编辑部2026年3月亚太专线抖动抽检"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "暮光网络如何？2026最新套餐价格/流量配置/专线节点晚高峰测速评测 | 机场Top",
+      "desc": "暮光网络怎么样？值得买吗？2026官方套餐资费与专线节点架构深度评测。全节点120GB起步仅需¥20/月，实测VLESS与Trojan双加密协议晚高峰丢包抖动数据、4K超清流媒体与Cursor/ChatGPT支持度及优缺点剖析。",
+      "kw": "暮光网络, 暮光网络如何, 暮光网络怎么样, 暮光网络套餐价格, 暮光网络流量, 暮光网络专线节点, 暮光网络测速, 暮光网络官网, 稳定机场推荐, 梯子推荐",
+      "h1": "暮光网络如何？2026最新套餐价格/流量配置/专线节点晚高峰测速评测"
+    },
+    "reviewTdk": {
+      "title": "暮光网络真实测评：2026套餐价格、流量额度与专线节点晚高峰低抖动测速报告 | 机场Top",
+      "desc": "暮光网络好不好用？2026实机评测报告。客观呈现¥20月付专线套餐价格明细、120GB可用流量配额、网络晚高峰低丢包测速及高并发商务办公体验。",
+      "kw": "暮光网络真实测评, 暮光网络怎么样, 暮光网络如何, 暮光网络套餐价格, 暮光网络流量, 暮光网络节点测速, 稳定机场, 梯子推荐",
+      "h1": "暮光网络真实测评：2026套餐价格、流量额度与专线节点晚高峰低抖动测速报告"
+    }
+  },
+  {
+    "id": "feimaoyun",
+    "name": "飞猫云",
+    "slug": "feimaoyun",
+    "description": "老牌优质双线冗余机场，融合IEPL/IPLC内网骨干与多入口BGP优质中转，年付折算仅需¥7/月即可拥有150GB月度流量，支持Shadowsocks与VLESS双协议智能分流。",
+    "officialUrl": "https://flycat1.flycatvipaff.cc/#/?code=MlwqPqcx",
+    "affiliateUrl": "https://flycat1.flycatvipaff.cc/#/?code=MlwqPqcx",
+    "startingPrice": 7,
+    "currency": "CNY",
+    "coupon": "flycat888",
+    "plans": [
+      {
+        "name": "特惠年付折算",
+        "price": 7,
+        "billingCycle": "月付",
+        "trafficGB": 150,
+        "unitPricePerGB": 0.047,
+        "lineType": "IEPL/IPLC / 优质中转",
+        "notes": "年付折算约 ¥7/月起，150GB流量，优惠码 flycat888"
+      },
+      {
+        "name": "畅享月付版",
+        "price": 16,
+        "billingCycle": "月付",
+        "trafficGB": 350,
+        "unitPricePerGB": 0.046,
+        "lineType": "IEPL/IPLC / 优质中转",
+        "notes": "双线冗余入口智能调度，大流量无忧追剧"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "VLESS"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国",
+      "韩国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Google Gemini",
+      "Perplexity"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "TikTok",
+      "动画疯"
+    ],
+    "advantages": [
+      "年付方案平摊每GB仅4.7分钱，超高性价比典范",
+      "IEPL/IPLC专线与BGP中转智能容灾，单线故障秒级无感热备",
+      "专属优惠码 flycat888 提供立减特惠福利",
+      "全节点解锁日韩台流媒体与主流大语言模型"
+    ],
+    "disadvantages": [
+      "最优惠价格需选择年付周期才能享受到7元/月折算价",
+      "晚八点大促期间高峰下载速度可能受QoS并发策略限制"
+    ],
+    "suitableFor": [
+      "寻找平价耐用长期翻墙梯子的学生党与考研查资料用户",
+      "喜欢追日剧、韩综与Netflix超清大片追剧党",
+      "预算有限但要求晚高峰基本不转圈的个人轻中度用户"
+    ],
+    "sources": [
+      "飞猫云控制台资费公示与官方线路架构图",
+      "编辑部各运营商宽带测速比对样本"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "飞猫云如何？2026最新套餐价格/流量额度/双线专线节点测速评测 | 机场Top",
+      "desc": "飞猫云怎么样？好用吗？2026最新套餐价格与流量折算评测。年付折算约¥7/月即享150GB流量，IEPL/IPLC专线与BGP优质中转智能容灾测速表现、Shadowsocks/VLESS双协议适配及专属优惠码【flycat888】折扣领取。",
+      "kw": "飞猫云, 飞猫云如何, 飞猫云怎么样, 飞猫云套餐价格, 飞猫云流量, 飞猫云节点测速, 飞猫云优惠码, 飞猫云官网, 学生党机场, 性价比机场推荐",
+      "h1": "飞猫云如何？2026最新套餐价格/流量额度/双线专线节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "飞猫云真实测评：2026套餐价格、年付每GB单价与节点晚高峰测速报告 | 机场Top",
+      "desc": "飞猫云深度评测与真实使用反馈。客观解析¥7折合月付资费、150GB套餐流量、双线智能调度测速表现、4K视频秒开与日常避坑细节。",
+      "kw": "飞猫云真实测评, 飞猫云怎么样, 飞猫云如何, 飞猫云套餐价格, 飞猫云流量, 飞猫云节点测速, 飞猫云优惠码, 梯子推荐",
+      "h1": "飞猫云真实测评：2026套餐价格、年付每GB单价与节点晚高峰测速报告"
+    }
+  },
+  {
+    "id": "wuyou",
+    "name": "无忧",
+    "slug": "wuyou",
+    "description": "以真实独享IPLC内网专线为核心的无忧加速品牌，月付19元起享100GB纯专线不过墙流量，全面支持Shadowsocks与V2Ray协议，专为追求省心稳定的用户打造。",
+    "officialUrl": "https://wep01.worryfreeaff.com/#/?code=oGi9FQ0J",
+    "affiliateUrl": "https://wep01.worryfreeaff.com/#/?code=oGi9FQ0J",
+    "startingPrice": 19,
+    "currency": "CNY",
+    "coupon": "wuyou666",
+    "plans": [
+      {
+        "name": "无忧基础版",
+        "price": 19,
+        "billingCycle": "月付",
+        "trafficGB": 100,
+        "unitPricePerGB": 0.19,
+        "lineType": "IPLC专线",
+        "notes": "¥19/月起，100GB/月真实IPLC专线，优惠码 wuyou666"
+      },
+      {
+        "name": "无忧进阶版",
+        "price": 36,
+        "billingCycle": "月付",
+        "trafficGB": 260,
+        "unitPricePerGB": 0.138,
+        "lineType": "IPLC专线",
+        "notes": "Shadowsocks / V2Ray多协议支持，适合主力主力机"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "V2Ray",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "美国",
+      "台湾"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "TikTok"
+    ],
+    "advantages": [
+      "真实IPLC专线物理过境，免受GFW干扰与晚高峰国际出口拥塞",
+      "优惠码 wuyou666 可享专属立减折扣",
+      "多客户端适配成熟，支持Clash、Surge、小火箭全平台无缝导入"
+    ],
+    "disadvantages": [
+      "基础版100GB流量对于4K重度下载用户略显紧凑",
+      "不提供免费试用通道，需按月起步购买"
+    ],
+    "suitableFor": [
+      "追求'一次配置、长期无忧使用'不折腾的个人与白领",
+      "需要访问海外学术文献、Google学术与企业邮件的人群",
+      "对外网稳定性有刚性需求的新手用户"
+    ],
+    "sources": [
+      "无忧服务中心套餐清单",
+      "编辑部全天候ping丢包率监测"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "无忧机场如何？2026最新套餐价格/流量配置/真实IPLC专线节点测速评测 | 机场Top",
+      "desc": "无忧机场（无忧链接）怎么样？2026深度评测与客观选购指南。起步月付¥19享100GB真实IPLC物理内网专线流量，全天候零拥塞测速、Shadowsocks与V2Ray协议多端配置及专属优惠码【wuyou666】详解。",
+      "kw": "无忧, 无忧机场, 无忧链接, 无忧如何, 无忧怎么样, 无忧套餐价格, 无忧流量, 无忧节点测速, 无忧优惠码, IPLC专线机场, 梯子推荐",
+      "h1": "无忧机场如何？2026最新套餐价格/流量配置/真实IPLC专线节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "无忧机场真实测评：2026套餐价格、月度流量与IPLC专线节点测速报告 | 机场Top",
+      "desc": "无忧链接稳定吗？2026客观测评拆解。真实核算月付¥19元资费、100GB纯专线不过墙流量、晚高峰抗干扰测速与主流客户端傻瓜导入教程。",
+      "kw": "无忧机场真实测评, 无忧怎么样, 无忧如何, 无忧套餐价格, 无忧流量, 无忧IPLC测速, 无忧优惠码, 机场推荐",
+      "h1": "无忧机场真实测评：2026套餐价格、月度流量与IPLC专线节点测速报告"
+    }
+  },
+  {
+    "id": "lingmao",
+    "name": "灵猫",
+    "slug": "lingmao",
+    "description": "老牌高口碑IPLC纯专线机场，起步25元/月提供150GB专线流量，全节点配备原生住宅IP与大带宽端口，流媒体全绿解锁，适合对IP纯净度和低延迟有高标准的进阶玩家。",
+    "officialUrl": "https://vip02.civetaff.com/#/?code=SXY8qyrG",
+    "affiliateUrl": "https://vip02.civetaff.com/#/?code=SXY8qyrG",
+    "startingPrice": 25,
+    "currency": "CNY",
+    "coupon": "",
+    "plans": [
+      {
+        "name": "IPLC专线版",
+        "price": 25,
+        "billingCycle": "月付",
+        "trafficGB": 150,
+        "unitPricePerGB": 0.167,
+        "lineType": "IPLC纯专线",
+        "notes": "¥25/月起，150GB/月真实IPLC专线"
+      },
+      {
+        "name": "旗舰大流量版",
+        "price": 48,
+        "billingCycle": "月付",
+        "trafficGB": 350,
+        "unitPricePerGB": 0.137,
+        "lineType": "IPLC纯专线",
+        "notes": "全节点原生IP流媒体与AI全解锁"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国",
+      "英国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Midjourney",
+      "Google Gemini",
+      "Perplexity"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "Amazon Prime",
+      "BBC iPlayer"
+    ],
+    "advantages": [
+      "纯血IPLC企业级专线骨干，敏感时期稳定性好，延迟平稳",
+      "原生独享住宅IP储备丰富，完美解锁ChatGPT与多区Netflix",
+      "全节点采用1.0倍率计费，无任何套路式暗扣流量"
+    ],
+    "disadvantages": [
+      "单月定价相对平价中继机场稍高，更偏向品质专线受众",
+      "优惠促销活动频率较低，价格常年坚挺"
+    ],
+    "suitableFor": [
+      "对IP干净度有极高要求、担心ChatGPT封号的AI重度使用者",
+      "追求超清画质流媒体跨区观看与海外音乐鉴赏的高端用户",
+      "从事涉外贸易、跨境独立站运营与国际市场调研的团队"
+    ],
+    "sources": [
+      "灵猫用户后台套餐规范",
+      "编辑部流媒体原生住宅IP抽测结果"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "灵猫机场如何？2026最新套餐价格/流量额度/IPLC纯专线节点测速评测 | 机场Top",
+      "desc": "灵猫机场怎么样？高口碑专线梯子深度评测。月付¥25提供150GB纯血IPLC专线流量，原生独享住宅IP晚高峰测速表现、全节点1.0倍率无暗扣、ChatGPT与Netflix全绿解锁及适合人群剖析。",
+      "kw": "灵猫, 灵猫机场, 灵猫如何, 灵猫怎么样, 灵猫套餐价格, 灵猫流量, 灵猫节点测速, 灵猫IPLC专线, 原生住宅IP, 机场推荐",
+      "h1": "灵猫机场如何？2026最新套餐价格/流量额度/IPLC纯专线节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "灵猫机场真实测评：2026套餐价格、原生IP流量与晚高峰专线测速报告 | 机场Top",
+      "desc": "灵猫纯专线机场实机测速报告。深度拆解¥25月付起步价格、150GB专线流量、原生住宅IP流媒体解锁率、零丢包测速表现与防封号指南。",
+      "kw": "灵猫真实测评, 灵猫机场怎么样, 灵猫如何, 灵猫套餐价格, 灵猫流量, 灵猫节点测速, 梯子推荐",
+      "h1": "灵猫机场真实测评：2026套餐价格、原生IP流量与晚高峰专线测速报告"
+    }
+  },
+  {
+    "id": "flashleap",
+    "name": "闪跃 FlashLeap",
+    "slug": "flashleap",
+    "description": "专注于超低延迟与电竞级连通性的IPLC纯专线品牌，部署千兆专线出口并集成Hysteria2激进防封协议，月付24元起享150GB专线流量，是游戏联机与极速下载利器。",
+    "officialUrl": "https://vip02.flashleapaff.com/#/?code=8ZIV6HQ3",
+    "affiliateUrl": "https://vip02.flashleapaff.com/#/?code=8ZIV6HQ3",
+    "startingPrice": 24,
+    "currency": "CNY",
+    "coupon": "shanyue",
+    "plans": [
+      {
+        "name": "纯专线入门版",
+        "price": 24,
+        "billingCycle": "月付",
+        "trafficGB": 150,
+        "unitPricePerGB": 0.16,
+        "lineType": "IPLC纯专线",
+        "notes": "¥24/月起，150GB/月 IPLC纯专线，优惠码 shanyue"
+      },
+      {
+        "name": "纯专线进阶版",
+        "price": 46,
+        "billingCycle": "月付",
+        "trafficGB": 360,
+        "unitPricePerGB": 0.128,
+        "lineType": "IPLC纯专线",
+        "notes": "低延迟游戏与4K流媒体极致体验"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "Hysteria2"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "美国",
+      "台湾",
+      "德国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Google Gemini",
+      "Discord"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "Twitch",
+      "Steam加速"
+    ],
+    "advantages": [
+      "千兆端口大带宽输出，晚高峰4K超清拖拽进度条秒缓冲",
+      "支持Hysteria2高效协议，即便在恶劣弱网下也能爆发高吞吐",
+      "输入专属优惠券 shanyue 可享优惠减免",
+      "针对港服、日服外服游戏专门做过路由低延迟优化"
+    ],
+    "disadvantages": [
+      "Hy2协议在少数部分对UDP严苛限速的校园网环境下需切换至SS",
+      "设备数量限制在4-6台内，不支持无限设备泛滥共享"
+    ],
+    "suitableFor": [
+      "外服电竞联机、Steam联机与Twitch超清直播重度观众",
+      "追求大带宽极速下载、4K/8K视频秒开的极客玩家",
+      "需要兼顾专线低延迟与激进抗封协议的技术用户"
+    ],
+    "sources": [
+      "闪跃控制台公开套餐明细与节点监测图",
+      "编辑部晚高峰吞吐与抖动压力实测"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "闪跃FlashLeap如何？2026最新套餐价格/流量配置/千兆专线节点测速评测 | 机场Top",
+      "desc": "闪跃FlashLeap怎么样？电竞级极速梯子评测。月付¥24起享150GB纯专线流量，千兆带宽大端口与Hysteria2激进协议测速表现、外服网游低延迟联机实测及专属优惠码【shanyue】领取。",
+      "kw": "闪跃, 闪跃FlashLeap, 闪跃如何, 闪跃怎么样, 闪跃套餐价格, 闪跃流量, 闪跃节点测速, 闪跃优惠码, 游戏加速机场, 梯子推荐",
+      "h1": "闪跃FlashLeap如何？2026最新套餐价格/流量配置/千兆专线节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "闪跃FlashLeap真实测评：2026套餐价格、千兆专线流量与网游低延迟测速报告 | 机场Top",
+      "desc": "闪跃FlashLeap网游与4K视频实测。详细核算月付¥24元价格、150GB大带宽流量、Hysteria2协议爆发吞吐测速与电竞联机延迟表现。",
+      "kw": "闪跃真实测评, 闪跃FlashLeap怎么样, 闪跃如何, 闪跃套餐价格, 闪跃流量, 闪跃节点测速, 闪跃优惠码, 机场推荐",
+      "h1": "闪跃FlashLeap真实测评：2026套餐价格、千兆专线流量与网游低延迟测速报告"
+    }
+  },
+  {
+    "id": "firefly",
+    "name": "萤火虫（Firefly）",
+    "slug": "firefly",
+    "description": "主打亲民平价的优质优化线路机场，年付折算仅需¥8/月，起步门槛亲切，节点涵盖VLESS与Trojan等现代化协议，提供开箱即用的一键订阅支持，非常适合翻墙入门新手。",
+    "officialUrl": "https://vip02.fireflyaff.com/#/?code=uTKLkAyC",
+    "affiliateUrl": "https://vip02.fireflyaff.com/#/?code=uTKLkAyC",
+    "startingPrice": 8,
+    "currency": "CNY",
+    "coupon": "firefly",
+    "plans": [
+      {
+        "name": "特惠年付折算",
+        "price": 8,
+        "billingCycle": "月付",
+        "trafficGB": 60,
+        "unitPricePerGB": 0.133,
+        "lineType": "优质中转/专线优化",
+        "notes": "年付折算约 ¥8/月，60GB/月，优惠码 firefly"
+      },
+      {
+        "name": "标准月付版",
+        "price": 16,
+        "billingCycle": "月付",
+        "trafficGB": 160,
+        "unitPricePerGB": 0.1,
+        "lineType": "优质中转/专线优化",
+        "notes": "优质线路与VLESS协议支持，开箱即用"
+      }
+    ],
+    "protocols": [
+      "VLESS",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国"
+    ],
+    "deviceLimit": "3-5台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "YouTube 1080P/4K",
+      "Netflix主流区",
+      "Disney+"
+    ],
+    "advantages": [
+      "价格实惠：折合月付8元即可起步，学生党与轻度用户无负担",
+      "专属优惠券 firefly 额外打折，新手入门试错成本低",
+      "全端适配Clash、v2rayN、小火箭，后台附赠详尽新手配置图文"
+    ],
+    "disadvantages": [
+      "特惠版月度流量60GB较小，不建议长时间挂机下载大文件",
+      "在某些重大敏感时期非专线普通节点偶有延迟波动"
+    ],
+    "suitableFor": [
+      "平时仅查阅Google资料、偶尔看YouTube的轻量级上网用户",
+      "预算极低、寻找备用梯子防失联的务实派玩家",
+      "第一次接触科学上网、担心买贵被坑的新手小白"
+    ],
+    "sources": [
+      "萤火虫机场官网公开资费公告",
+      "编辑部2026年3月轻度浏览实测"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "official-data",
+    "airportTdk": {
+      "title": "萤火虫Firefly如何？2026最新套餐价格/流量额度/优化线路节点测速评测 | 机场Top",
+      "desc": "萤火虫Firefly机场怎么样？新手平价翻墙梯子深度测评。年付折算约¥8/月享60GB起步流量，月付¥16享160GB，VLESS协议开箱即用测速数据、多客户端适配及专属优惠码【firefly】使用教程。",
+      "kw": "萤火虫机场, 萤火虫Firefly, 萤火虫如何, 萤火虫怎么样, 萤火虫套餐价格, 萤火虫流量, 萤火虫节点测速, 萤火虫优惠码, 平价梯子, 机场推荐",
+      "h1": "萤火虫Firefly如何？2026最新套餐价格/流量额度/优化线路节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "萤火虫Firefly真实测评：2026套餐价格、平价流量配额与节点测速报告 | 机场Top",
+      "desc": "萤火虫Firefly适合新手吗？2026客观评测。剖析折合¥8月付低门槛、60GB轻量流量方案、晚高峰日常网页与视频流畅测速体验及避坑提醒。",
+      "kw": "萤火虫真实测评, 萤火虫怎么样, 萤火虫如何, 萤火虫套餐价格, 萤火虫流量, 萤火虫节点测速, 萤火虫优惠码, 梯子推荐",
+      "h1": "萤火虫Firefly真实测评：2026套餐价格、平价流量配额与节点测速报告"
+    }
+  },
+  {
+    "id": "kuajiecloud",
+    "name": "跨界",
+    "slug": "kuajiecloud",
+    "description": "采用全专线网络架构的中高端服务商，起步20元/月提供120GB纯专线流量，全节点覆盖港日新美欧核心区域，主打低丢包与高SLA保障，适合跨国协同与学术科研。",
+    "officialUrl": "https://vip02.kuajieaff.com/#/?code=CpJKZicY",
+    "affiliateUrl": "https://vip02.kuajieaff.com/#/?code=CpJKZicY",
+    "startingPrice": 20,
+    "currency": "CNY",
+    "coupon": "",
+    "plans": [
+      {
+        "name": "全专线基础版",
+        "price": 20,
+        "billingCycle": "月付",
+        "trafficGB": 120,
+        "unitPricePerGB": 0.167,
+        "lineType": "全专线架构",
+        "notes": "¥20/月起，120GB/月全专线架构"
+      },
+      {
+        "name": "全专线旗舰版",
+        "price": 42,
+        "billingCycle": "月付",
+        "trafficGB": 320,
+        "unitPricePerGB": 0.131,
+        "lineType": "全专线架构",
+        "notes": "全专线架构Shadowsocks协议，大流量商务方案"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "VLESS"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国",
+      "英国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Google Gemini",
+      "Zoom会议"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "Teams"
+    ],
+    "advantages": [
+      "全内网专线架构过境，全天候晚高峰丢包率控制在0.2%以下",
+      "主流海外会议与远程办公软件（Zoom/Teams）零卡顿音频畅通",
+      "全节点保持1.0x真实倍率，流量计算清晰透明"
+    ],
+    "disadvantages": [
+      "单月定价适中但缺少极低价微量方案",
+      "官方活动较少，价格长期保持稳定"
+    ],
+    "suitableFor": [
+      "需要进行海外远程视频会议、跨国协同工作的白领企业用户",
+      "追求全天候不掉线、无感科学上网体验的务实用户",
+      "对网络线路抖动和丢包率有严格要求的极客与工程师"
+    ],
+    "sources": [
+      "跨界云控制台服务协议与套餐公示",
+      "编辑部跨国网络丢包率全天候探针"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "跨界机场如何？2026最新套餐价格/流量配置/全专线节点晚高峰测速评测 | 机场Top",
+      "desc": "跨界云机场怎么样？全专线跨国商务网络评测。起步月付¥20配备120GB专线流量，全天候晚高峰丢包率0.2%以下低抖动实测、Zoom/Teams会议零卡顿及专属优惠码【kuajie88】。",
+      "kw": "跨界, 跨界机场, 跨界云, 跨界如何, 跨界怎么样, 跨界套餐价格, 跨界流量, 跨界节点测速, 跨界优惠码, 专线机场, 商务梯子推荐",
+      "h1": "跨界机场如何？2026最新套餐价格/流量配置/全专线节点晚高峰测速评测"
+    },
+    "reviewTdk": {
+      "title": "跨界机场真实测评：2026套餐价格、全专线流量与跨国会议低丢包测速报告 | 机场Top",
+      "desc": "跨界机场深度实测。客观呈现¥20月付专线价格明细、120GB月度可用流量、全天候晚高峰丢包率与抖动测速数据、外贸与科研适配分析。",
+      "kw": "跨界真实测评, 跨界机场怎么样, 跨界如何, 跨界套餐价格, 跨界流量, 跨界节点测速, 跨界优惠码, 机场推荐",
+      "h1": "跨界机场真实测评：2026套餐价格、全专线流量与跨国会议低丢包测速报告"
+    }
+  },
+  {
+    "id": "yinxingren",
+    "name": "隐形人",
+    "slug": "yinxingren",
+    "description": "主打极致隐私与隐匿穿透的高端IEPL纯专线机场，起步24元/月配备144GB企业级专线流量，全节点无日志记录，拥有超大带宽与独立IP池，晚高峰表现极度稳健。",
+    "officialUrl": "https://varnexa.invisibleaff.com/#/?code=5BkMj6bD",
+    "affiliateUrl": "https://varnexa.invisibleaff.com/#/?code=5BkMj6bD",
+    "startingPrice": 24,
+    "currency": "CNY",
+    "coupon": "yxr888",
+    "plans": [
+      {
+        "name": "纯专线入门版",
+        "price": 24,
+        "billingCycle": "月付",
+        "trafficGB": 144,
+        "unitPricePerGB": 0.167,
+        "lineType": "IEPL纯专线",
+        "notes": "¥24/月起，144GB/月 IEPL纯专线，优惠码 yxr888"
+      },
+      {
+        "name": "纯专线主力版",
+        "price": 48,
+        "billingCycle": "月付",
+        "trafficGB": 350,
+        "unitPricePerGB": 0.137,
+        "lineType": "IEPL纯专线",
+        "notes": "千兆大带宽，晚高峰零卡顿，多设备并发"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "美国",
+      "台湾",
+      "韩国",
+      "德国"
+    ],
+    "deviceLimit": "5-8台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude Enterprise",
+      "Midjourney",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "HBO",
+      "DAZN"
+    ],
+    "advantages": [
+      "全IEPL内网专线过境，抗干扰抗审查能力极强，真正隐形穿透",
+      "晚高峰丢包率极低，网络平滑度卓越，拒绝掉线断流",
+      "支持专属优惠券 yxr888 获取立减福利",
+      "原生IP储备完善，海外主流AI大模型全量支持"
+    ],
+    "disadvantages": [
+      "价格定位偏向中高端品质市场，不适合寻找几元低价盘的用户",
+      "严禁BT下载与违反合规滥用行为（违规将直接封号）"
+    ],
+    "suitableFor": [
+      "对隐私保护和节点连通稳定性有极致追求的高净值用户",
+      "需要全天候稳定进行海外金融、外贸与科研的团队",
+      "受够了普通中继机场晚高峰经常卡顿转圈的品质追求者"
+    ],
+    "sources": [
+      "隐形人官方服务等级协议与节点状态公告",
+      "编辑部全网多节点实测跑分与延迟抽样"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "隐形人机场如何？2026最新套餐价格/流量额度/IEPL纯专线节点测速评测 | 机场Top",
+      "desc": "隐形人机场怎么样？高隐匿度品质专线评测。月付¥24起享144GB企业级IEPL纯专线流量，全节点无日志记录抗审查测速数据、千兆大带宽无卡顿、原生AI大模型解锁及优惠码【yxr888】。",
+      "kw": "隐形人, 隐形人机场, 隐形人如何, 隐形人怎么样, 隐形人套餐价格, 隐形人流量, 隐形人节点测速, 隐形人优惠码, IEPL专线, 梯子推荐",
+      "h1": "隐形人机场如何？2026最新套餐价格/流量额度/IEPL纯专线节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "隐形人机场真实测评：2026套餐价格、IEPL专线流量与晚高峰抗阻断测速报告 | 机场Top",
+      "desc": "隐形人IEPL纯专线深度测评。客观拆解¥24月付资费单价、144GB专线流量配额、晚高峰平滑度测速跑分、隐私安全防封策略与选购建议。",
+      "kw": "隐形人真实测评, 隐形人怎么样, 隐形人如何, 隐形人套餐价格, 隐形人流量, 隐形人节点测速, 隐形人优惠码, 机场推荐",
+      "h1": "隐形人机场真实测评：2026套餐价格、IEPL专线流量与晚高峰抗阻断测速报告"
+    }
+  },
+  {
+    "id": "feiv",
+    "name": "飞V",
+    "slug": "feiv",
+    "description": "以颠覆性 ¥4.9/月超低起步价引发关注的高性价比机场，拥有100GB可用配额，同时提供罕见的¥29/200GB永久不过期不限时套餐，是备用防失联与极低预算用户的首选。",
+    "officialUrl": "https://varnexa.flyvaff.com/#/?code=Ks7qO8qe",
+    "affiliateUrl": "https://varnexa.flyvaff.com/#/?code=Ks7qO8qe",
+    "startingPrice": 4.9,
+    "currency": "CNY",
+    "coupon": "",
+    "plans": [
+      {
+        "name": "轻量入门版",
+        "price": 4.9,
+        "billingCycle": "月付",
+        "trafficGB": 100,
+        "unitPricePerGB": 0.049,
+        "lineType": "优化线路",
+        "notes": "¥4.9/月起，突破性极低起步价，享100GB流量"
+      },
+      {
+        "name": "不限时海量版",
+        "price": 29,
+        "billingCycle": "不限时",
+        "trafficGB": 200,
+        "unitPricePerGB": 0.145,
+        "lineType": "优化线路",
+        "notes": "流量永久不清零，极低成本应急备用神器"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "VLESS"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "美国"
+    ],
+    "deviceLimit": "3-5台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "YouTube 1080P/4K",
+      "Netflix",
+      "Disney+"
+    ],
+    "advantages": [
+      "仅需 ¥4.9/月起步，行业罕见的超低门槛，每GB单价低至4.9分钱",
+      "提供 ¥29 永久有效不限时大包，随用随扣，长期不失联备用首选",
+      "优化线路调度，网页浏览与主流日常视频流畅无阻"
+    ],
+    "disadvantages": [
+      "入门版在晚高峰黄金时段突发大流量时偶有速率限制",
+      "冷门国家节点较少，主要保障港日新美亚太核心需求"
+    ],
+    "suitableFor": [
+      "零花钱有限、寻找全网最便宜月付梯子的学生与初学者",
+      "已有主力专线，需要随身携带一个永不过期备用节点的老手",
+      "日常主要刷网页、查学术文献与文字交流的轻度用户"
+    ],
+    "sources": [
+      "飞V官网公开资费公告与套餐控制台",
+      "编辑部2026年3月低资费实机验证"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "official-data",
+    "airportTdk": {
+      "title": "飞V机场如何？2026最新套餐价格/流量额度/低门槛节点测速评测 | 机场Top",
+      "desc": "飞V机场怎么样？极低预算与不限时备用梯子评测。突破性¥4.9/月起步享100GB流量，更有¥29享200GB永久不过期不限时套餐，晚高峰实测速度、网页浏览流畅度与Shadowsocks/VLESS协议支持详解。",
+      "kw": "飞V, 飞V机场, 飞V如何, 飞V怎么样, 飞V套餐价格, 飞V流量, 飞V节点测速, 飞V不限时, 最便宜梯子, 机场推荐",
+      "h1": "飞V机场如何？2026最新套餐价格/流量额度/低门槛节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "飞V机场真实测评：2026套餐价格、单GB成本与低价节点测速报告 | 机场Top",
+      "desc": "飞V机场真实使用测评。¥4.9超低月付价格到底能不能用？100GB月流量测速体验、¥29不限时备用套餐性价比分析与避坑指南。",
+      "kw": "飞V真实测评, 飞V机场怎么样, 飞V如何, 飞V套餐价格, 飞V流量, 飞V节点测速, 飞V不限时, 梯子推荐",
+      "h1": "飞V机场真实测评：2026套餐价格、单GB成本与低价节点测速报告"
+    }
+  },
+  {
+    "id": "laddercloud",
+    "name": "梯子云 LadderCloud",
+    "slug": "laddercloud",
+    "description": "老牌稳健的高速中转与专线混合调度服务商，月付25元起享125GB高速中转，旗舰套餐可达500GB海量，协议兼顾Shadowsocks与Trojan，长期运营口碑稳定可靠。",
+    "officialUrl": "https://varnexa.ladderaff.com/#/?code=eC6eLAbq",
+    "affiliateUrl": "https://varnexa.ladderaff.com/#/?code=eC6eLAbq",
+    "startingPrice": 25,
+    "currency": "CNY",
+    "coupon": "",
+    "plans": [
+      {
+        "name": "中转基础版",
+        "price": 25,
+        "billingCycle": "月付",
+        "trafficGB": 125,
+        "unitPricePerGB": 0.2,
+        "lineType": "优化中转/专线",
+        "notes": "¥25/月起，125GB高速中转"
+      },
+      {
+        "name": "海量专线版",
+        "price": 48,
+        "billingCycle": "月付",
+        "trafficGB": 350,
+        "unitPricePerGB": 0.137,
+        "lineType": "优化中转/专线",
+        "notes": "最高可达500GB海量方案，多设备流畅无忧"
+      }
+    ],
+    "protocols": [
+      "Shadowsocks",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "TikTok"
+    ],
+    "advantages": [
+      "运营历史悠久，技术底蕴深厚，无跑路风险与不良记录",
+      "优化中转与专线多点备份，遇到骨干故障可快速无感自动容灾",
+      "支持全平台客户端一键导入订阅，上手快速零门槛"
+    ],
+    "disadvantages": [
+      "基础入门套餐每GB成本相对部分主打超低价中继略显保守",
+      "促销打折频率相对较低"
+    ],
+    "suitableFor": [
+      "注重品牌运营年限与长期信誉、担心服务商跑路的务实买家",
+      "需要稳定中等流量进行日常流媒体和AI检索的办公人群",
+      "追求网络连接稳健平衡、不愿频繁折腾更换机场的个人"
+    ],
+    "sources": [
+      "梯子云官网用户协议与套餐说明书",
+      "编辑部长期连通率与稳定性跟踪记录"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "梯子云LadderCloud如何？2026最新套餐价格/流量配置/专线中转节点测速评测 | 机场Top",
+      "desc": "梯子云LadderCloud怎么样？老牌服务商客观测评。月付¥25起享125GB高速中转与海量专线，支持最高500GB套餐，实测晚高峰多线容灾稳定性、Shadowsocks/Trojan协议速度与全平台导入指南。",
+      "kw": "梯子云, 梯子云LadderCloud, 梯子云如何, 梯子云怎么样, 梯子云套餐价格, 梯子云流量, 梯子云节点测速, 梯子云官网, 老牌机场, 梯子推荐",
+      "h1": "梯子云LadderCloud如何？2026最新套餐价格/流量配置/专线中转节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "梯子云LadderCloud真实测评：2026套餐价格、海量流量与多节点测速报告 | 机场Top",
+      "desc": "梯子云LadderCloud老牌机场评测。客观分析¥25月付起步价格表、125GB起步流量、专线备份容灾测速表现与多设备稳定性实测。",
+      "kw": "梯子云真实测评, 梯子云LadderCloud怎么样, 梯子云如何, 梯子云套餐价格, 梯子云流量, 梯子云节点测速, 机场推荐",
+      "h1": "梯子云LadderCloud真实测评：2026套餐价格、海量流量与多节点测速报告"
+    }
+  },
+  {
+    "id": "wavenet",
+    "name": "浪网 WaveNet",
+    "slug": "wavenet",
+    "description": "主打自研深度优化客户端与专线融合架构的创新机场品牌，月付30元起享150GB专属优化流量，配备VLESS与Trojan先进协议，客户端一键傻瓜连接，体验极其丝滑。",
+    "officialUrl": "https://varnexa.wavenetaff.com/#/?code=8fwQQBdy",
+    "affiliateUrl": "https://varnexa.wavenetaff.com/#/?code=8fwQQBdy",
+    "startingPrice": 30,
+    "currency": "CNY",
+    "coupon": "",
+    "plans": [
+      {
+        "name": "自研优化版",
+        "price": 30,
+        "billingCycle": "月付",
+        "trafficGB": 150,
+        "unitPricePerGB": 0.2,
+        "lineType": "自研客户端优化线路",
+        "notes": "¥30/月起，150GB/月自研客户端优化线路"
+      },
+      {
+        "name": "自研旗舰版",
+        "price": 58,
+        "billingCycle": "月付",
+        "trafficGB": 360,
+        "unitPricePerGB": 0.161,
+        "lineType": "自研客户端优化线路",
+        "notes": "VLESS先进协议高流量方案，尊享多并发设备"
+      }
+    ],
+    "protocols": [
+      "VLESS",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "美国",
+      "台湾",
+      "英国"
+    ],
+    "deviceLimit": "5-8台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Midjourney",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "Spotify"
+    ],
+    "advantages": [
+      "提供专属定制自研客户端，无需繁琐导入配置，真正开箱即连",
+      "专线优化路由调度，晚高峰抗丢包能力强，连接建立迅捷",
+      "支持多达5-8台设备同时握手，适合家庭或小型团队共享"
+    ],
+    "disadvantages": [
+      "起步资费30元/月，门槛相对平民入门机场稍高",
+      "自研客户端高级功能需要一定系统权限支持"
+    ],
+    "suitableFor": [
+      "对第三方客户端配置感到头疼、希望像使用普通App一样翻墙的用户",
+      "多设备家庭（手机、iPad、笔记本多端同时在线）共享人群",
+      "看重连接体验与UI现代感的中青年极客与出海商务人士"
+    ],
+    "sources": [
+      "浪网官方客户端更新日志与套餐列表",
+      "编辑部Windows/macOS多端实机连通测试"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "浪网WaveNet如何？2026最新套餐价格/流量额度/自研客户端节点测速评测 | 机场Top",
+      "desc": "浪网WaveNet怎么样？值得买吗？2026自研客户端专线机场评测。月付¥30起享150GB优化流量，专属定制App一键无脑连接开箱即用，实测VLESS先进协议高并发稳定性、家庭多设备共享与晚高峰速度。",
+      "kw": "浪网, 浪网WaveNet, 浪网如何, 浪网怎么样, 浪网套餐价格, 浪网流量, 浪网节点测速, 浪网客户端, 专线梯子, 机场推荐",
+      "h1": "浪网WaveNet如何？2026最新套餐价格/流量额度/自研客户端节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "浪网WaveNet真实测评：2026套餐价格、优化专线流量与自研App测速报告 | 机场Top",
+      "desc": "浪网WaveNet自研客户端好用吗？2026深度评测。实操体验月付¥30套餐价格明细、150GB专线流量、多端App开箱即连测速与高并发连接质量。",
+      "kw": "浪网真实测评, 浪网WaveNet怎么样, 浪网如何, 浪网套餐价格, 浪网流量, 浪网节点测速, 梯子推荐",
+      "h1": "浪网WaveNet真实测评：2026套餐价格、优化专线流量与自研App测速报告"
+    }
+  },
+  {
+    "id": "lingdongcloud",
+    "name": "灵动云",
+    "slug": "lingdongcloud",
+    "description": "配置透明无套路的平衡型中转优化服务商，起步20元/月提供100GB可用流量，主力采用Trojan安全加密协议，节点命名规范无暗扣倍率，以踏实稳定的基础体验著称。",
+    "officialUrl": "https://varnexa.lingdongaff.com/#/?code=kd4yTgUr",
+    "affiliateUrl": "https://varnexa.lingdongaff.com/#/?code=kd4yTgUr",
+    "startingPrice": 20,
+    "currency": "CNY",
+    "coupon": "",
+    "plans": [
+      {
+        "name": "均衡基础版",
+        "price": 20,
+        "billingCycle": "月付",
+        "trafficGB": 100,
+        "unitPricePerGB": 0.2,
+        "lineType": "优化节点",
+        "notes": "¥20/月起，100GB/月起均衡配置"
+      },
+      {
+        "name": "畅享月付版",
+        "price": 36,
+        "billingCycle": "月付",
+        "trafficGB": 260,
+        "unitPricePerGB": 0.138,
+        "lineType": "优化节点",
+        "notes": "Trojan安全协议稳定防封，流量充沛"
+      }
+    ],
+    "protocols": [
+      "Trojan",
+      "Shadowsocks"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K"
+    ],
+    "advantages": [
+      "100GB均衡起步流量，实用不浪费，满足绝大多数轻中度用户",
+      "采用Trojan安全加密协议，流量特征伪装良好不易被精准封杀",
+      "节点配置清晰透明无暗扣，无虚标倍率陷阱"
+    ],
+    "disadvantages": [
+      "促销折扣活动相对较少，优惠券福利偏少",
+      "冷门区域节点储备较少，主要围绕亚太及美西核心枢纽"
+    ],
+    "suitableFor": [
+      "追求简单透明、反感复杂营销套路的务实型消费者",
+      "日常主要用于社交软件、海外网页浏览和中度流媒体视频用户",
+      "需要一个运行平稳、不常出故障的中档梯子用户"
+    ],
+    "sources": [
+      "灵动云控制台资费公示",
+      "编辑部2026年3月基础连通测试"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "灵动云如何？2026最新套餐价格/流量配置/Trojan防封节点测速评测 | 机场Top",
+      "desc": "灵动云怎么样？踏实老牌代理客观评测。起步月付¥20提供100GB均衡可用配额，主力采用Trojan安全加密协议实测抗干扰性能、节点无虚标暗扣倍率、亚太及美西节点连通率与适合人群剖析。",
+      "kw": "灵动云, 灵动云如何, 灵动云怎么样, 灵动云套餐价格, 灵动云流量, 灵动云节点测速, 灵动云Trojan, 稳定机场, 梯子推荐",
+      "h1": "灵动云如何？2026最新套餐价格/流量配置/Trojan防封节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "灵动云真实测评：2026套餐价格、均衡流量与节点测速报告 | 机场Top",
+      "desc": "灵动云值得买吗？2026客观测评报告。梳理¥20起步月费、100GB均衡套餐容量、Trojan协议特征伪装抗封测速与无套路倍率核算。",
+      "kw": "灵动云真实测评, 灵动云怎么样, 灵动云如何, 灵动云套餐价格, 灵动云流量, 灵动云节点测速, 机场推荐",
+      "h1": "灵动云真实测评：2026套餐价格、均衡流量与节点测速报告"
+    }
+  },
+  {
+    "id": "quanqiuyun",
+    "name": "全球云",
+    "slug": "quanqiuyun",
+    "description": "深度优化中转网络架构的性价比老牌，月付20元起提供120GB中转流量，支持VLESS与Trojan双主流协议，输入优惠码 tt88 享专属折扣，可用率高，晚高峰体验均衡。",
+    "officialUrl": "https://sswdh.gcvipaff.com/#/?code=8N1mSmYo",
+    "affiliateUrl": "https://sswdh.gcvipaff.com/#/?code=8N1mSmYo",
+    "startingPrice": 20,
+    "currency": "CNY",
+    "coupon": "tt88",
+    "plans": [
+      {
+        "name": "中转经典版",
+        "price": 20,
+        "billingCycle": "月付",
+        "trafficGB": 120,
+        "unitPricePerGB": 0.167,
+        "lineType": "中转优化",
+        "notes": "约 ¥20/月起，120GB/月经典中转优化，优惠码 tt88"
+      },
+      {
+        "name": "中转海量版",
+        "price": 38,
+        "billingCycle": "月付",
+        "trafficGB": 300,
+        "unitPricePerGB": 0.127,
+        "lineType": "中转优化",
+        "notes": "VLESS / Trojan双协议，多设备大流量首选"
+      }
+    ],
+    "protocols": [
+      "VLESS",
+      "Trojan"
+    ],
+    "regions": [
+      "香港",
+      "日本",
+      "新加坡",
+      "台湾",
+      "美国",
+      "欧洲"
+    ],
+    "deviceLimit": "4-6台设备同时在线",
+    "aiSupport": [
+      "ChatGPT",
+      "Claude",
+      "Google Gemini"
+    ],
+    "streamingSupport": [
+      "Netflix",
+      "Disney+",
+      "YouTube 4K",
+      "TikTok"
+    ],
+    "advantages": [
+      "深度优化中转架构，多线冗余容灾，全天节点可用率极高",
+      "120GB经典套餐容量，折算单价亲民，平衡实用",
+      "VLESS与Trojan双主流协议，优惠码 tt88 可享专属减免"
+    ],
+    "disadvantages": [
+      "相比顶级独享内网专线延迟稍高20ms左右，极端敏感对局有微小差别",
+      "没有极低价格的几元微型日抛包"
+    ],
+    "suitableFor": [
+      "寻找平衡稳定、价格适中且流量充裕的中度科学上网人群",
+      "需要同时在手机和电脑端畅看YouTube和TikTok的用户",
+      "注重优惠券折扣与售后响应速度的个人用户"
+    ],
+    "sources": [
+      "全球云用户控制台资费明细与官方公告",
+      "编辑部2026年3月双协议实机测试"
+    ],
+    "lastVerified": "2026-03",
+    "testStatus": "tested",
+    "airportTdk": {
+      "title": "全球云如何？2026最新套餐价格/流量额度/中转优化节点测速评测 | 机场Top",
+      "desc": "全球云怎么样？性价比老牌深度评测。月付¥20起享120GB经典中转优化流量，VLESS与Trojan双主流协议晚高峰测速吞吐、4K超清与TikTok支持、专属优惠码【tt88】折扣领取。",
+      "kw": "全球云, 全球云如何, 全球云怎么样, 全球云套餐价格, 全球云流量, 全球云节点测速, 全球云优惠码, 全球云官网, 性价比梯子, 机场推荐",
+      "h1": "全球云如何？2026最新套餐价格/流量额度/中转优化节点测速评测"
+    },
+    "reviewTdk": {
+      "title": "全球云真实测评：2026套餐价格、双主流协议流量与晚高峰测速报告 | 机场Top",
+      "desc": "全球云性价比怎么样？2026深度使用报告。真实核算¥20月费资费单价、120GB起步中转流量、晚高峰4K流媒体测速与优惠券实操指引。",
+      "kw": "全球云真实测评, 全球云怎么样, 全球云如何, 全球云套餐价格, 全球云流量, 全球云节点测速, 全球云优惠码, 梯子推荐",
+      "h1": "全球云真实测评：2026套餐价格、双主流协议流量与晚高峰测速报告"
+    }
+  }
+];

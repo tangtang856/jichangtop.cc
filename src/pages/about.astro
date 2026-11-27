@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '关于我们', url: '/about.html' }
+];
+---
+
+<Layout
+  title="关于我们 · 机场Top评测实验室与独立评测使命 | 机场Top"
+  description="了解机场Top的建立背景、团队成员、实机测试环境与独立评测准则。我们致力于为中文用户提供客观、真实、无水军的科学上网梯子测评。"
+  keywords="关于我们, 机场Top, 梯子测评团队, 机场实验室"
+  activeNav="about"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;max-width:880px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;margin-bottom:12px;">关于 机场Top (jichangtop.cc)</h1>
+      <p style="font-size:1.05rem;color:#475569;line-height:1.7;">
+        客观、透明、可复现 —— 打造中文互联网最值得信赖的跨境代理网络评测媒体。
+      </p>
+    </header>
+
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:32px;line-height:1.8;color:#334155;font-size:1rem;">
+      <h2 style="font-size:1.4rem;color:#0f172a;margin-top:0;">一、我们的使命与初衷</h2>
+      <p>
+        随着跨国科学研究、开源代码协同开发以及跨境电商业务的蓬勃发展，安全可靠的国际网络访问已成为广大学者、工程师与商务人士的刚性生产力需求。然而，当前中文网络上的“机场推荐”信息普遍充斥着虚假跑分、无底线软文与跑路风险黑灰产。
+      </p>
+      <p>
+        <strong>机场Top (jichangtop.cc)</strong> 由一群资深网络系统工程师与跨境技术爱好者联合创办。我们不接受任何服务商以付费形式篡改实际测试数据的要求，所有上榜品牌均经过严格的匿名购入与连续晚高峰压测。
+      </p>
+
+      <h2 style="font-size:1.4rem;color:#0f172a;margin-top:32px;">二、实机评测实验室环境</h2>
+      <p>我们的常设节点监测网络覆盖中国大陆三大主力骨干网节点：</p>
+      <ul>
+        <li><strong>中国电信：</strong>上海 / 广州骨干出口千兆光纤宽带</li>
+        <li><strong>中国联通：</strong>北京 / 济南千兆宽带环境</li>
+        <li><strong>中国移动：</strong>广东 / 深圳双频 5G 及移动千兆宽带</li>
+      </ul>
+      <p>
+        通过自动化探针脚本，对收录机场的所有主力香港、日本、新加坡与美西节点发起全天候延迟抖动探测、TCP/UDP 丢包率监测、4K 视频流媒体缓冲速率测试以及 OpenAI / Claude 接口原生纯净度验证。
+      </p>
+
+      <h2 style="font-size:1.4rem;color:#0f172a;margin-top:32px;">三、合规与自律声明</h2>
+      <p>
+        本站严格遵守所在地区法律法规，坚决抵制并反对任何利用跨境网络从事危害国家安全、侵犯他人隐私或散布违法有害信息的行为。本站所有教程与技术文章仅供学术科研、外贸工作交流及合规网络工程参考。
+      </p>
+    </div>
+  </div>
+</Layout>

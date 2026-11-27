@@ -1,0 +1,131 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import RankingTable from '../../components/RankingTable.astro';
+import { airports, type Airport } from '../../data/airports';
+
+export async function getStaticPaths() {
+  const rankingConfigs = [
+    {
+      type: 'overall',
+      title: '2026全网综合机场排行榜 · 梯子推荐与节点稳定性排名 | 机场Top',
+      h1: '2026年度全网综合机场排行榜 (实测权威推荐)',
+      desc: '基于中国电信、联通与移动三网真实晚高峰压测，从延迟抖动、丢包率、4K流媒体与ChatGPT解锁稳定性等多维度评选出2026年最佳综合梯子推荐。',
+      kw: '机场推荐, 综合机场排行榜, 梯子推荐, vpn推荐, 机场节点, 稳定机场',
+      badge: '综合性能榜首'
+    },
+    {
+      type: 'value',
+      title: '2026极高性价比机场排行榜 · 低单价大流量梯子推荐 | 机场Top',
+      h1: '2026超高性价比机场排行榜 (每GB折算低至0.03元)',
+      desc: '精准对比各大机场套餐单价与实际可用流量，严格折算每GB真实成本，为您筛选最划算的平价高品质科学上网梯子。',
+      kw: '性价比机场, 便宜机场, 梯子推荐, 机场节点, vpn推荐, 低价机场',
+      badge: '性价比之选'
+    },
+    {
+      type: 'budget',
+      title: '2026平价低预算机场排行榜 · 适合学生党的十元梯子 | 机场Top',
+      h1: '2026低预算平价机场排行榜 (月付10元以内精选)',
+      desc: '专为轻度上网、学生党与科研查阅用户打造的低门槛月付梯子推荐，最低仅需¥7-¥8即可畅享百G高速流量。',
+      kw: '平价机场, 学生党机场, 便宜梯子, 机场推荐, vpn机场, 预算梯子',
+      badge: '学生党推荐'
+    },
+    {
+      type: 'stable',
+      title: '2026稳定专线机场排行榜 · 企业级IPLC/IEPL抗封锁梯子 | 机场Top',
+      h1: '2026超稳定专线机场排行榜 (IPLC/IEPL抗封锁专线)',
+      desc: '精选全内网专线传输、不过 GFW 防火墙的企业级节点品牌。晚高峰0丢包，全天候保障跨境电商与办公核心业务。',
+      kw: '稳定机场, IPLC专线, IEPL专线, 梯子推荐, vpn节点, 抗封锁机场',
+      badge: '商务专线首选'
+    }
+  ];
+
+  return rankingConfigs.map(config => {
+    let sortedAirports = [...airports];
+    if (config.type === 'value') {
+      sortedAirports.sort((a, b) => {
+        const costA = (a.plans[0]?.unitPricePerGB || 0.1);
+        const costB = (b.plans[0]?.unitPricePerGB || 0.1);
+        return costA - costB;
+      });
+    } else if (config.type === 'budget') {
+      sortedAirports.sort((a, b) => a.startingPrice - b.startingPrice);
+    } else if (config.type === 'stable') {
+      sortedAirports.sort((a, b) => {
+        const isA = a.plans[0]?.lineType.includes('IPLC') || a.plans[0]?.lineType.includes('IEPL');
+        const isB = b.plans[0]?.lineType.includes('IPLC') || b.plans[0]?.lineType.includes('IEPL');
+        return (isB ? 1 : 0) - (isA ? 1 : 0);
+      });
+    }
+
+    return {
+      params: { type: config.type },
+      props: { config, sortedAirports },
+    };
+  });
+}
+
+const { config, sortedAirports } = Astro.props;
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '机场排行榜', url: '/ranking/overall.html' },
+  { name: config.h1, url: `/ranking/${config.type}.html` }
+];
+---
+
+<Layout
+  title={config.title}
+  description={config.desc}
+  keywords={config.kw}
+  activeNav="ranking"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <span class="badge badge-primary">{config.badge}</span>
+        <span style="font-size:0.85rem;color:#64748b;">实时监测与持续更新</span>
+      </div>
+      <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">{config.h1}</h1>
+      <p style="font-size:1.02rem;color:#475569;line-height:1.7;max-width:960px;">{config.desc}</p>
+    </header>
+
+    <!-- Sub Nav Tabs for rankings -->
+    <div style="display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;">
+      <a href="/ranking/overall.html" class={`btn ${config.type === 'overall' ? 'btn-primary' : 'btn-outline'} btn-sm`}>综合排行榜</a>
+      <a href="/ranking/value.html" class={`btn ${config.type === 'value' ? 'btn-primary' : 'btn-outline'} btn-sm`}>性价比排行榜</a>
+      <a href="/ranking/budget.html" class={`btn ${config.type === 'budget' ? 'btn-primary' : 'btn-outline'} btn-sm`}>平价预算榜</a>
+      <a href="/ranking/stable.html" class={`btn ${config.type === 'stable' ? 'btn-primary' : 'btn-outline'} btn-sm`}>企业专线榜</a>
+    </div>
+
+    <!-- Ranking Table Component -->
+    <div style="margin-bottom:40px;">
+      <RankingTable airports={sortedAirports} />
+    </div>
+
+    <!-- Evaluation Standard Explanation -->
+    <section style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:28px;margin-bottom:40px;">
+      <h2 style="font-size:1.35rem;font-weight:800;color:#0f172a;margin-top:0;margin-bottom:12px;">
+        💡 本榜单数据评测准则与排序逻辑
+      </h2>
+      <p style="font-size:0.92rem;color:#475569;line-height:1.7;margin-bottom:12px;">
+        机场Top 坚持客观、独立、可复现的测评原则。所有排行榜单严格按照以下四大硬性维度加权生成：
+      </p>
+      <ul style="font-size:0.9rem;color:#475569;line-height:1.8;padding-left:20px;margin-bottom:0;">
+        <li><strong>晚高峰丢包与抖动率：</strong>连续7天晚间 20:00 - 23:00 黄金拥堵时段对主力节点（香港、日本、新加坡、美国）发起千次 ping 探测。</li>
+        <li><strong>每 GB 真实可用成本：</strong>严格剔除虚高倍率节点陷阱，以标准套餐月费除以不限速基础流量得出真实度量单价。</li>
+        <li><strong>流媒体与 AI 解锁稳定性：</strong>针对 Netflix 非自制剧及 OpenAI 官方 API 接口每日自动轮巡，验证住宅原生 IP 的纯净度。</li>
+        <li><strong>运维响应与备用线路：</strong>重点考察主线出现跨国光缆故障时，自动故障转移（Failover）中继的生效时效。</li>
+      </ul>
+    </section>
+
+    <!-- Bottom cross-link CTA -->
+    <div style="text-align:center;padding:32px 20px;background:#eff6ff;border-radius:8px;border:1px solid #bfdbfe;">
+      <h3 style="margin-top:0;font-size:1.25rem;color:#1e3a8a;">想要更深入对比具体品牌的参数与线路？</h3>
+      <p style="font-size:0.92rem;color:#3b82f6;margin-bottom:16px;">使用我们的在线横向对比工具，支持自由选择 2-4 家机场进行全维度参数PK。</p>
+      <a href="/compare/index.html" class="btn btn-primary">进入机场横向对比工具 →</a>
+    </div>
+  </div>
+</Layout>

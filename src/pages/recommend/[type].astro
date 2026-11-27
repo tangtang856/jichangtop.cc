@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AirportCard from '../../components/AirportCard.astro';
+import { airports, type Airport } from '../../data/airports';
+
+export async function getStaticPaths() {
+  const recommendConfigs = [
+    {
+      type: 'budget',
+      title: '2026低预算平价机场推荐 · 十元以下学生党高性价比梯子 | 机场Top',
+      h1: '2026精选平价低预算机场推荐 (月付10元以内)',
+      desc: '精选起步仅需几元至十几元的高性价比机场，单GB成本低至几分钱，兼顾低门槛与晚高峰流畅看剧查资料。',
+      kw: '低预算机场, 便宜梯子, 平价机场推荐, 性价比机场, 学生党梯子, vpn推荐',
+      tag: '平价低预算'
+    },
+    {
+      type: 'premium',
+      title: '2026高端专线机场推荐 · 企业级IPLC/IEPL高速节点 | 机场Top',
+      h1: '2026高端企业级专线机场推荐 (极致稳定低延迟)',
+      desc: '专为对网络稳定性有严苛要求的跨境贸易、外企办公及电竞游戏玩家量身挑选的高端内网专线品牌。',
+      kw: '高端机场, 企业专线, IPLC专线, IEPL专线, 梯子推荐, 稳定梯子',
+      tag: '高端企业级'
+    },
+    {
+      type: 'beginner',
+      title: '2026新手小白机场推荐 · 一键导入开箱即用翻墙指南 | 机场Top',
+      h1: '2026新手友好型机场推荐 (小白一键配置极速上手)',
+      desc: '精选全中文可视化后台、支持一键导入 Clash/Shadowrocket/Sing-box，并提供全套小白配置图文指导的靠谱梯子。',
+      kw: '新手机场, 梯子入门, 机场推荐, 翻墙教程, 小白梯子, vpn机场',
+      tag: '新手极速上手'
+    },
+    {
+      type: 'stable',
+      title: '2026稳定优先机场推荐 · 特殊时期不掉线抗封锁梯子 | 机场Top',
+      h1: '2026超高稳定性机场推荐 (全天候抗封锁防失联)',
+      desc: '多机房冗余热备、物理专线传输与动态智能分流，确保在敏感特殊时期依然稳定连通不失联。',
+      kw: '稳定机场, 抗封锁梯子, 机场推荐, vpn推荐, 梯子不掉线, 专线节点',
+      tag: '高抗封锁稳定'
+    },
+    {
+      type: 'ai',
+      title: '2026 ChatGPT/Claude专属机场推荐 · 原生住宅IP解锁节点 | 机场Top',
+      h1: '2026人工智能专用机场推荐 (ChatGPT/Claude免人机验证)',
+      desc: '配备纯净原生住宅IP与双ISP出口，彻底告别 OpenAI 1020 报错与 Claude 封号风控，保障AI对话畅通无阻。',
+      kw: 'ChatGPT机场, Claude梯子, AI节点推荐, 原生IP机场, 梯子推荐, vpn推荐',
+      tag: 'AI专属高纯净'
+    },
+    {
+      type: 'streaming',
+      title: '2026 4K流媒体解锁机场推荐 · Netflix/Disney+/YouTube秒开 | 机场Top',
+      h1: '2026流媒体解锁专用机场推荐 (4K/8K无缓冲畅享)',
+      desc: '专线大带宽传输，全量解锁港区、日区、美区、台区 Netflix、Disney+ 与 YouTube Premium，轻松秒开 4K 60帧。',
+      kw: '流媒体机场, Netflix解锁, 4K梯子, 机场推荐, YouTube免流, vpn机场',
+      tag: '4K流媒体解锁'
+    }
+  ];
+
+  return recommendConfigs.map(config => {
+    let matchedAirports = [...airports];
+    if (config.type === 'budget') {
+      matchedAirports = airports.filter(a => a.startingPrice <= 15).sort((a, b) => a.startingPrice - b.startingPrice);
+    } else if (config.type === 'premium') {
+      matchedAirports = airports.filter(a => a.plans.some(p => p.lineType.includes('专线')));
+    } else if (config.type === 'ai') {
+      matchedAirports = airports.filter(a => a.aiSupport && a.aiSupport.length > 0);
+    } else if (config.type === 'streaming') {
+      matchedAirports = airports.filter(a => a.streamingSupport && a.streamingSupport.length > 0);
+    }
+
+    return {
+      params: { type: config.type },
+      props: { config, matchedAirports },
+    };
+  });
+}
+
+const { config, matchedAirports } = Astro.props;
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '专题推荐', url: '/recommend/budget.html' },
+  { name: config.h1, url: `/recommend/${config.type}.html` }
+];
+---
+
+<Layout
+  title={config.title}
+  description={config.desc}
+  keywords={config.kw}
+  activeNav="recommend"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <span class="badge badge-primary">{config.tag}</span>
+        <span style="font-size:0.85rem;color:#64748b;">精准场景筛选</span>
+      </div>
+      <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">{config.h1}</h1>
+      <p style="font-size:1.02rem;color:#475569;line-height:1.7;max-width:960px;">{config.desc}</p>
+    </header>
+
+    <!-- Sub Nav Tabs for recommendations -->
+    <div style="display:flex;gap:10px;margin-bottom:32px;flex-wrap:wrap;">
+      <a href="/recommend/budget.html" class={`btn ${config.type === 'budget' ? 'btn-primary' : 'btn-outline'} btn-sm`}>低预算平价</a>
+      <a href="/recommend/premium.html" class={`btn ${config.type === 'premium' ? 'btn-primary' : 'btn-outline'} btn-sm`}>高端专线</a>
+      <a href="/recommend/beginner.html" class={`btn ${config.type === 'beginner' ? 'btn-primary' : 'btn-outline'} btn-sm`}>新手友好</a>
+      <a href="/recommend/stable.html" class={`btn ${config.type === 'stable' ? 'btn-primary' : 'btn-outline'} btn-sm`}>稳定防封</a>
+      <a href="/recommend/ai.html" class={`btn ${config.type === 'ai' ? 'btn-primary' : 'btn-outline'} btn-sm`}>AI专线解锁</a>
+      <a href="/recommend/streaming.html" class={`btn ${config.type === 'streaming' ? 'btn-primary' : 'btn-outline'} btn-sm`}>4K流媒体</a>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="airports-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:24px;margin-bottom:48px;">
+      {matchedAirports.map((airport, index) => (
+        <AirportCard airport={airport} rank={index + 1} badge={config.tag} />
+      ))}
+    </div>
+
+    <!-- Recommendation Guide Advice -->
+    <section style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:28px;">
+      <h2 style="font-size:1.35rem;font-weight:800;color:#0f172a;margin-top:0;margin-bottom:12px;">
+        📌 针对该场景的选购避坑指南
+      </h2>
+      <p style="font-size:0.92rem;color:#475569;line-height:1.7;margin-bottom:10px;">
+        在选购<strong>【{config.h1}】</strong>相关套餐时，建议优先遵循“月付起步、按需续费”的基本策略。
+      </p>
+      <ul style="font-size:0.9rem;color:#475569;line-height:1.8;padding-left:20px;margin-bottom:0;">
+        <li><strong>先测后买：</strong>充分利用月付或低门槛试用套餐，在您自身的本地网络环境中实测晚高峰表现。</li>
+        <li><strong>注意倍率：</strong>某些品牌的部分高防节点会设置 2x 或 3x 计费倍率，使用前请在客户端或面板核对消耗。</li>
+        <li><strong>合理分流：</strong>使用 Clash 或 Sing-box 客户端时，务必保持规则分流（Rule Mode），国内流量直连，避免白白消耗代理流量。</li>
+      </ul>
+    </section>
+  </div>
+</Layout>

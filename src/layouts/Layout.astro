@@ -1,0 +1,190 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SearchModal from '../components/SearchModal.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  canonical?: string;
+  activeNav?: 'home' | 'recommend' | 'ranking' | 'airport' | 'compare' | 'guides' | 'blog' | 'about';
+  schema?: Record<string, any> | Record<string, any>[];
+  ogType?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  keywords = '机场推荐,机场节点,性价比机场,梯子推荐,vpn,vpn机场,vpn节点,vpn推荐',
+  canonical,
+  activeNav = '',
+  schema,
+  ogType = 'website',
+  ogImage = 'https://jichangtop.cc/og-image.png',
+} = Astro.props;
+
+const canonicalUrl = canonical || new URL(Astro.url.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '.html'), 'https://jichangtop.cc').href;
+
+// Default Organization & WebSite schema
+const defaultSchemas = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: '机场Top',
+    alternateName: 'JichangTop',
+    url: 'https://jichangtop.cc/',
+    description: '2026专业中文机场与梯子节点测评推荐导航',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://jichangtop.cc/?q={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: '机场Top评测实验室',
+    url: 'https://jichangtop.cc/',
+    logo: 'https://jichangtop.cc/favicon.svg'
+  }
+];
+
+const allSchemas = schema ? (Array.isArray(schema) ? [...defaultSchemas, ...schema] : [...defaultSchemas, schema]) : defaultSchemas;
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {keywords && <meta name="keywords" content={keywords} />}
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph / Bing / Social -->
+  <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content="机场Top (jichangtop.cc)" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  {allSchemas.map((s) => (
+    <script type="application/ld+json" set:html={JSON.stringify(s)} />
+  ))}
+</head>
+<body>
+  <Header activeNav={activeNav} />
+  <slot />
+  <Footer />
+  <SearchModal />
+
+  <script is:inline>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+
+    function toggleMenu() {
+      const isOpen = mobileMenu && mobileMenu.classList.contains('active');
+      if (isOpen) {
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      } else if (mobileMenu) {
+        mobileMenu.classList.add('active');
+        mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+    if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMenu);
+
+    // Search modal toggle
+    const searchBtn = document.getElementById('searchBtn');
+    const searchModal = document.getElementById('searchModal');
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    let searchData = null;
+
+    async function loadSearchData() {
+      if (!searchData) {
+        try {
+          const res = await fetch('/search-index.json');
+          if (res.ok) searchData = await res.json();
+        } catch (e) {
+          console.error('Failed to load search index:', e);
+        }
+      }
+    }
+
+    if (searchBtn && searchModal) {
+      searchBtn.addEventListener('click', () => {
+        searchModal.classList.add('active');
+        loadSearchData();
+        setTimeout(() => { if (searchInput) searchInput.focus(); }, 100);
+      });
+
+      searchModal.addEventListener('click', (e) => {
+        if (e.target === searchModal) {
+          searchModal.classList.remove('active');
+        }
+      });
+    }
+
+    if (searchInput && searchResults) {
+      searchInput.addEventListener('input', (e) => {
+        const q = e.target.value.trim().toLowerCase();
+        if (!q) {
+          searchResults.innerHTML = '<div style="padding:16px;text-align:center;color:#64748b;">输入关键词实时搜索全站193个页面...</div>';
+          return;
+        }
+        if (!searchData || !searchData.length) {
+          searchResults.innerHTML = '<div style="padding:16px;text-align:center;color:#64748b;">正在加载索引或无数据...</div>';
+          return;
+        }
+        const matches = searchData.filter(item => 
+          (item.title && item.title.toLowerCase().includes(q)) ||
+          (item.desc && item.desc.toLowerCase().includes(q)) ||
+          (item.kw && item.kw.toLowerCase().includes(q))
+        ).slice(0, 8);
+
+        if (matches.length === 0) {
+          searchResults.innerHTML = '<div style="padding:16px;text-align:center;color:#64748b;">未找到相关页面，请尝试其他关键词</div>';
+          return;
+        }
+
+        searchResults.innerHTML = matches.map(item => `
+          <a href="${item.url}" style="display:block;padding:12px 14px;border-bottom:1px solid #f1f5f9;text-decoration:none;color:inherit;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <div style="font-weight:600;font-size:0.95rem;color:#2563eb;margin-bottom:4px;">${item.title}</div>
+            <div style="font-size:0.82rem;color:#64748b;line-height:1.4;">${item.desc.substring(0, 70)}...</div>
+          </a>
+        `).join('');
+      });
+    }
+
+    // ESC to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (searchModal) searchModal.classList.remove('active');
+        if (mobileMenu && mobileMenu.classList.contains('active')) toggleMenu();
+      }
+    });
+  </script>
+</body>
+</html>

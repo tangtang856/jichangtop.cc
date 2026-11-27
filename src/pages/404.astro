@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = '404 - 页面未找到 | 机场Top';
+const pageDesc = '抱歉，您访问的页面不存在或已被移除。您可以返回首页或查看精选机场推荐。';
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+>
+  <div class="container" style="padding:100px 20px;text-align:center;">
+    <div style="font-size:5rem;font-weight:900;color:#2563eb;line-height:1;">404</div>
+    <h1 style="font-size:1.8rem;font-weight:800;color:#0f172a;margin:16px 0;">很抱歉，您访问的页面不存在</h1>
+    <p style="color:#64748b;font-size:1.05rem;max-width:540px;margin:0 auto 32px;line-height:1.6;">
+      可能由于链接已更新或已被移动。建议您返回首页查看最新 2026 机场推荐与排行榜。
+    </p>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <a href="/" class="btn btn-primary" style="padding:10px 24px;">返回首页</a>
+      <a href="/recommend/budget.html" class="btn btn-outline" style="padding:10px 24px;">精选推荐</a>
+      <a href="/ranking/overall.html" class="btn btn-secondary" style="padding:10px 24px;">机场排行</a>
+    </div>
+  </div>
+</Layout>

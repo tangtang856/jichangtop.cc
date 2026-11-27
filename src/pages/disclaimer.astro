@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '免责声明', url: '/disclaimer.html' }
+];
+---
+
+<Layout
+  title="法律与合规免责声明 · 机场Top"
+  description="机场Top关于技术研究、网络工具使用及法律合规性的官方免责声明。"
+  keywords="免责声明, 合规说明, 法律声明, 机场Top"
+  activeNav="about"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;max-width:880px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;margin-bottom:12px;">法律与合规免责声明</h1>
+      <p style="font-size:1.05rem;color:#475569;line-height:1.7;">
+        请在浏览与参考本站任何内容前仔细阅读并遵守本声明。
+      </p>
+    </header>
+
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:32px;line-height:1.8;color:#334155;font-size:1rem;">
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:0;">一、技术交流与非商业背书</h2>
+      <p>
+        本网站所发表的一切测试数据、性能对比、客户端图文教程及评测文章，仅代表评测当时的客观样本采样结果，<strong>不构成任何形式的投资建议或商业担保</strong>。网络环境动态多变，服务商各节点表现可能因当地电信运营商路由变动或机房维护而实时波动。
+      </p>
+
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:28px;">二、合规合法使用警示</h2>
+      <p>
+        本站坚决拥护国家网络安全管理法规。所有内容仅供：
+      </p>
+      <ul>
+        <li>高等院校与科研机构研究人员检索国际学术论文与技术文献；</li>
+        <li>软件工程师查阅 GitHub 开源代码与跨境技术文档；</li>
+        <li>外贸进出口企业开展合规跨国商务沟通与市场调研。</li>
+      </ul>
+      <p style="color:#e11d48;font-weight:700;">
+        严禁任何个人或机构利用本站提及的任何工具或服务从事危害国家安全、散布虚假违法谣言、侵犯他人著作权或从事任何违法犯罪活动。任何违反法律法规的行为均由使用者本人承担全部法律后果，与本站无关。
+      </p>
+    </div>
+  </div>
+</Layout>

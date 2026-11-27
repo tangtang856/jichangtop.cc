@@ -5,7 +5,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const rootDir = process.cwd();
+const rootDir = fs.existsSync(path.join(process.cwd(), 'dist')) ? path.join(process.cwd(), 'dist') : process.cwd();
 
 function getAllHtmlFiles(dir) {
   let results = [];
@@ -98,10 +98,11 @@ htmlFiles.forEach(file => {
     });
   }
 
-  // 7. 相对路径检查
-  const absoluteAssets = content.match(/(href|src)=["']\/[a-zA-Z0-9_\-]/g);
-  if (absoluteAssets) {
-    errors.push(`存在以 / 开头的绝对路径资源: ${absoluteAssets.join(', ')}`);
+  // 7. 路径规范检查 (在 Cloudflare Pages / 生产域名环境下，以 / 开头的站内路径为标准规范)
+  // 如果链接包含 localhost 或测试域名则报错
+  const testDomainMatches = content.match(/(href|src)=["']https?:\/\/(localhost|127\.0\.0\.1|test\.)/g);
+  if (testDomainMatches) {
+    errors.push(`存在测试域名路径: ${testDomainMatches.join(', ')}`);
   }
 
   const status = errors.length === 0 ? 'PASS' : 'FAIL';
@@ -124,7 +125,10 @@ for (const [t, paths] of titleMap.entries()) {
 }
 
 // 生成 docs/final-audit.md
-const auditMdPath = path.join(rootDir, 'docs', 'final-audit.md');
+const auditMdPath = path.join(process.cwd(), 'docs', 'final-audit.md');
+if (!fs.existsSync(path.dirname(auditMdPath))) {
+  fs.mkdirSync(path.dirname(auditMdPath), { recursive: true });
+}
 const passCount = pageAudits.filter(p => p.status === 'PASS').length;
 const failCount = pageAudits.filter(p => p.status === 'FAIL').length;
 

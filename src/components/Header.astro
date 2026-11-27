@@ -1,0 +1,45 @@
+---
+interface Props {
+  activeNav?: 'home' | 'recommend' | 'ranking' | 'airport' | 'compare' | 'guides' | 'blog' | 'about';
+}
+
+const { activeNav = '' } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="site-logo">
+      <span>机场Top</span>
+      <span class="logo-badge">Bing SEO评测版</span>
+    </a>
+    <nav class="main-nav" aria-label="全站主导航">
+      <a href="/" class={`nav-link ${activeNav === 'home' ? 'active' : ''}`}>首页</a>
+      <a href="/recommend/budget.html" class={`nav-link ${activeNav === 'recommend' ? 'active' : ''}`}>机场推荐</a>
+      <a href="/ranking/overall.html" class={`nav-link ${activeNav === 'ranking' ? 'active' : ''}`}>机场排行</a>
+      <a href="/airport/breezenet.html" class={`nav-link ${activeNav === 'airport' ? 'active' : ''}`}>机场评测</a>
+      <a href="/compare/index.html" class={`nav-link ${activeNav === 'compare' ? 'active' : ''}`}>机场对比</a>
+      <a href="/guides/index.html" class={`nav-link ${activeNav === 'guides' ? 'active' : ''}`}>使用教程</a>
+      <a href="/blog/index.html" class={`nav-link ${activeNav === 'blog' ? 'active' : ''}`}>博客文章</a>
+    </nav>
+    <div class="nav-right">
+      <button type="button" class="search-trigger-btn" id="searchBtn" aria-label="搜索全站内容">
+        🔍 <span>搜索...</span>
+      </button>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="切换移动端导航">
+        ☰
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/" class="mobile-nav-link">🏠 首页</a>
+  <a href="/recommend/budget.html" class="mobile-nav-link">⭐ 精选机场推荐</a>
+  <a href="/ranking/overall.html" class="mobile-nav-link">📊 综合排行榜</a>
+  <a href="/ranking/value.html" class="mobile-nav-link">💰 性价比排行榜</a>
+  <a href="/compare/index.html" class="mobile-nav-link">⚖️ 机场在线横向对比</a>
+  <a href="/guides/index.html" class="mobile-nav-link">📖 电脑与手机配置教程 (30篇)</a>
+  <a href="/blog/index.html" class="mobile-nav-link">📝 科学上网技术博客 (100篇)</a>
+  <a href="/about.html" class="mobile-nav-link">ℹ️ 关于本站与评测准则</a>
+</div>

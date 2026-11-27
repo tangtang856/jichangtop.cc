@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+const allPosts = await getCollection('blog');
+// Sort by date or filename
+allPosts.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '技术博客', url: '/blog/index.html' }
+];
+
+const pageTitle = '科学上网技术博客 · 翻墙原理/协议解析/防封避坑指南 (100+篇深度精选) | 机场Top';
+const pageDesc = '精选100+篇科学上网与网络技术深度解析博客，涵盖VLESS-Reality、Hysteria2、IPLC内网专线、双ISP住宅IP、流媒体解锁与晚高峰防断流实用技巧。';
+const pageKeywords = '科学上网博客, 机场节点, 梯子推荐, vpn教程, 代理协议, IPLC专线, 翻墙原理';
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  keywords={pageKeywords}
+  activeNav="blog"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:32px;">
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <span class="badge badge-primary">技术知识库</span>
+        <span style="font-size:0.85rem;color:#64748b;">共收录 {allPosts.length} 篇原创干货文章</span>
+      </div>
+      <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">
+        科学上网技术博客与选购避坑指南
+      </h1>
+      <p style="font-size:1.02rem;color:#475569;line-height:1.7;max-width:960px;">
+        从底层计算机网络原理、密码学传输协议（VLESS / Trojan / Hysteria 2）到真实机房线路调度，为您拨开营销迷雾，掌握最扎实的科学上网技术知识。
+      </p>
+    </header>
+
+    <!-- Articles Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));gap:24px;margin-bottom:48px;">
+      {allPosts.map((post) => (
+        <article style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:transform 0.2s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 1px 3px rgba(0,0,0,0.05)';">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <span class="badge badge-secondary" style="font-size:0.75rem;">{post.data.tag}</span>
+              <span style="font-size:0.8rem;color:#94a3b8;">{post.data.date}</span>
+            </div>
+            <h2 style="font-size:1.15rem;font-weight:700;line-height:1.4;margin:0 0 10px;">
+              <a href={`/blog/${post.slug}.html`} style="color:#0f172a;text-decoration:none;">
+                {post.data.title}
+              </a>
+            </h2>
+            <p style="font-size:0.88rem;color:#64748b;line-height:1.6;margin-bottom:16px;">
+              {post.data.description.length > 90 ? post.data.description.slice(0, 90) + '...' : post.data.description}
+            </p>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid #f1f5f9;font-size:0.82rem;color:#64748b;">
+            <span>⏱️ {post.data.readTime}</span>
+            <a href={`/blog/${post.slug}.html`} style="color:#2563eb;font-weight:600;text-decoration:none;">阅读全文 →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>

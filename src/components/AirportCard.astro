@@ -1,0 +1,71 @@
+---
+import type { Airport } from '../data/airports';
+
+interface Props {
+  airport: Airport;
+  badge?: string;
+  rank?: number;
+}
+
+const { airport, badge, rank } = Astro.props;
+const starterPlan = airport.plans[0] || { price: airport.startingPrice, trafficGB: 100, unitPricePerGB: 0.1 };
+---
+
+<div class="airport-card">
+  <div class="card-header-top">
+    <div style="display:flex;align-items:center;gap:10px;">
+      {rank && <span class="badge-rank">{rank}</span>}
+      <h3 style="margin:0;font-size:1.25rem;">
+        <a href={`/airport/${airport.slug}.html`} style="color:#0f172a;text-decoration:none;">
+          {airport.name}
+        </a>
+      </h3>
+    </div>
+    {badge && <span class="badge-featured">{badge}</span>}
+  </div>
+
+  <p class="card-desc">{airport.description}</p>
+
+  <div class="specs-grid">
+    <div class="spec-item">
+      <div class="spec-label">起步价格</div>
+      <div class="spec-value price-text">¥{airport.startingPrice} <span style="font-size:0.8rem;color:#64748b;">/月起</span></div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">基准流量</div>
+      <div class="spec-value">{starterPlan.trafficGB} GB</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">每GB折算</div>
+      <div class="spec-value">¥{starterPlan.unitPricePerGB}</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">线路架构</div>
+      <div class="spec-value">{starterPlan.lineType || '优质专线'}</div>
+    </div>
+  </div>
+
+  {airport.coupon && (
+    <div style="background:#fff1f2;border:1px solid #fecdd3;border-radius:6px;padding:8px 12px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-size:0.82rem;color:#be123c;">专属优惠券码：<strong style="color:#e11d48;">{airport.coupon}</strong></span>
+      <span style="font-size:0.75rem;color:#e11d48;">额外减免</span>
+    </div>
+  )}
+
+  <div class="advantages-list">
+    {airport.advantages.slice(0, 3).map((adv) => (
+      <div class="adv-item">
+        <span class="adv-icon">✓</span>
+        <span>{adv}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="card-footer">
+    <div class="action-btn-group">
+      <a href={`/airport/${airport.slug}.html`} class="btn btn-outline btn-sm">资费详情</a>
+      <a href={`/review/${airport.slug}.html`} class="btn btn-secondary btn-sm">测速测评</a>
+      <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-sm">直达官网 →</a>
+    </div>
+  </div>
+</div>

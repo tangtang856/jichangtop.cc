@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '科学上网技术博客', url: '/blog/index.html' },
+  { name: entry.data.title, url: `/blog/${entry.slug}.html` }
+];
+---
+
+<ArticleLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  keywords={entry.data.keywords}
+  h1={entry.data.h1}
+  tag={entry.data.tag}
+  readTime={entry.data.readTime}
+  date={entry.data.date}
+  author={entry.data.author}
+  breadcrumbs={breadcrumbs}
+  activeNav="blog"
+>
+  <Content />
+</ArticleLayout>

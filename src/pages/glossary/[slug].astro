@@ -1,0 +1,156 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
+export async function getStaticPaths() {
+  const glossaryList = [
+    {
+      slug: 'iepl-iplc',
+      title: '什么是IPLC和IEPL专线？原理与优势通俗科普 | 机场Top',
+      h1: '什么是IPLC和IEPL专线？原理与优势通俗科普',
+      desc: '通俗解析IPLC国际私有租用线路与IEPL国际以太网专线的工作原理，解答为什么专线机场晚高峰不卡顿、敏感时期防失联。',
+      kw: 'IPLC专线, IEPL专线, 内网专线, 机场专线, 梯子专线',
+      category: '网络硬核科普',
+      content: `
+        <h2>一、什么是 IPLC 与 IEPL？</h2>
+        <p><strong>IPLC (International Private Leased Circuit)</strong> 译为“国际私有租用线路”；<strong>IEPL (International Ethernet Private Line)</strong> 译为“国际以太网专线”。两者在现代机场中通常被统称为“内网专线”。</p>
+        <p>普通公网中继就像在公共高速公路上行驶，一旦遇上节假日或晚高峰，所有人都在同一个收费站排队挤国际出口；而内网专线相当于企业直接在两地之间开辟了一条物理隔离的“地下专属隧道”，完全绕过公共国际网关。</p>
+
+        <h2>二、专线机场的核心四大优势</h2>
+        <ol>
+          <li><strong>不经过 GFW 防火长城（不过墙）：</strong>专线两端在机房内网完成对接，数据不经公网出口，因而完全不存在被防火墙中途重置或封锁的物理可能。</li>
+          <li><strong>晚高峰极低延迟抖动：</strong>独享端到端带宽，全天候延迟几乎是一条平滑直线，毫无公网出口的潮汐效应。</li>
+          <li><strong>几乎为零的丢包率：</strong>物理专线协议保障，对于跨国语音通话、Zoom会议、SSH远程终端体验极为关键。</li>
+          <li><strong>IP纯净度高：</strong>落地IP通常属于优质数据中心原生网段，流媒体和AI解锁概率大幅提升。</li>
+        </ol>
+      `
+    },
+    {
+      slug: 'shadowsocks',
+      title: '什么是 Shadowsocks (SS) 协议？加密与分流原理解析 | 机场Top',
+      h1: '什么是 Shadowsocks (SS) 协议？加密与分流原理解析',
+      desc: '深入浅出剖析 Shadowsocks 科学上网协议的诞生背景、对称加密原理、SOCKS5 代理机制及其在现代翻墙架构中的演化。',
+      kw: 'Shadowsocks, SS协议, 科学上网协议, 代理协议原理, 梯子协议',
+      category: '协议原理科普',
+      content: `
+        <h2>一、Shadowsocks 的诞生背景</h2>
+        <p>Shadowsocks（简称 SS）最初由开源开发者 clowwindy 于 2012 年发布。它是基于 SOCKS5 代理方式并加入对称加密算法（如 AES-256-GCM、ChaCha20-Poly1305）的轻量级代理协议。</p>
+
+        <h2>二、SS 协议的工作流程</h2>
+        <p>客户端在本地发起网络请求，SS 客户端将流量打包并使用预设密钥加密，通过 TCP/UDP 发送给远端服务器。服务端收到后解密流量并代表客户端向目标外网服务器请求数据，随后再次加密回传给客户端。</p>
+
+        <h2>三、在现代机场中的定位</h2>
+        <p>尽管面对 DPI 深度包检测时，纯 SS 裸协议在公网直连时容易被识别，但在 <strong>IPLC/IEPL 纯内网专线</strong> 架构中，由于流量完全在内网物理传输，SS 因其超低系统开销、极高转发效率以及全平台极度成熟的客户端支持，依然是企业专线机场的最核心主力协议。</p>
+      `
+    },
+    {
+      slug: 'vless-hysteria2',
+      title: 'VLESS-Reality 与 Hysteria 2 深度对比：抗封锁与弱网爆发哪家强？ | 机场Top',
+      h1: 'VLESS-Reality 与 Hysteria 2 深度对比：抗封锁与弱网爆发哪家强？',
+      desc: '对比两大次世代代理协议：VLESS-Reality的TLS隐匿模拟与Hysteria 2基于UDP的激进拥塞控制，指导您在不同网络环境下科学选型。',
+      kw: 'VLESS, Reality协议, Hysteria 2, 代理协议对比, 抗封锁协议',
+      category: '前沿协议技术',
+      content: `
+        <h2>一、VLESS-Reality：极致的 TLS 伪装隐匿</h2>
+        <p>VLESS-Reality 移除了传统代理协议的显式客户端特征，直接借用并“偷取”真实正规大型网站（如苹果、微软、亚马逊）的 TLS 证书与握手流程。对外部探测设备而言，流量表现与访问合法海外大型网站完全一致，具备极强的抗封锁能力。</p>
+
+        <h2>二、Hysteria 2：恶劣弱网下的带宽榨干机</h2>
+        <p>Hysteria 2 基于改进的 QUIC (UDP) 协议开发，采用专门定制的 Brutal 激进拥塞控制算法。与传统 TCP 协议遇到丢包就断崖式减半降速不同，Hy2 在 10%~30% 的严重丢包弱网环境下，依然能暴力榨干可用物理带宽，实现 4K 视频秒开。</p>
+
+        <h2>三、如何选择适合您的协议？</h2>
+        <p>如果您身处审查严格、对网络隐私有极致要求的环境，优先选择 <strong>VLESS-Reality</strong>；如果您经常在高铁、酒店 Wi-Fi 或跨洋公网等高延迟高丢包网络下使用，<strong>Hysteria 2</strong> 则能带来颠覆性的速度提升。</p>
+      `
+    },
+    {
+      slug: 'gfw',
+      title: 'GFW 防火长城运作机制科普：DNS污染、SNI阻断与协议特征识别 | 机场Top',
+      h1: 'GFW 防火长城运作机制科普：DNS污染、SNI阻断与协议特征识别',
+      desc: '系统梳理国家防火墙（GFW）的技术演进历史，通俗讲解域名劫持、TCP RST 复位攻击、SNI 嗅探与主动探测机制。',
+      kw: 'GFW原理, 防火长城, DNS污染, SNI阻断, TCP复位',
+      category: '网络安全科普',
+      content: `
+        <h2>一、GFW 的常见审查手段</h2>
+        <ol>
+          <li><strong>DNS 污染与劫持：</strong>当您向公共 DNS 发起域名解析请求时，旁路设备抢先返回错误的虚假 IP 地址。</li>
+          <li><strong>TCP RST 复位攻击：</strong>检测到敏感明文 HTTP 关键词或被封锁 IP 端口时，伪造 TCP RST 复位报文强行切断连接。</li>
+          <li><strong>SNI (Server Name Indication) 阻断：</strong>在 TLS 握手初期阶段读取未加密的目标域名字符串，实施精准阻断。</li>
+          <li><strong>主动探测与流量画像分析：</strong>对于未知的疑似加密代理协议，向目标端口发送探测包，通过行为响应指纹判断是否为代理。</li>
+        </ol>
+
+        <h2>二、为什么内网专线机场能完美避开 GFW？</h2>
+        <p>因为 IPLC/IEPL 专线在机房入口即进入私有内网物理光纤，根本不经过公网国际互联网网关，因此所有公网审查规则在物理层面上对专线流量完全无效。</p>
+      `
+    },
+    {
+      slug: 'node-multiplier',
+      title: '什么是机场节点倍率？揭开低价机场暗扣流量的猫腻 | 机场Top',
+      h1: '什么是机场节点倍率？揭开低价机场暗扣流量的猫腻',
+      desc: '揭秘机场节点倍率（0.1x / 1.0x / 3.0x）的计算方式，教会大家识别低价大流量机场背后的虚标暗坑与流量缩水套路。',
+      kw: '节点倍率, 机场套路, 梯子避坑, 流量倍率, 便宜机场内幕',
+      category: '防坑指南',
+      content: `
+        <h2>一、什么是节点倍率？</h2>
+        <p>节点倍率是指您在使用特定节点时，实际消耗流量与后台扣除配额的比例系数：</p>
+        <ul>
+          <li><strong>1.0x 倍率（标准）：</strong>下载 1GB 文件，后台扣除 1GB 流量；</li>
+          <li><strong>0.5x 倍率（特惠）：</strong>下载 1GB 文件，后台仅扣除 0.5GB 流量；</li>
+          <li><strong>3.0x 倍率（高倍）：</strong>下载 1GB 文件，后台直接扣除 3GB 流量！</li>
+        </ul>
+
+        <h2>二、常见营销套路与避坑要点</h2>
+        <p>某些不良机场表面宣称“9.9元享受 1000GB 海量流量”，但用户购买后发现，所有能流畅看视频的专线节点全部被悄悄标注为 <strong>5x 甚至 10x 倍率</strong>。1000GB 实际只能使用 100GB，折算单价反而比正规机场更贵！</p>
+        <p><strong>挑选建议：</strong>优先选择节点全线保持 1.0x 真实倍率、资费计算清晰透明的品牌（如本站收录的 14 家合规品牌）。</p>
+      `
+    }
+  ];
+
+  return glossaryList.map(item => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '网络技术百科', url: '/glossary/iepl-iplc.html' },
+  { name: item.h1, url: `/glossary/${item.slug}.html` }
+];
+---
+
+<Layout
+  title={item.title}
+  description={item.desc}
+  keywords={item.kw}
+  activeNav="blog"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;max-width:880px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <span class="badge badge-primary">{item.category}</span>
+        <span style="font-size:0.85rem;color:#64748b;">深度硬核科普</span>
+      </div>
+      <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">{item.h1}</h1>
+      <p style="font-size:1.02rem;color:#475569;line-height:1.7;">{item.desc}</p>
+    </header>
+
+    <article style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:32px;line-height:1.8;color:#334155;font-size:1rem;margin-bottom:32px;" class="article-body">
+      <div set:html={item.content} />
+
+      <div style="margin-top:36px;padding:20px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;">
+        <h3 style="font-size:1.1rem;color:#1e40af;margin-top:0;margin-bottom:8px;">💡 拓展延伸与选购参考</h3>
+        <p style="font-size:0.92rem;color:#1e3a8a;margin-bottom:12px;">
+          了解了底层原理后，欢迎查阅我们编辑部实测的各大品牌专线节点晚高峰表现：
+        </p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="/ranking/overall.html" class="btn btn-primary btn-xs">查看综合排行榜</a>
+          <a href="/recommend/premium.html" class="btn btn-outline btn-xs">高端专线推荐</a>
+          <a href="/compare/index.html" class="btn btn-secondary btn-xs">横向对比工具</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</Layout>

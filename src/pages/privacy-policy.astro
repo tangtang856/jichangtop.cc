@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '隐私政策', url: '/privacy-policy.html' }
+];
+---
+
+<Layout
+  title="用户隐私保护政策 · 机场Top"
+  description="机场Top对用户个人隐私的保护政策。本站承诺不收集、不记录任何读者访问数据与个人敏感信息。"
+  keywords="隐私政策, 隐私保护, 机场Top"
+  activeNav="about"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;max-width:880px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;margin-bottom:12px;">隐私权保护政策</h1>
+      <p style="font-size:1.05rem;color:#475569;line-height:1.7;">
+        生效日期：2026年1月1日 · 严格遵守数据最小化原则
+      </p>
+    </header>
+
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:32px;line-height:1.8;color:#334155;font-size:1rem;">
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:0;">一、信息收集与使用</h2>
+      <p>
+        <strong>机场Top (jichangtop.cc)</strong> 是一座纯静态信息评测展示门户。我们不设立用户注册与登录体系，不主动索取您的姓名、手机号、支付信息或任何敏感个人身份信息。
+      </p>
+
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:28px;">二、Cookie 与本地存储</h2>
+      <p>
+        本站仅在必要时使用轻量级的本地存储（LocalStorage / SessionStorage）来保存您的偏好设置（如对比工具选择的品牌缓存）。这些信息仅存在于您的本地浏览器中，绝不会上传至远端服务器。
+      </p>
+
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:28px;">三、第三方外链免责</h2>
+      <p>
+        当您点击本站的外部链接跳转至各第三方服务商官网时，各服务商拥有独立的隐私保护政策与服务条款，请在购买前仔细阅读其官方说明。
+      </p>
+    </div>
+  </div>
+</Layout>

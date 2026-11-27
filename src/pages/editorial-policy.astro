@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '编辑准则与评测流程', url: '/editorial-policy.html' }
+];
+---
+
+<Layout
+  title="编辑准则与独立评测流程规范 | 机场Top"
+  description="了解机场Top编辑团队的内容审核规范、匿名测速流程、评分计算逻辑与商业利益回避机制。"
+  keywords="编辑政策, 评测规范, 评分准则, 机场Top"
+  activeNav="about"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;max-width:880px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;margin-bottom:12px;">编辑政策与客观测评流程规范</h1>
+      <p style="font-size:1.05rem;color:#475569;line-height:1.7;">
+        确保每一项数据真实、独立、可被读者自行验证。
+      </p>
+    </header>
+
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:32px;line-height:1.8;color:#334155;font-size:1rem;">
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:0;">一、匿名购入与常态化复测</h2>
+      <p>
+        所有参与评测的机场套餐，均由编辑部成员通过公开正规渠道自费、匿名购入，不接受任何厂商特别分配的“评测专用优化通道”。所有测速节点均为普通商业付费用户实际使用的共享集群。
+      </p>
+
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:28px;">二、晚高峰黄金时段加权机制</h2>
+      <p>
+        白天非高峰期的千兆测速没有实质参考价值。我们的评分模型将 <strong>晚间 20:00 - 23:00</strong> 黄金拥堵时段的表现赋予 70% 的最高权重，重点考核：
+      </p>
+      <ul>
+        <li>TCP 握手延迟与 ICMP 丢包率（专线丢包需控制在 0.5% 以内）</li>
+        <li>YouTube 4K 60fps 码率吞吐与缓冲持续度（Connection Speed）</li>
+        <li>OpenAI / Claude API 的长连接连贯度与 TLS 阻断率</li>
+      </ul>
+
+      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:28px;">三、推广返利（Affiliate）披露与独立性</h2>
+      <p>
+        为了维持庞大的全球探针节点运行与服务器宽带开支，本站部分品牌链接可能包含推广返利代码（Affiliate Link）。但这<strong>绝不会影响任何评测结论或排名先后</strong>。如果某个品牌出现线路劣化、高频断流或服务态度恶劣，我们将毫不留情地下调评分或直接列入黑榜公示。
+      </p>
+    </div>
+  </div>
+</Layout>

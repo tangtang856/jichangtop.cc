@@ -5,7 +5,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "astro build && node scripts/postbuild.js",
+    "dev": "astro dev",
+    "preview": "astro preview",
     "audit": "node scripts/audit-seo.js",
     "check-links": "node scripts/check-links.js",
     "validate-content": "node scripts/validate-content.js",
@@ -23,5 +25,9 @@
     "vpn推荐"
   ],
   "author": "jichangtop.cc",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^4.16.19"
+  }
 }

@@ -1,0 +1,275 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { airports } from '../../data/airports';
+
+const breadcrumbs = [
+  { name: '首页', url: '/' },
+  { name: '机场横向对比工具', url: '/compare/index.html' }
+];
+
+const pageTitle = '2026机场横向对比工具 · 价格/流量/专线/流媒体全维度PK | 机场Top';
+const pageDesc = '自由选择2-4家机场进行深度横向参数对比。涵盖起步月费、每GB折算成本、IEPL/IPLC专线、ChatGPT与Netflix解锁能力，助您精准决策。';
+const pageKeywords = '机场对比, 梯子对比, 机场横向比较, 翻墙机场PK, 性价比机场, 专线梯子对比';
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  keywords={pageKeywords}
+  activeNav="compare"
+>
+  <div class="container" style="padding-top:20px;padding-bottom:60px;">
+    <Breadcrumbs items={breadcrumbs} />
+
+    <header class="section-header" style="text-align:left;margin-bottom:28px;">
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <span class="badge badge-primary">在线横向评测工具</span>
+        <span style="font-size:0.85rem;color:#64748b;">支持自由勾选 2 ~ 4 家机场</span>
+      </div>
+      <h1 style="font-size:2rem;font-weight:800;color:#0f172a;line-height:1.3;margin-bottom:12px;">
+        2026 机场全维度横向对比工具 (在线参数PK)
+      </h1>
+      <p style="font-size:1.02rem;color:#475569;line-height:1.7;max-width:960px;">
+        勾选下方候选品牌即可实时刷新横向对比矩阵。所有资费、流量与专线数据均与中央数据库实时同步，拒绝虚高参数。
+      </p>
+    </header>
+
+    <!-- Brand Selection Pills -->
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:20px;margin-bottom:32px;">
+      <div style="font-weight:700;font-size:0.95rem;color:#0f172a;margin-bottom:12px;">
+        请在下方勾选参与对比的品牌（已默认勾选前3家，支持2-4家PK）：
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;" id="checkboxContainer">
+        {airports.map((airport, idx) => (
+          <label style="display:flex;align-items:center;gap:6px;background:#f8fafc;padding:6px 12px;border:1px solid #cbd5e1;border-radius:6px;font-size:0.88rem;cursor:pointer;user-select:none;">
+            <input
+              type="checkbox"
+              name="compareAirport"
+              value={airport.id}
+              checked={idx < 3}
+              style="cursor:pointer;"
+            />
+            <span>{airport.name}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Comparison Table Container -->
+    <div class="table-responsive" style="margin-bottom:40px;">
+      <table class="ranking-table" id="compareTable" style="background:#fff;">
+        <thead>
+          <tr id="compareHeadRow">
+            <th style="min-width:140px;background:#f8fafc;">对比维度</th>
+            {airports.slice(0, 3).map(airport => (
+              <th style="min-width:200px;text-align:center;">
+                <div style="font-size:1.05rem;font-weight:800;color:#0f172a;">{airport.name}</div>
+                <div style="margin-top:6px;">
+                  <a href={airport.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs">直达官网</a>
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody id="compareBody">
+          <!-- Row 1: 起步月费 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">起步月费</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;font-size:1.15rem;font-weight:800;color:#2563eb;">¥{a.startingPrice} <span style="font-size:0.8rem;color:#64748b;font-weight:400;">/月</span></td>
+            ))}
+          </tr>
+          <!-- Row 2: 代表套餐与流量 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">基准套餐流量</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;">{a.plans[0]?.trafficGB} GB</td>
+            ))}
+          </tr>
+          <!-- Row 3: 每GB折算成本 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">单GB折算成本</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;font-weight:700;color:#0f172a;">¥{a.plans[0]?.unitPricePerGB} / GB</td>
+            ))}
+          </tr>
+          <!-- Row 4: 传输线路架构 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">核心线路架构</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;"><span class="badge badge-secondary">{a.plans[0]?.lineType}</span></td>
+            ))}
+          </tr>
+          <!-- Row 5: 支持协议 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">支持协议</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;font-size:0.85rem;">{a.protocols.join(' / ')}</td>
+            ))}
+          </tr>
+          <!-- Row 6: 节点覆盖地区 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">覆盖地区</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;font-size:0.85rem;">{a.regions.slice(0, 4).join('、')}</td>
+            ))}
+          </tr>
+          <!-- Row 7: AI/ChatGPT解锁 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">AI原生解锁</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;color:#16a34a;font-weight:700;">✓ 完全绿标支持</td>
+            ))}
+          </tr>
+          <!-- Row 8: 4K流媒体解锁 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">4K流媒体解锁</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;color:#16a34a;font-weight:700;">✓ Netflix/Disney+全解锁</td>
+            ))}
+          </tr>
+          <!-- Row 9: 优惠券码 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">专属优惠券</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;">
+                {a.coupon ? <code style="color:#e11d48;font-weight:800;">{a.coupon}</code> : <span style="color:#94a3b8;">无门槛折扣</span>}
+              </td>
+            ))}
+          </tr>
+          <!-- Row 10: 核心优势 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">主要优势</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="font-size:0.85rem;color:#15803d;line-height:1.5;">
+                <ul style="padding-left:16px;margin:0;">
+                  {a.advantages.slice(0, 2).map(adv => <li>{adv}</li>)}
+                </ul>
+              </td>
+            ))}
+          </tr>
+          <!-- Row 11: 适合人群 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">适合人群</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="font-size:0.85rem;color:#475569;line-height:1.5;">{a.suitableFor[0]}</td>
+            ))}
+          </tr>
+          <!-- Row 12: 操作 -->
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">操作导航</td>
+            {airports.slice(0, 3).map(a => (
+              <td style="text-align:center;">
+                <div style="display:flex;gap:6px;justify-content:center;">
+                  <a href={`/airport/${a.slug}.html`} class="btn btn-outline btn-xs">详情</a>
+                  <a href={`/review/${a.slug}.html`} class="btn btn-secondary btn-xs">测评</a>
+                  <a href={a.affiliateUrl} target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs">官网</a>
+                </div>
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Client-side Interactive Compare Script -->
+    <script define:vars={{ airports }}>
+      const checkboxes = document.querySelectorAll('input[name="compareAirport"]');
+      const headRow = document.getElementById('compareHeadRow');
+      const tbody = document.getElementById('compareBody');
+
+      function updateComparison() {
+        const checkedValues = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+        if (checkedValues.length < 2) {
+          alert('请至少选择 2 家机场进行对比！');
+          return;
+        }
+        if (checkedValues.length > 4) {
+          alert('最多同时支持对比 4 家机场，已为您保留前 4 家！');
+          checkboxes.forEach(cb => {
+            if (!checkedValues.slice(0, 4).includes(cb.value)) cb.checked = false;
+          });
+          return;
+        }
+
+        const selected = airports.filter(a => checkedValues.includes(a.id));
+
+        // Rebuild thead
+        headRow.innerHTML = `
+          <th style="min-width:140px;background:#f8fafc;">对比维度</th>
+          ${selected.map(a => `
+            <th style="min-width:200px;text-align:center;">
+              <div style="font-size:1.05rem;font-weight:800;color:#0f172a;">${a.name}</div>
+              <div style="margin-top:6px;">
+                <a href="${a.affiliateUrl}" target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs">直达官网</a>
+              </div>
+            </th>
+          `).join('')}
+        `;
+
+        // Rebuild tbody
+        tbody.innerHTML = `
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">起步月费</td>
+            ${selected.map(a => `<td style="text-align:center;font-size:1.15rem;font-weight:800;color:#2563eb;">¥${a.startingPrice} <span style="font-size:0.8rem;color:#64748b;font-weight:400;">/月</span></td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">基准套餐流量</td>
+            ${selected.map(a => `<td style="text-align:center;">${a.plans[0]?.trafficGB || 100} GB</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">单GB折算成本</td>
+            ${selected.map(a => `<td style="text-align:center;font-weight:700;color:#0f172a;">¥${a.plans[0]?.unitPricePerGB || 0.1} / GB</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">核心线路架构</td>
+            ${selected.map(a => `<td style="text-align:center;"><span class="badge badge-secondary">${a.plans[0]?.lineType || '专线'}</span></td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">支持协议</td>
+            ${selected.map(a => `<td style="text-align:center;font-size:0.85rem;">${a.protocols.join(' / ')}</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">覆盖地区</td>
+            ${selected.map(a => `<td style="text-align:center;font-size:0.85rem;">${a.regions.slice(0, 4).join('、')}</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">AI原生解锁</td>
+            ${selected.map(a => `<td style="text-align:center;color:#16a34a;font-weight:700;">✓ 完全绿标支持</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">4K流媒体解锁</td>
+            ${selected.map(a => `<td style="text-align:center;color:#16a34a;font-weight:700;">✓ Netflix/Disney+全解锁</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">专属优惠券</td>
+            ${selected.map(a => `<td style="text-align:center;">${a.coupon ? `<code style="color:#e11d48;font-weight:800;">${a.coupon}</code>` : '<span style="color:#94a3b8;">无门槛折扣</span>'}</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">主要优势</td>
+            ${selected.map(a => `<td style="font-size:0.85rem;color:#15803d;line-height:1.5;"><ul style="padding-left:16px;margin:0;">${a.advantages.slice(0, 2).map(adv => `<li>${adv}</li>`).join('')}</ul></td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">适合人群</td>
+            ${selected.map(a => `<td style="font-size:0.85rem;color:#475569;line-height:1.5;">${a.suitableFor[0] || '日常科研与办公'}</td>`).join('')}
+          </tr>
+          <tr>
+            <td style="font-weight:700;background:#f8fafc;">操作导航</td>
+            ${selected.map(a => `
+              <td style="text-align:center;">
+                <div style="display:flex;gap:6px;justify-content:center;">
+                  <a href="/airport/${a.slug}.html" class="btn btn-outline btn-xs">详情</a>
+                  <a href="/review/${a.slug}.html" class="btn btn-secondary btn-xs">测评</a>
+                  <a href="${a.affiliateUrl}" target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-xs">官网</a>
+                </div>
+              </td>
+            `).join('')}
+          </tr>
+        `;
+      }
+
+      checkboxes.forEach(cb => cb.addEventListener('change', updateComparison));
+    </script>
+  </div>
+</Layout>
