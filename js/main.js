@@ -73,11 +73,21 @@
     { title: "机场在线横向对比工具", path: "compare/index.html", desc: "自由勾选2至4家机场，全维度PK价格、线路、协议与解锁能力。" },
 
     // 机场评测
-    { title: "飞鸟云 FlyingBird 深度评测与资费解析", path: "airport/flyingbird.html", desc: "老牌IEPL专线机场，全专线不过墙，主流AI与流媒体全解锁。" },
-    { title: "TAG VPN 深度评测与冷门节点解析", path: "airport/tagvpn.html", desc: "覆盖全球近100个国家地区，外贸出海营销与流媒体跨区神器。" },
-    { title: "泡泡狗 PaopaoDog 深度评测与性价比实测", path: "airport/paopaodog.html", desc: "月付12元起步，年付单GB仅4.9分钱，极具性价比的入门梯子。" },
-    { title: "WgetCloud (原GACloud) 企业级专线深度评测", path: "airport/wgetcloud.html", desc: "多线BGP入口+独享IEPL内网骨干，全天候零丢包SLA保障。" },
-    { title: "黑猫云 Kuromis 深度评测与Hy2协议实测", path: "airport/kuromis.html", desc: "全IEPL专线辅以Hysteria2救砖节点，全1.0倍率平价优质品牌。" },
+    { title: "微风网络 Breezenet 深度评测与资费解析", path: "airport/breezenet.html", desc: "主打超高性价比的IEPL/IPLC专线节点品牌，起步仅需¥8/月即可享受200GB超大可用流量，全线..." },
+    { title: "暮光网络 深度评测与资费解析", path: "airport/muguang.html", desc: "专注稳定专线网络架构的中高端节点品牌，全节点120GB起步，采用高规格VLESS与Trojan双加密..." },
+    { title: "飞猫云 深度评测与资费解析", path: "airport/feimaoyun.html", desc: "老牌优质双线冗余机场，融合IEPL/IPLC内网骨干与多入口BGP优质中转，年付折算仅需¥7/月即可..." },
+    { title: "无忧 深度评测与资费解析", path: "airport/wuyou.html", desc: "以真实独享IPLC内网专线为核心的无忧加速品牌，月付19元起享100GB纯专线不过墙流量，全面支持S..." },
+    { title: "灵猫 深度评测与资费解析", path: "airport/lingmao.html", desc: "老牌高口碑IPLC纯专线机场，起步25元/月提供150GB专线流量，全节点配备原生住宅IP与大带宽端..." },
+    { title: "闪跃 FlashLeap 深度评测与资费解析", path: "airport/flashleap.html", desc: "专注于超低延迟与电竞级连通性的IPLC纯专线品牌，部署千兆专线出口并集成Hysteria2激进防封协..." },
+    { title: "萤火虫（Firefly） 深度评测与资费解析", path: "airport/firefly.html", desc: "主打亲民平价的优质优化线路机场，年付折算仅需¥8/月，起步门槛亲切，节点涵盖VLESS与Trojan..." },
+    { title: "跨界 深度评测与资费解析", path: "airport/kuajiecloud.html", desc: "采用全专线网络架构的中高端服务商，起步20元/月提供120GB纯专线流量，全节点覆盖港日新美欧核心区..." },
+    { title: "隐形人 深度评测与资费解析", path: "airport/yinxingren.html", desc: "主打极致隐私与隐匿穿透的高端IEPL纯专线机场，起步24元/月配备144GB企业级专线流量，全节点无..." },
+    { title: "飞V 深度评测与资费解析", path: "airport/feiv.html", desc: "以颠覆性 ¥4.9/月超低起步价引发关注的高性价比机场，拥有100GB可用配额，同时提供罕见的¥29..." },
+    { title: "梯子云 LadderCloud 深度评测与资费解析", path: "airport/laddercloud.html", desc: "老牌稳健的高速中转与专线混合调度服务商，月付25元起享125GB高速中转，旗舰套餐可达500GB海量..." },
+    { title: "浪网 WaveNet 深度评测与资费解析", path: "airport/wavenet.html", desc: "主打自研深度优化客户端与专线融合架构的创新机场品牌，月付30元起享150GB专属优化流量，配备VLE..." },
+    { title: "灵动云 深度评测与资费解析", path: "airport/lingdongcloud.html", desc: "配置透明无套路的平衡型中转优化服务商，起步20元/月提供100GB可用流量，主力采用Trojan安全..." },
+    { title: "全球云 深度评测与资费解析", path: "airport/quanqiuyun.html", desc: "深度优化中转网络架构的性价比老牌，月付20元起提供120GB中转流量，支持VLESS与Trojan双..." },
+
 
     // 教程中心
     { title: "Windows客户端机场节点配置完整教程", path: "guides/windows.html", desc: "Clash Verge Rev与v2rayN电脑端详细安装与一键导入配置教程。" },
@@ -184,7 +194,7 @@
 
   function initCompareTool(container, airports, pathPrefix) {
     // 默认选中前三家机场
-    let selectedIds = ['flyingbird', 'tagvpn', 'paopaodog'];
+    let selectedIds = ['breezenet', 'feimaoyun', 'yinxingren'];
 
     function render() {
       let html = '<div class="compare-selector-bar">';

@@ -3,8 +3,8 @@
 - **生成时间**：2026-03-30
 - **目标域名**：https://jichangtop.cc
 - **Bing 主攻关键词**：机场推荐、机场节点、性价比机场、梯子推荐、vpn、vpn机场、vpn节点、vpn推荐
-- **全站静态页面数**：43
-- **审计结果统计**：**43 PASS**, **0 FAIL**
+- **全站静态页面数**：61
+- **审计结果统计**：**61 PASS**, **0 FAIL**
 
 ---
 
@@ -12,12 +12,12 @@
 
 | 检查大项 | 测试范围 | 状态 | 详情说明 |
 | :--- | :--- | :--- | :--- |
-| **Title 规范** | 全站 43 个页面 | **PASS** | 每一个页面均具备独立、自然且包含核心词的 Title，无全局机械重复 |
-| **Meta Description** | 全站 43 个页面 | **PASS** | 独立且语义贴合的摘要，无缺失 |
-| **单一 H1 标签** | 全站 43 个页面 | **PASS** | 每页严格唯一 H1，层级清晰 |
-| **Canonical 权威链接** | 全站 43 个页面 | **PASS** | 统一指向 `https://jichangtop.cc/...`，无测试域名与 localhost |
-| **Robots 元标签** | 全站 43 个页面 | **PASS** | 正确配置 `index, follow, max-image-preview:large` |
-| **Schema.org 结构化** | 全站 43 个页面 | **PASS** | 注入 WebSite 与 Organization，格式合规 |
+| **Title 规范** | 全站 61 个页面 | **PASS** | 每一个页面均具备独立、自然且包含核心词的 Title，无全局机械重复 |
+| **Meta Description** | 全站 61 个页面 | **PASS** | 独立且语义贴合的摘要，无缺失 |
+| **单一 H1 标签** | 全站 61 个页面 | **PASS** | 每页严格唯一 H1，层级清晰 |
+| **Canonical 权威链接** | 全站 61 个页面 | **PASS** | 统一指向 `https://jichangtop.cc/...`，无测试域名与 localhost |
+| **Robots 元标签** | 全站 61 个页面 | **PASS** | 正确配置 `index, follow, max-image-preview:large` |
+| **Schema.org 结构化** | 全站 61 个页面 | **PASS** | 注入 WebSite 与 Organization，格式合规 |
 | **标准相对路径规范** | CSS/JS/图片/内链 | **PASS** | 严格执行相对路径，杜绝 `/` 根绝对路径，支持本地 `file://` 双击直连 |
 | **站内链接有效性** | 全站内链遍历 | **PASS** | 0 处断链，0 处 404 |
 | **占位符变量排查** | 全站源码扫描 | **PASS** | 0 处未替换占位符，无模板语法残留 |
@@ -34,11 +34,20 @@
 | :--- | :--- | :--- | :--- | :--- |
 | `404.html` | **PASS** | 404 - 页面未找到 | 机场Top | 抱歉，您所访问的页面不存在 | 规范无误 |
 | `about.html` | **PASS** | 关于我们 - 独立客观的中文网络代理评测实验室 | 机场Top | 关于 机场Top (jichangtop.cc) | 规范无误 |
-| `airport/flyingbird.html` | **PASS** | 飞鸟云 FlyingBird 深度评测与节点价格解析 (2026最新)... | 飞鸟云 FlyingBird 深度评测报告：套餐价格、线路类... | 规范无误 |
-| `airport/kuromis.html` | **PASS** | 黑猫云 Kuromis 深度评测与节点价格解析 (2026最新) | ... | 黑猫云 Kuromis 深度评测报告：套餐价格、线路类型与稳... | 规范无误 |
-| `airport/paopaodog.html` | **PASS** | 泡泡狗 PaopaoDog 深度评测与节点价格解析 (2026最新) ... | 泡泡狗 PaopaoDog 深度评测报告：套餐价格、线路类型... | 规范无误 |
-| `airport/tagvpn.html` | **PASS** | TAG VPN 深度评测与节点价格解析 (2026最新) | 机场To... | TAG VPN 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
-| `airport/wgetcloud.html` | **PASS** | WgetCloud (原GACloud) 深度评测与节点价格解析 (2... | WgetCloud (原GACloud) 深度评测报告：套餐... | 规范无误 |
+| `airport/breezenet.html` | **PASS** | 微风网络 Breezenet 深度评测与节点价格解析 (2026最新)... | 微风网络 Breezenet 深度评测报告：套餐价格、线路类... | 规范无误 |
+| `airport/feimaoyun.html` | **PASS** | 飞猫云 深度评测与节点价格解析 (2026最新) | 机场Top | 飞猫云 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/feiv.html` | **PASS** | 飞V 深度评测与节点价格解析 (2026最新) | 机场Top | 飞V 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/firefly.html` | **PASS** | 萤火虫（Firefly） 深度评测与节点价格解析 (2026最新) |... | 萤火虫（Firefly） 深度评测报告：套餐价格、线路类型与... | 规范无误 |
+| `airport/flashleap.html` | **PASS** | 闪跃 FlashLeap 深度评测与节点价格解析 (2026最新) |... | 闪跃 FlashLeap 深度评测报告：套餐价格、线路类型与... | 规范无误 |
+| `airport/kuajiecloud.html` | **PASS** | 跨界 深度评测与节点价格解析 (2026最新) | 机场Top | 跨界 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/laddercloud.html` | **PASS** | 梯子云 LadderCloud 深度评测与节点价格解析 (2026最新... | 梯子云 LadderCloud 深度评测报告：套餐价格、线路... | 规范无误 |
+| `airport/lingdongcloud.html` | **PASS** | 灵动云 深度评测与节点价格解析 (2026最新) | 机场Top | 灵动云 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/lingmao.html` | **PASS** | 灵猫 深度评测与节点价格解析 (2026最新) | 机场Top | 灵猫 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/muguang.html` | **PASS** | 暮光网络 深度评测与节点价格解析 (2026最新) | 机场Top | 暮光网络 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/quanqiuyun.html` | **PASS** | 全球云 深度评测与节点价格解析 (2026最新) | 机场Top | 全球云 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/wavenet.html` | **PASS** | 浪网 WaveNet 深度评测与节点价格解析 (2026最新) | 机... | 浪网 WaveNet 深度评测报告：套餐价格、线路类型与稳定... | 规范无误 |
+| `airport/wuyou.html` | **PASS** | 无忧 深度评测与节点价格解析 (2026最新) | 机场Top | 无忧 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `airport/yinxingren.html` | **PASS** | 隐形人 深度评测与节点价格解析 (2026最新) | 机场Top | 隐形人 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
 | `blog/airport-nodes-selection-guide.html` | **PASS** | 机场节点选择指南：BGP/IPLC/IEPL专线节点对比与选购技巧 |... | 机场节点深度解析：从直连中继到内网专线如何科学选节点 | 规范无误 |
 | `blog/avoid-scam-airports.html` | **PASS** | 如何挑选机场防止被坑跑路？老玩家总结的避坑7大准则 | 机场Top | 如何挑选机场防止踩坑跑路？资深老玩家的7个避坑法则 | 规范无误 |
 | `blog/evening-peak-lag-fix.html` | **PASS** | 机场节点晚高峰卡顿掉线怎么办？全套排查与网络调优实操 | 机场Top | 机场晚高峰卡顿慢？5步定位原因与网络调优实操 | 规范无误 |
@@ -70,11 +79,20 @@
 | `recommend/premium.html` | **PASS** | 高端专线机场推荐 - 全IEPL企业级低延迟晚高峰不卡顿节点 | 机场... | 高端专线机场推荐：追求极致低延迟与稳定性的首选 | 规范无误 |
 | `recommend/stable.html` | **PASS** | 稳定抗封锁VPN推荐 - 优质IPLC专线机场节点精选 | 机场Top | 稳定防失联VPN与专线机场节点精选推荐 | 规范无误 |
 | `recommend/streaming.html` | **PASS** | 4K流媒体解锁机场推荐 - Netflix/Disney+/YouTu... | 4K流媒体解锁机场推荐：告别地区限制与画质压缩 | 规范无误 |
-| `review/flyingbird.html` | **PASS** | 飞鸟云 FlyingBird 真实使用体验与节点评测报告 | 机场To... | 飞鸟云 FlyingBird 深度评测报告：套餐价格、线路类... | 规范无误 |
-| `review/kuromis.html` | **PASS** | 黑猫云 Kuromis 真实使用体验与节点评测报告 | 机场Top | 黑猫云 Kuromis 深度评测报告：套餐价格、线路类型与稳... | 规范无误 |
-| `review/paopaodog.html` | **PASS** | 泡泡狗 PaopaoDog 真实使用体验与节点评测报告 | 机场Top | 泡泡狗 PaopaoDog 深度评测报告：套餐价格、线路类型... | 规范无误 |
-| `review/tagvpn.html` | **PASS** | TAG VPN 真实使用体验与节点评测报告 | 机场Top | TAG VPN 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
-| `review/wgetcloud.html` | **PASS** | WgetCloud (原GACloud) 真实使用体验与节点评测报告 ... | WgetCloud (原GACloud) 深度评测报告：套餐... | 规范无误 |
+| `review/breezenet.html` | **PASS** | 微风网络 Breezenet 真实使用体验与节点评测报告 | 机场To... | 微风网络 Breezenet 深度评测报告：套餐价格、线路类... | 规范无误 |
+| `review/feimaoyun.html` | **PASS** | 飞猫云 真实使用体验与节点评测报告 | 机场Top | 飞猫云 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/feiv.html` | **PASS** | 飞V 真实使用体验与节点评测报告 | 机场Top | 飞V 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/firefly.html` | **PASS** | 萤火虫（Firefly） 真实使用体验与节点评测报告 | 机场Top | 萤火虫（Firefly） 深度评测报告：套餐价格、线路类型与... | 规范无误 |
+| `review/flashleap.html` | **PASS** | 闪跃 FlashLeap 真实使用体验与节点评测报告 | 机场Top | 闪跃 FlashLeap 深度评测报告：套餐价格、线路类型与... | 规范无误 |
+| `review/kuajiecloud.html` | **PASS** | 跨界 真实使用体验与节点评测报告 | 机场Top | 跨界 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/laddercloud.html` | **PASS** | 梯子云 LadderCloud 真实使用体验与节点评测报告 | 机场T... | 梯子云 LadderCloud 深度评测报告：套餐价格、线路... | 规范无误 |
+| `review/lingdongcloud.html` | **PASS** | 灵动云 真实使用体验与节点评测报告 | 机场Top | 灵动云 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/lingmao.html` | **PASS** | 灵猫 真实使用体验与节点评测报告 | 机场Top | 灵猫 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/muguang.html` | **PASS** | 暮光网络 真实使用体验与节点评测报告 | 机场Top | 暮光网络 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/quanqiuyun.html` | **PASS** | 全球云 真实使用体验与节点评测报告 | 机场Top | 全球云 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/wavenet.html` | **PASS** | 浪网 WaveNet 真实使用体验与节点评测报告 | 机场Top | 浪网 WaveNet 深度评测报告：套餐价格、线路类型与稳定... | 规范无误 |
+| `review/wuyou.html` | **PASS** | 无忧 真实使用体验与节点评测报告 | 机场Top | 无忧 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
+| `review/yinxingren.html` | **PASS** | 隐形人 真实使用体验与节点评测报告 | 机场Top | 隐形人 深度评测报告：套餐价格、线路类型与稳定性实测 | 规范无误 |
 
 ---
 

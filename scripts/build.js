@@ -17,7 +17,19 @@ try {
   console.log('\n[3/3] 自动化 SEO 技术指标审计与报告生成...');
   execSync('node scripts/audit-seo.js', { stdio: 'inherit' });
 
-  console.log('\n✅ Production Build 验收通过！全站 43 个纯静态页面与资源均已就绪，具备直接上线部署条件。');
+  function countHtml(dir) {
+    let count = 0;
+    fs.readdirSync(dir).forEach(f => {
+      const p = path.join(dir, f);
+      if (fs.statSync(p).isDirectory()) {
+        if (!['node_modules', '.git'].includes(f)) count += countHtml(p);
+      } else if (f.endsWith('.html')) count++;
+    });
+    return count;
+  }
+  const total = countHtml(process.cwd());
+
+  console.log(`\n✅ Production Build 验收通过！全站 ${total} 个纯静态页面与资源均已就绪，具备直接上线部署条件。`);
 } catch (err) {
   console.error('\n❌ 构建过程中检测到未通过的检查项：', err.message);
   process.exit(1);

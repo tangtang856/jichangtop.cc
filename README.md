@@ -7,7 +7,8 @@
 - **Bing 主攻关键词**：`机场推荐`、`机场节点`、`性价比机场`、`梯子推荐`、`vpn`、`vpn机场`、`vpn节点`、`vpn推荐`
 - **正式发布域名**：`https://jichangtop.cc`
 - **GitHub 远程仓库**：`https://github.com/tangtang856/jichangtop.cc`
-- **全站静态页面数**：43 个完整独立页面
+- **全站静态页面数**：61 个完整独立页面
+- **收录品牌库 (14家)**：微风网络 Breezenet、暮光网络、飞猫云、无忧、灵猫、闪跃 FlashLeap、萤火虫（Firefly）、跨界、隐形人、飞V、梯子云 LadderCloud、浪网 WaveNet、灵动云、全球云
 - **架构特色**：纯原生静态、严格相对路径（支持本地 `file://` 双击无损直读与线上完美跳转）、Schema.org 结构化数据、IndexNow 自动化推送
 
 ---
@@ -16,51 +17,45 @@
 
 ```text
 /
-├── index.html                           # 首页综合落地页（主关键词聚合）
+├── index.html                           # 首页综合落地页（主关键词聚合与14家品牌总览）
 ├── recommend/                           # 专题推荐中心
-│   ├── budget.html                      # 平价低预算专题
-│   ├── premium.html                     # 高端专线专题
-│   ├── beginner.html                    # 新手入门专题
-│   ├── stable.html                      # 稳定抗封锁专题
-│   ├── ai.html                          # ChatGPT / Claude 专用专题
-│   └── streaming.html                   # 4K 流媒体解锁专题
+│   ├── budget.html                      # 平价低预算专题 (飞V、飞猫云、微风网络、萤火虫)
+│   ├── premium.html                     # 高端专线专题 (隐形人、微风网络、闪跃、灵猫)
+│   ├── beginner.html                    # 新手入门专题 (飞V、飞猫云、萤火虫、无忧)
+│   ├── stable.html                      # 稳定抗封锁专题 (隐形人、灵猫、跨界、暮光网络)
+│   ├── ai.html                          # ChatGPT / Claude 专用专题 (隐形人、微风网络、浪网、灵猫)
+│   └── streaming.html                   # 4K 流媒体解锁专题 (微风网络、闪跃、飞猫云、梯子云)
 ├── ranking/                             # 结构化多维排行榜
-│   ├── overall.html                     # 综合实力榜
-│   ├── value.html                       # 性价比排行榜
-│   ├── budget.html                      # 便宜低预算榜
-│   └── stable.html                      # 最稳定抗封锁榜
+│   ├── overall.html                     # 综合实力榜 (14家品牌全景排序)
+│   ├── value.html                       # 性价比排行榜 (按实际单GB成本升序)
+│   ├── budget.html                      # 便宜低预算榜 (按月付起步价格升序)
+│   └── stable.html                      # 最稳定抗封锁榜 (按IEPL/IPLC纯专线优先级)
 ├── compare/
-│   └── index.html                       # 在线横向对比工具（2-4家自由PK）
-├── airport/                             # 机场详细参数与套餐页
-│   ├── flyingbird.html                  # 飞鸟云
-│   ├── tagvpn.html                      # TAG VPN
-│   ├── paopaodog.html                   # 泡泡狗
-│   ├── wgetcloud.html                   # WgetCloud
-│   └── kuromis.html                     # 黑猫云
-├── review/                              # 独立深度评测报告
-│   ├── flyingbird.html
-│   ├── tagvpn.html
-│   ├── paopaodog.html
-│   ├── wgetcloud.html
-│   └── kuromis.html
-├── guides/                              # 跨平台客户端配置教程
+│   └── index.html                       # 在线横向对比工具（14家品牌自由勾选2-4家参数PK）
+├── airport/                             # 机场详细参数与套餐页 (14个独立页面)
+│   ├── breezenet.html                   # 微风网络 Breezenet
+│   ├── muguang.html                     # 暮光网络
+│   ├── feimaoyun.html                   # 飞猫云
+│   ├── wuyou.html                       # 无忧
+│   ├── lingmao.html                     # 灵猫
+│   ├── flashleap.html                   # 闪跃 FlashLeap
+│   ├── firefly.html                     # 萤火虫（Firefly）
+│   ├── kuajiecloud.html                 # 跨界
+│   ├── yinxingren.html                  # 隐形人
+│   ├── feiv.html                        # 飞V
+│   ├── laddercloud.html                 # 梯子云 LadderCloud
+│   ├── wavenet.html                     # 浪网 WaveNet
+│   ├── lingdongcloud.html               # 灵动云
+│   └── quanqiuyun.html                  # 全球云
+├── review/                              # 独立深度评测报告 (14个独立页面)
+│   ├── breezenet.html ~ quanqiuyun.html
+├── guides/                              # 跨平台客户端配置教程 (4个独立页面)
 │   ├── windows.html                     # Clash Verge / v2rayN
 │   ├── android.html                     # Clash Meta / v2rayNG
 │   ├── ios.html                         # Shadowrocket 小火箭 / Loon
 │   └── macos.html                       # Clash Verge / Surge
-├── blog/                                # 技术博客与避坑指引
-│   ├── airport-nodes-selection-guide.html # 节点与线路选择深度解析
-│   ├── avoid-scam-airports.html         # 挑选机场防跑路7大准则
-│   ├── vpn-vs-airport-proxy.html        # 传统VPN与现代机场代理全景对比
-│   ├── evening-peak-lag-fix.html        # 晚高峰卡顿排查与网络调优实操
-│   ├── free-vpn-risks.html              # 免费梯子数据泄露与钓鱼风险曝光
-│   └── how-to-use-subscription.html     # 机场订阅链接使用与排错全指南
-├── glossary/                            # 专业术语百科
-│   ├── iepl-iplc.html                   # IPLC 与 IEPL 专线原理
-│   ├── shadowsocks.html                 # Shadowsocks 协议详解
-│   ├── vless-hysteria2.html             # VLESS 与 Hysteria2 协议对比
-│   ├── gfw.html                         # GFW 运作机制与封锁原理科普
-│   └── node-multiplier.html             # 节点倍率暗扣防坑
+├── blog/                                # 技术博客与避坑指引 (6个独立页面)
+├── glossary/                            # 专业术语百科 (5个独立页面)
 ├── about.html                           # 关于我们与评测实验室
 ├── contact.html                         # 联系方式与工单反馈
 ├── editorial-policy.html                # 编辑政策与测评标准
@@ -68,12 +63,12 @@
 ├── disclaimer.html                      # 合规与免责声明
 ├── 404.html                             # 404 引导页
 ├── robots.txt                           # 搜索引擎抓取声明
-├── sitemap.xml                          # XML 站点地图
+├── sitemap.xml                          # XML 站点地图 (含全部 60 个正式 URL)
 ├── c87dfa49b21e42a98e82a392812d4a7c.txt # IndexNow 密钥验证文件
 ├── css/style.css                        # 原生纯 CSS 样式库
 ├── js/main.js                           # 原生无依赖交互（搜索、对比工具、响应式菜单）
 └── data/                                # 统一数据源
-    ├── airports.ts                      # TypeScript 接口与数据集
+    ├── airports.ts                      # TypeScript 接口与14家品牌数据集
     └── airports.json                    # JSON 结构化数据
 ```
 
