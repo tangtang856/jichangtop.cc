@@ -9,33 +9,58 @@ const breadcrumbs = [
 ---
 
 <Layout
-  title="联系我们 · 商务合作、评测勘误与工单反馈 | 机场Top"
-  description="联系机场Top编辑部。如果您发现任何服务商套餐变动、节点下线或测速数据出入，欢迎通过工单邮箱与我们联系。"
-  keywords="联系我们, 机场Top联系方式, 测速勘误"
+  title="联系我们 · 商务合作、评测勘误与官方联络通道 | 机场Top"
+  description="联系机场Top编辑部与商务团队。提供官方 Gmail (xintangtang888@gmail.com) 与 Telegram (@xintangtang) 直连通道，支持测速送测、资费勘误与技术反馈。"
+  keywords="联系我们, 机场Top联系方式, Gmail, Telegram, 测速勘误, 商务合作"
   activeNav="about"
 >
   <div class="container" style="padding-top:20px;padding-bottom:60px;max-width:880px;">
     <Breadcrumbs items={breadcrumbs} />
 
     <header class="section-header" style="text-align:left;margin-bottom:28px;">
-      <h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;margin-bottom:12px;">联系与反馈</h1>
+      <span class="badge badge-primary" style="margin-bottom:10px;">官方直连通道</span>
+      <h1 style="font-size:2.2rem;font-weight:800;color:#0f172a;margin-bottom:12px;">联系我们 · 商务合作与读者反馈</h1>
       <p style="font-size:1.05rem;color:#475569;line-height:1.7;">
-        我们认真对待读者的每一条反馈与勘误建议。
+        我们认真对待每一条读者反馈、资费变动勘误及品牌送测申请，通常在 24 小时内回复。
       </p>
     </header>
 
-    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:32px;line-height:1.8;color:#334155;font-size:1rem;">
-      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:0;">📬 联络方式</h2>
-      <p>
-        官方工作邮箱：<code style="color:#2563eb;font-weight:700;">contact@jichangtop.cc</code><br>
-        工作时间：周一至周五 09:00 - 18:00 (UTC+8)
-      </p>
+    <!-- Contact Cards Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:20px;margin-bottom:32px;">
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size:1.6rem;margin-bottom:8px;">📧</div>
+        <h2 style="font-size:1.25rem;font-weight:800;color:#0f172a;margin:0 0 6px;">官方 Gmail 邮箱</h2>
+        <p style="font-size:0.95rem;color:#2563eb;font-weight:700;margin:0 0 12px;user-select:all;">xintangtang888@gmail.com</p>
+        <p style="font-size:0.88rem;color:#64748b;line-height:1.6;margin:0 0 18px;">
+          适合提交正式商务合作函、品牌详细资费资料、跑路投诉证据及长篇技术勘误。
+        </p>
+        <div style="display:flex;gap:10px;">
+          <a href="mailto:xintangtang888@gmail.com" class="btn btn-primary btn-sm" style="flex:1;text-align:center;">发送邮件 →</a>
+          <button type="button" class="btn btn-outline btn-sm copy-contact-btn" data-copy="xintangtang888@gmail.com">复制邮箱</button>
+        </div>
+      </div>
 
-      <h2 style="font-size:1.35rem;color:#0f172a;margin-top:28px;">📝 数据勘误与品牌入驻</h2>
-      <p>
-        <strong>1. 资费与优惠变动：</strong>如果您是机场运营方或常客，发现收录的套餐价格、流量额度或优惠码发生调整，请附带官方公告链接邮件告知，核实后我们将在 24 小时内更新。<br>
-        <strong>2. 跑路预警与投诉：</strong>如某品牌出现连续超过 72 小时大面积断联失联、失联跑路迹象，请提交工单与充值证明，编辑部将第一时间启动复测并下架预警。
-      </p>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="font-size:1.6rem;margin-bottom:8px;">✈️</div>
+        <h2 style="font-size:1.25rem;font-weight:800;color:#1e3a8a;margin:0 0 6px;">Telegram 官方客服 (TG)</h2>
+        <p style="font-size:0.95rem;color:#0284c7;font-weight:700;margin:0 0 12px;user-select:all;">@xintangtang</p>
+        <p style="font-size:0.88rem;color:#475569;line-height:1.6;margin:0 0 18px;">
+          适合快速沟通广告合作、优惠码更新通知、紧急跑路预警及在线实时交流。
+        </p>
+        <div style="display:flex;gap:10px;">
+          <a href="https://t.me/xintangtang" target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary btn-sm" style="flex:1;text-align:center;background:#0284c7;border-color:#0284c7;">立即对话 →</a>
+          <button type="button" class="btn btn-outline btn-sm copy-contact-btn" data-copy="@xintangtang" style="border-color:#93c5fd;color:#1d4ed8;">复制 TG 号</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:28px;line-height:1.8;color:#334155;font-size:0.96rem;">
+      <h2 style="font-size:1.3rem;color:#0f172a;margin-top:0;">📝 受理事项说明</h2>
+      <ul style="padding-left:20px;margin-bottom:0;">
+        <li><strong>资费与优惠变动勘误：</strong>如果您发现收录的套餐价格、流量额度或专属优惠码发生调整，请通过 Gmail 或 Telegram 告知，核实后将在 24 小时内同步更新。</li>
+        <li><strong>品牌送测与收录申请：</strong>欢迎稳定运营的优质专线服务商联系送测，所有评测均坚持客观独立标准，如实记录晚高峰实测数据。</li>
+        <li><strong>跑路预警与维权反馈：</strong>如某品牌出现连续失联或大面积断流跑路迹象，请附带截图联系我们，编辑部将第一时间核查并发布警示。</li>
+      </ul>
     </div>
   </div>
 </Layout>

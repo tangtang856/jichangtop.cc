@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SearchModal from '../components/SearchModal.astro';
+import ContactModal from '../components/ContactModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -91,6 +92,7 @@ const allSchemas = schema ? (Array.isArray(schema) ? [...defaultSchemas, ...sche
   <slot />
   <Footer />
   <SearchModal />
+  <ContactModal />
 
   <!-- Back to Top floating button -->
   <button
@@ -191,8 +193,43 @@ const allSchemas = schema ? (Array.isArray(schema) ? [...defaultSchemas, ...sche
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         if (searchModal) searchModal.classList.remove('active');
+        if (contactModal) contactModal.classList.remove('active');
         if (mobileMenu && mobileMenu.classList.contains('active')) toggleMenu();
       }
+    });
+
+    // Contact modal toggle & copy
+    const contactBtn = document.getElementById('contactBtn');
+    const contactModal = document.getElementById('contactModal');
+    const contactCloseBtn = document.getElementById('contactCloseBtn');
+
+    if (contactBtn && contactModal) {
+      contactBtn.addEventListener('click', () => {
+        contactModal.classList.add('active');
+      });
+      contactModal.addEventListener('click', (e) => {
+        if (e.target === contactModal) contactModal.classList.remove('active');
+      });
+    }
+    if (contactCloseBtn && contactModal) {
+      contactCloseBtn.addEventListener('click', () => {
+        contactModal.classList.remove('active');
+      });
+    }
+
+    document.querySelectorAll('.copy-contact-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const val = btn.getAttribute('data-copy');
+        if (!val) return;
+        try {
+          await navigator.clipboard.writeText(val);
+          const orig = btn.textContent;
+          btn.textContent = '已复制 ✓';
+          setTimeout(() => { btn.textContent = orig; }, 1600);
+        } catch (err) {
+          prompt('请手动复制以下联系方式：', val);
+        }
+      });
     });
 
     // Back to Top

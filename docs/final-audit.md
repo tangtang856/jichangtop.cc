@@ -158,7 +158,7 @@
 | `blog/youtube-4k-8k-video-buffering-fix.html` | **PASS** | YouTube 4K/8K 视频频繁缓冲卡顿？缓冲区设置与优质节点选择 | YouTube 4K/8K 视频频繁缓冲卡顿？缓冲区设置与优... | 规范无误 |
 | `compare.html` | **PASS** | 2026机场横向对比工具 · 价格/流量/专线/流媒体全维度PK | ... | 2026 机场全维度横向对比工具 (在线参数PK) | 规范无误 |
 | `compare/index.html` | **PASS** | 2026机场横向对比工具 · 价格/流量/专线/流媒体全维度PK | ... | 2026 机场全维度横向对比工具 (在线参数PK) | 规范无误 |
-| `contact.html` | **PASS** | 联系我们 · 商务合作、评测勘误与工单反馈 | 机场Top | 联系与反馈 | 规范无误 |
+| `contact.html` | **PASS** | 联系我们 · 商务合作、评测勘误与官方联络通道 | 机场Top | 联系我们 · 商务合作与读者反馈 | 规范无误 |
 | `disclaimer.html` | **PASS** | 法律与合规免责声明 · 机场Top | 法律与合规免责声明 | 规范无误 |
 | `editorial-policy.html` | **PASS** | 编辑准则与独立评测流程规范 | 机场Top | 编辑政策与客观测评流程规范 | 规范无误 |
 | `glossary/gfw.html` | **PASS** | GFW 防火长城运作机制科普：DNS污染、SNI阻断与协议特征识别 |... | GFW 防火长城运作机制科普：DNS污染、SNI阻断与协议特... | 规范无误 |

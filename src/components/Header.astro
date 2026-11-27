@@ -22,6 +22,9 @@ const { activeNav = '' } = Astro.props;
       <a href="/blog/index.html" class={`nav-link ${activeNav === 'blog' ? 'active' : ''}`}>博客文章</a>
     </nav>
     <div class="nav-right">
+      <button type="button" class="btn btn-primary btn-xs" id="contactBtn" aria-label="联络我们与商务合作" style="padding:7px 13px;font-size:0.86rem;font-weight:600;white-space:nowrap;">
+        ✉️ 联络我们
+      </button>
       <button type="button" class="search-trigger-btn" id="searchBtn" aria-label="搜索全站内容">
         🔍 <span>搜索...</span>
       </button>
@@ -42,4 +45,5 @@ const { activeNav = '' } = Astro.props;
   <a href="/guides/index.html" class="mobile-nav-link">📖 电脑与手机配置教程 (30篇)</a>
   <a href="/blog/index.html" class="mobile-nav-link">📝 科学上网技术博客 (100篇)</a>
   <a href="/about.html" class="mobile-nav-link">ℹ️ 关于本站与评测准则</a>
+  <a href="/contact.html" class="mobile-nav-link">✉️ 联络我们 (Gmail / Telegram)</a>
 </div>
